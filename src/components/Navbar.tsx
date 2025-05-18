@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -42,23 +42,17 @@ const Navbar = () => {
         {/* Action Buttons */}
         <div className="hidden md:flex items-center gap-4">
           {/* Language Switcher */}
-          <div className="flex items-center gap-2 mr-2">
-            <button 
-              onClick={() => changeLanguage('pt-BR')}
-              className={`text-2xl transition-transform ${language === 'pt-BR' ? 'scale-125' : 'opacity-70'}`}
-              title="Português Brasileiro"
-              aria-label="Change language to Brazilian Portuguese"
-            >
-              🇧🇷
-            </button>
-            <button 
-              onClick={() => changeLanguage('en-GB')}
-              className={`text-2xl transition-transform ${language === 'en-GB' ? 'scale-125' : 'opacity-70'}`}
-              title="British English"
-              aria-label="Change language to British English"
-            >
-              🇬🇧
-            </button>
+          <div className="flex items-center gap-2">
+            <div className="relative">
+              <button 
+                className="flex items-center gap-1 text-sm font-medium px-2 py-1 rounded-md hover:bg-muted transition-colors"
+                onClick={() => changeLanguage(language === 'pt-BR' ? 'en-GB' : 'pt-BR')}
+                aria-label="Toggle language"
+              >
+                <Globe size={16} className="text-astral-purple" />
+                <span>{language === 'pt-BR' ? 'PT' : 'EN'}</span>
+              </button>
+            </div>
           </div>
 
           <Button variant="outline" size="sm" className="border-astral-indigo text-astral-indigo hover:bg-astral-indigo/10">
@@ -115,24 +109,15 @@ const Navbar = () => {
             </Link>
             
             {/* Language Switcher for Mobile */}
-            <div className="flex items-center gap-4 py-2">
-              <span className="text-sm font-medium">{t('language')}</span>
-              <div className="flex gap-3">
-                <button 
-                  onClick={() => changeLanguage('pt-BR')}
-                  className={`text-2xl transition-transform ${language === 'pt-BR' ? 'scale-125' : 'opacity-70'}`}
-                  aria-label="Change language to Brazilian Portuguese"
-                >
-                  🇧🇷
-                </button>
-                <button 
-                  onClick={() => changeLanguage('en-GB')}
-                  className={`text-2xl transition-transform ${language === 'en-GB' ? 'scale-125' : 'opacity-70'}`}
-                  aria-label="Change language to British English"
-                >
-                  🇬🇧
-                </button>
-              </div>
+            <div className="flex items-center gap-2 py-2">
+              <button 
+                className="flex items-center gap-1 text-sm font-medium px-2 py-1 rounded-md hover:bg-muted transition-colors"
+                onClick={() => changeLanguage(language === 'pt-BR' ? 'en-GB' : 'pt-BR')}
+                aria-label="Toggle language"
+              >
+                <Globe size={16} className="text-astral-purple" />
+                <span>{language === 'pt-BR' ? 'PT' : 'EN'}</span>
+              </button>
             </div>
             
             <div className="flex flex-col gap-3 pt-2">

@@ -9,10 +9,12 @@ import { useToast } from "@/components/ui/use-toast";
 import { Calendar, Star, ArrowRight, Sparkles, BookOpen, Clock, Shield, Award } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useLanguage } from "../context/LanguageContext";
 
 const Index = () => {
   const { toast } = useToast();
   const [email, setEmail] = useState("");
+  const { t } = useLanguage();
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,22 +50,22 @@ const Index = () => {
   // Sample services
   const services = [
     {
-      title: "Birth Chart Reading",
-      description: "Comprehensive analysis of your natal chart revealing your personality, strengths, challenges, and life purpose.",
+      titleKey: 'birthChart',
+      descriptionKey: 'birthChartDesc',
       price: "R$ 320",
       duration: "90 minutes",
       icon: <Sparkles size={24} className="text-astral-purple" />,
     },
     {
-      title: "Relationship Compatibility",
-      description: "Discover the dynamics of your relationship through synastry and composite chart analysis.",
+      titleKey: 'compatibility',
+      descriptionKey: 'compatibilityDesc',
       price: "R$ 380",
       duration: "120 minutes",
       icon: <Star size={24} className="text-astral-purple" />,
     },
     {
-      title: "Astrology Course",
-      description: "Learn the fundamentals of astrology in this comprehensive course for beginners.",
+      titleKey: 'astrologyCourse',
+      descriptionKey: 'astrologyCourseDesc',
       price: "R$ 950",
       duration: "8 weeks",
       icon: <BookOpen size={24} className="text-astral-purple" />,
@@ -115,19 +117,19 @@ const Index = () => {
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-astral-purple via-white to-astral-gold">
-            Astrological Guidance for Your Soul's Journey
+            {t('heroTitle')}
           </h1>
           
           <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-            Discover your cosmic blueprint and unlock your true potential with Juliana Manduca's transformative astrological consultations.
+            {t('heroSubtitle')}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4">
             <Button size="lg" className="bg-astral-purple hover:bg-astral-purple/90 text-white">
-              Book a Consultation
+              {t('bookConsultation')}
             </Button>
             <Button size="lg" variant="outline" className="border-astral-gold text-astral-gold hover:bg-astral-gold/10">
-              Explore Services
+              {t('exploreServices')}
             </Button>
           </div>
         </div>
@@ -137,9 +139,9 @@ const Index = () => {
       <section className="py-16 md:py-24 bg-gradient-to-b from-background to-astral-dark/70">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Why Choose Juliana Manduca</h2>
+            <h2 className="text-3xl font-bold mb-4">{t('whyChoose')}</h2>
             <p className="text-muted-foreground max-w-2xl">
-              Certified astrological consultant with over a decade of experience helping people navigate their life path using ancient wisdom and modern therapeutic techniques.
+              {t('certifiedDesc')}
             </p>
           </div>
           
@@ -150,8 +152,8 @@ const Index = () => {
                 <div className="w-12 h-12 bg-astral-purple/10 rounded-full mx-auto flex items-center justify-center mb-4">
                   <Award className="h-6 w-6 text-astral-purple" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Certified Professional</h3>
-                <p className="text-muted-foreground">Internationally certified with extensive training in modern and traditional astrological techniques</p>
+                <h3 className="text-xl font-semibold mb-2">{t('certifiedPro')}</h3>
+                <p className="text-muted-foreground">{t('certifiedProDesc')}</p>
               </CardContent>
             </Card>
             
@@ -161,8 +163,8 @@ const Index = () => {
                 <div className="w-12 h-12 bg-astral-purple/10 rounded-full mx-auto flex items-center justify-center mb-4">
                   <Shield className="h-6 w-6 text-astral-purple" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Integrative Approach</h3>
-                <p className="text-muted-foreground">Combines astrology with psychology, mindfulness, and therapeutic techniques</p>
+                <h3 className="text-xl font-semibold mb-2">{t('approach')}</h3>
+                <p className="text-muted-foreground">{t('approachDesc')}</p>
               </CardContent>
             </Card>
             
@@ -172,8 +174,8 @@ const Index = () => {
                 <div className="w-12 h-12 bg-astral-purple/10 rounded-full mx-auto flex items-center justify-center mb-4">
                   <Clock className="h-6 w-6 text-astral-purple" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Tailored Sessions</h3>
-                <p className="text-muted-foreground">Personalized consultations addressing your specific questions and life circumstances</p>
+                <h3 className="text-xl font-semibold mb-2">{t('tailoredSessions')}</h3>
+                <p className="text-muted-foreground">{t('tailoredSessionsDesc')}</p>
               </CardContent>
             </Card>
             
@@ -183,8 +185,8 @@ const Index = () => {
                 <div className="w-12 h-12 bg-astral-purple/10 rounded-full mx-auto flex items-center justify-center mb-4">
                   <Calendar className="h-6 w-6 text-astral-purple" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Ongoing Support</h3>
-                <p className="text-muted-foreground">Access to resources, follow-up materials, and community support after your session</p>
+                <h3 className="text-xl font-semibold mb-2">{t('ongoingSupport')}</h3>
+                <p className="text-muted-foreground">{t('ongoingSupportDesc')}</p>
               </CardContent>
             </Card>
           </div>
@@ -195,9 +197,9 @@ const Index = () => {
       <section className="py-16 md:py-24 bg-astral-midnight/50">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Services & Offerings</h2>
+            <h2 className="text-3xl font-bold mb-4">{t('servicesTitle')}</h2>
             <p className="text-muted-foreground max-w-2xl">
-              Discover how astrological insights can guide you through life's challenges and opportunities.
+              {t('servicesDesc')}
             </p>
           </div>
           
@@ -211,8 +213,8 @@ const Index = () => {
                     </div>
                     <span className="text-xl font-bold text-astral-gold">{service.price}</span>
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-                  <p className="text-muted-foreground mb-4">{service.description}</p>
+                  <h3 className="text-xl font-semibold mb-2">{t(service.titleKey)}</h3>
+                  <p className="text-muted-foreground mb-4">{t(service.descriptionKey)}</p>
                   <div className="flex items-center text-sm text-muted-foreground mb-4">
                     <Clock className="w-4 h-4 mr-2" />
                     <span>{service.duration}</span>
@@ -221,7 +223,7 @@ const Index = () => {
                     className="w-full bg-astral-indigo hover:bg-astral-indigo/90 text-white"
                     variant="default"
                   >
-                    Book Now
+                    {t('bookNow')}
                   </Button>
                 </CardContent>
               </Card>
@@ -230,7 +232,7 @@ const Index = () => {
           
           <div className="mt-10 text-center">
             <Button variant="link" className="text-astral-purple">
-              View All Services <ArrowRight className="ml-2 h-4 w-4" />
+              {t('viewAll')} <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
         </div>
@@ -240,9 +242,9 @@ const Index = () => {
       <section className="py-16 md:py-24 bg-gradient-to-b from-astral-dark/70 to-background">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Client Testimonials</h2>
+            <h2 className="text-3xl font-bold mb-4">{t('testimonials')}</h2>
             <p className="text-muted-foreground max-w-2xl">
-              Hear from individuals whose lives have been transformed through astrological guidance.
+              {t('testimonialsDesc')}
             </p>
           </div>
           
@@ -276,9 +278,9 @@ const Index = () => {
       <section className="py-16 md:py-24">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Latest Insights</h2>
+            <h2 className="text-3xl font-bold mb-4">{t('latestInsights')}</h2>
             <p className="text-muted-foreground max-w-2xl">
-              Explore astrological wisdom, spiritual insights, and practical guidance for your journey.
+              {t('insightsDesc')}
             </p>
           </div>
           
@@ -296,7 +298,7 @@ const Index = () => {
                   <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
                   <p className="text-muted-foreground mb-4">{post.excerpt}</p>
                   <Button variant="link" className="p-0 h-auto text-astral-purple">
-                    Read more <ArrowRight className="ml-2 h-4 w-4" />
+                    {t('readMore')} <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </CardContent>
               </Card>
@@ -305,7 +307,7 @@ const Index = () => {
           
           <div className="mt-10 text-center">
             <Button variant="outline" className="border-astral-purple text-astral-purple hover:bg-astral-purple/10">
-              View All Articles
+              {t('viewAllArticles')}
             </Button>
           </div>
         </div>
@@ -315,29 +317,29 @@ const Index = () => {
       <section className="py-16 md:py-24 gradient-bg star-field">
         <div className="container px-4 md:px-6">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Begin Your Astrological Journey Today</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">{t('beginJourney')}</h2>
             <p className="text-xl text-muted-foreground mb-8">
-              Take the first step towards self-discovery and cosmic alignment with a personalized astrological consultation.
+              {t('journeyDesc')}
             </p>
             <Tabs defaultValue="consultation" className="w-full max-w-md mx-auto">
               <TabsList className="grid grid-cols-2 mb-8 bg-card/30 border border-border">
-                <TabsTrigger value="consultation">Consultation</TabsTrigger>
-                <TabsTrigger value="membership">Membership</TabsTrigger>
+                <TabsTrigger value="consultation">{t('consultation')}</TabsTrigger>
+                <TabsTrigger value="membership">{t('membership')}</TabsTrigger>
               </TabsList>
               <TabsContent value="consultation" className="space-y-4">
                 <Button className="w-full bg-astral-purple hover:bg-astral-purple/90 text-white py-6 text-lg">
-                  Book Your Session Now
+                  {t('bookSession')}
                 </Button>
                 <p className="text-sm text-muted-foreground">
-                  Individual consultations starting at R$320
+                  {t('individualConsultations')}
                 </p>
               </TabsContent>
               <TabsContent value="membership" className="space-y-4">
                 <Button className="w-full bg-astral-gold hover:bg-astral-gold/90 text-astral-dark py-6 text-lg">
-                  Join Premium Membership
+                  {t('joinPremium')}
                 </Button>
                 <p className="text-sm text-muted-foreground">
-                  Access all content and resources for R$49/month
+                  {t('accessAll')}
                 </p>
               </TabsContent>
             </Tabs>
@@ -349,25 +351,25 @@ const Index = () => {
       <section className="py-16 bg-astral-midnight/70">
         <div className="container px-4 md:px-6">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Stay Connected with the Cosmos</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('stayConnected')}</h2>
             <p className="text-muted-foreground mb-8">
-              Subscribe to receive monthly astrological insights, exclusive content, and special offers.
+              {t('newsletterDesc')}
             </p>
             <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <Input
                 type="email"
-                placeholder="Your email address"
+                placeholder={t('yourEmail')}
                 className="flex-1 bg-card/30 border-astral-indigo"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
               <Button type="submit" className="bg-astral-purple hover:bg-astral-purple/90">
-                Subscribe
+                {t('subscribe')}
               </Button>
             </form>
             <p className="text-xs text-muted-foreground mt-4">
-              By subscribing, you agree to our Privacy Policy and consent to receive updates from Juliana Manduca.
+              {t('privacyConsent')}
             </p>
           </div>
         </div>

@@ -3,6 +3,7 @@ import React from 'react';
 import { Instagram, Youtube, Mail, MapPin, Phone } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useLanguage } from '../context/LanguageContext';
 
 // Create TiktokIcon since it's not in lucide-react
 const TiktokLogo = () => (
@@ -12,14 +13,16 @@ const TiktokLogo = () => (
 );
 
 const Footer = () => {
+  const { t } = useLanguage();
+  
   return (
     <footer className="bg-astral-dark border-t border-border text-foreground">
       <div className="container px-4 py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* About Section */}
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold">Juliana Manduca</h3>
-            <p className="text-muted-foreground">Therapeutic consulting with a focus on astrology, helping you understand your path and potential.</p>
+            <h3 className="text-xl font-semibold">{t('aboutTitle')}</h3>
+            <p className="text-muted-foreground">{t('aboutDesc')}</p>
             <div className="flex space-x-4">
               <a href="#" className="text-muted-foreground hover:text-astral-purple transition-colors">
                 <Instagram size={20} />
@@ -35,41 +38,41 @@ const Footer = () => {
           
           {/* Quick Links */}
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold">Quick Links</h3>
+            <h3 className="text-xl font-semibold">{t('quickLinks')}</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-muted-foreground hover:text-astral-purple transition-colors">Home</a>
+                <a href="#" className="text-muted-foreground hover:text-astral-purple transition-colors">{t('home')}</a>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-astral-purple transition-colors">Services</a>
+                <a href="#" className="text-muted-foreground hover:text-astral-purple transition-colors">{t('services')}</a>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-astral-purple transition-colors">Blog</a>
+                <a href="#" className="text-muted-foreground hover:text-astral-purple transition-colors">{t('blog')}</a>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-astral-purple transition-colors">Booking</a>
+                <a href="#" className="text-muted-foreground hover:text-astral-purple transition-colors">{t('booking')}</a>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-astral-purple transition-colors">Login</a>
+                <a href="#" className="text-muted-foreground hover:text-astral-purple transition-colors">{t('login')}</a>
               </li>
             </ul>
           </div>
           
           {/* Newsletter */}
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold">Newsletter</h3>
-            <p className="text-muted-foreground">Subscribe to receive astrological insights and updates.</p>
+            <h3 className="text-xl font-semibold">{t('newsletter')}</h3>
+            <p className="text-muted-foreground">{t('newsletterSubtitle')}</p>
             <form className="flex space-x-2">
               <Input 
                 type="email" 
-                placeholder="Your email" 
+                placeholder={t('yourEmail')} 
                 className="bg-astral-midnight/50 border-astral-indigo"
               />
               <Button 
                 type="submit" 
                 className="bg-astral-purple hover:bg-astral-purple/90"
               >
-                Subscribe
+                {t('subscribe')}
               </Button>
             </form>
             
@@ -89,10 +92,10 @@ const Footer = () => {
         
         {/* Bottom section */}
         <div className="border-t border-border mt-12 pt-6 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Juliana Manduca. All rights reserved.</p>
+          <p>{t('rights')}</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-astral-purple transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-astral-purple transition-colors">Terms of Service</a>
+            <a href="#" className="hover:text-astral-purple transition-colors">{t('privacyPolicy')}</a>
+            <a href="#" className="hover:text-astral-purple transition-colors">{t('termsOfService')}</a>
           </div>
         </div>
       </div>

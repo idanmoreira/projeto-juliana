@@ -19,7 +19,7 @@ const Footer = () => {
           {/* About Section */}
           <div className="space-y-4">
             <h3 className="text-xl font-semibold">Juliana Manduca</h3>
-            <p className="text-muted-foreground">Therapeutic consulting with a focus on astrology, helping you understand your path and potential.</p>
+            <p className="text-muted-foreground">Consultoria terapêutica com foco em astrologia, ajudando você a entender seu caminho e potencial.</p>
             <div className="flex space-x-4">
               <a href="#" className="text-muted-foreground hover:text-astral-purple transition-colors">
                 <Instagram size={20} />
@@ -35,19 +35,19 @@ const Footer = () => {
           
           {/* Quick Links */}
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold">Quick Links</h3>
+            <h3 className="text-xl font-semibold">Links Rápidos</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-muted-foreground hover:text-astral-purple transition-colors">Home</a>
+                <a href="#" className="text-muted-foreground hover:text-astral-purple transition-colors">Início</a>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-astral-purple transition-colors">Services</a>
+                <a href="#" className="text-muted-foreground hover:text-astral-purple transition-colors">Serviços</a>
               </li>
               <li>
                 <a href="#" className="text-muted-foreground hover:text-astral-purple transition-colors">Blog</a>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-astral-purple transition-colors">Booking</a>
+                <a href="#" className="text-muted-foreground hover:text-astral-purple transition-colors">Agendamento</a>
               </li>
               <li>
                 <a href="#" className="text-muted-foreground hover:text-astral-purple transition-colors">Login</a>
@@ -58,18 +58,18 @@ const Footer = () => {
           {/* Newsletter */}
           <div className="space-y-4">
             <h3 className="text-xl font-semibold">Newsletter</h3>
-            <p className="text-muted-foreground">Subscribe to receive astrological insights and updates.</p>
+            <p className="text-muted-foreground">Inscreva-se para receber insights astrológicos e atualizações.</p>
             <form className="flex space-x-2">
               <Input 
                 type="email" 
-                placeholder="Your email" 
+                placeholder="Seu email" 
                 className="bg-astral-midnight/50 border-astral-indigo"
               />
               <Button 
                 type="submit" 
                 className="bg-astral-purple hover:bg-astral-purple/90"
               >
-                Subscribe
+                Inscrever
               </Button>
             </form>
             
@@ -77,11 +77,11 @@ const Footer = () => {
             <div className="pt-4 space-y-2">
               <div className="flex items-center space-x-2 text-sm">
                 <Mail size={16} className="text-astral-purple" />
-                <span>contact@julianamanduca.com.br</span>
+                <span>contato@julianamanduca.com.br</span>
               </div>
               <div className="flex items-center space-x-2 text-sm">
                 <MapPin size={16} className="text-astral-purple" />
-                <span>São Paulo, Brazil</span>
+                <span>São Paulo, Brasil</span>
               </div>
             </div>
           </div>
@@ -89,10 +89,10 @@ const Footer = () => {
         
         {/* Bottom section */}
         <div className="border-t border-border mt-12 pt-6 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Juliana Manduca. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Juliana Manduca. Todos os direitos reservados.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-astral-purple transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-astral-purple transition-colors">Terms of Service</a>
+            <a href="#" className="hover:text-astral-purple transition-colors">Política de Privacidade</a>
+            <a href="#" className="hover:text-astral-purple transition-colors">Termos de Serviço</a>
           </div>
         </div>
       </div>

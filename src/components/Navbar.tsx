@@ -1,18 +1,13 @@
 
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [language, setLanguage] = useState('pt-BR'); // Default language
-
-  const toggleLanguage = (lang) => {
-    setLanguage(lang);
-    // Here you would implement the actual language change logic
-    console.log(`Language changed to: ${lang}`);
-  };
+  const { language, changeLanguage, t } = useLanguage();
 
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
@@ -31,16 +26,16 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-6">
           <Link to="/" className="text-sm font-medium hover:text-astral-purple transition-colors">
-            Home
+            {t('home')}
           </Link>
           <Link to="/services" className="text-sm font-medium hover:text-astral-purple transition-colors">
-            Services
+            {t('services')}
           </Link>
           <Link to="/blog" className="text-sm font-medium hover:text-astral-purple transition-colors">
-            Blog
+            {t('blog')}
           </Link>
           <Link to="/booking" className="text-sm font-medium hover:text-astral-purple transition-colors">
-            Booking
+            {t('booking')}
           </Link>
         </div>
         
@@ -49,26 +44,28 @@ const Navbar = () => {
           {/* Language Switcher */}
           <div className="flex items-center gap-2 mr-2">
             <button 
-              onClick={() => toggleLanguage('pt-BR')}
-              className={`w-6 h-6 rounded-full overflow-hidden border-2 transition-all ${language === 'pt-BR' ? 'border-astral-purple scale-110' : 'border-transparent'}`}
+              onClick={() => changeLanguage('pt-BR')}
+              className={`text-2xl transition-transform ${language === 'pt-BR' ? 'scale-125' : 'opacity-70'}`}
               title="Português Brasileiro"
+              aria-label="Change language to Brazilian Portuguese"
             >
-              <img src="https://flagcdn.com/br.svg" alt="Bandeira do Brasil" className="w-full h-full object-cover" />
+              🇧🇷
             </button>
             <button 
-              onClick={() => toggleLanguage('en-GB')}
-              className={`w-6 h-6 rounded-full overflow-hidden border-2 transition-all ${language === 'en-GB' ? 'border-astral-purple scale-110' : 'border-transparent'}`}
+              onClick={() => changeLanguage('en-GB')}
+              className={`text-2xl transition-transform ${language === 'en-GB' ? 'scale-125' : 'opacity-70'}`}
               title="British English"
+              aria-label="Change language to British English"
             >
-              <img src="https://flagcdn.com/gb.svg" alt="British Flag" className="w-full h-full object-cover" />
+              🇬🇧
             </button>
           </div>
 
           <Button variant="outline" size="sm" className="border-astral-indigo text-astral-indigo hover:bg-astral-indigo/10">
-            Login
+            {t('login')}
           </Button>
           <Button className="bg-astral-purple hover:bg-astral-purple/90 text-white">
-            Sign Up
+            {t('signUp')}
           </Button>
         </div>
         
@@ -93,55 +90,57 @@ const Navbar = () => {
               className="text-sm font-medium py-2 hover:text-astral-purple"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Home
+              {t('home')}
             </Link>
             <Link 
               to="/services" 
               className="text-sm font-medium py-2 hover:text-astral-purple"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Services
+              {t('services')}
             </Link>
             <Link 
               to="/blog" 
               className="text-sm font-medium py-2 hover:text-astral-purple"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Blog
+              {t('blog')}
             </Link>
             <Link 
               to="/booking" 
               className="text-sm font-medium py-2 hover:text-astral-purple"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Booking
+              {t('booking')}
             </Link>
             
             {/* Language Switcher for Mobile */}
             <div className="flex items-center gap-4 py-2">
-              <span className="text-sm font-medium">Language:</span>
+              <span className="text-sm font-medium">{t('language')}</span>
               <div className="flex gap-3">
                 <button 
-                  onClick={() => toggleLanguage('pt-BR')}
-                  className={`w-7 h-7 rounded-full overflow-hidden border-2 transition-all ${language === 'pt-BR' ? 'border-astral-purple scale-110' : 'border-transparent'}`}
+                  onClick={() => changeLanguage('pt-BR')}
+                  className={`text-2xl transition-transform ${language === 'pt-BR' ? 'scale-125' : 'opacity-70'}`}
+                  aria-label="Change language to Brazilian Portuguese"
                 >
-                  <img src="https://flagcdn.com/br.svg" alt="Bandeira do Brasil" className="w-full h-full object-cover" />
+                  🇧🇷
                 </button>
                 <button 
-                  onClick={() => toggleLanguage('en-GB')}
-                  className={`w-7 h-7 rounded-full overflow-hidden border-2 transition-all ${language === 'en-GB' ? 'border-astral-purple scale-110' : 'border-transparent'}`}
+                  onClick={() => changeLanguage('en-GB')}
+                  className={`text-2xl transition-transform ${language === 'en-GB' ? 'scale-125' : 'opacity-70'}`}
+                  aria-label="Change language to British English"
                 >
-                  <img src="https://flagcdn.com/gb.svg" alt="British Flag" className="w-full h-full object-cover" />
+                  🇬🇧
                 </button>
               </div>
             </div>
             
             <div className="flex flex-col gap-3 pt-2">
               <Button variant="outline" className="border-astral-indigo text-astral-indigo hover:bg-astral-indigo/10 w-full">
-                Login
+                {t('login')}
               </Button>
               <Button className="bg-astral-purple hover:bg-astral-purple/90 text-white w-full">
-                Sign Up
+                {t('signUp')}
               </Button>
             </div>
           </div>

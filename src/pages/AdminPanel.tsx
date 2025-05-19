@@ -139,7 +139,7 @@ const AdminPanel: React.FC = () => {
                 </div>
                 <div className="flex justify-between items-center mt-4">
                   <p className="text-sm text-muted-foreground">
-                    {t('showingUsers', { start: 1, end: 5, total: 247 })}
+                    {t('showingUsers')}
                   </p>
                   <div className="flex gap-1">
                     <Button variant="outline" size="sm" disabled>
@@ -166,7 +166,7 @@ const AdminPanel: React.FC = () => {
                       <CardTitle className="text-lg">{t('courses')}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="mb-4 text-muted-foreground">{t('totalCourses', { count: 12 })}</p>
+                      <p className="mb-4 text-muted-foreground">{t('totalCourses')}</p>
                       <Button className="w-full bg-astral-purple hover:bg-astral-purple/90">
                         {t('manageCourses')}
                       </Button>
@@ -178,7 +178,7 @@ const AdminPanel: React.FC = () => {
                       <CardTitle className="text-lg">{t('videos')}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="mb-4 text-muted-foreground">{t('totalVideos', { count: 87 })}</p>
+                      <p className="mb-4 text-muted-foreground">{t('totalVideos')}</p>
                       <Button className="w-full bg-astral-purple hover:bg-astral-purple/90">
                         {t('manageVideos')}
                       </Button>
@@ -190,7 +190,7 @@ const AdminPanel: React.FC = () => {
                       <CardTitle className="text-lg">{t('documents')}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="mb-4 text-muted-foreground">{t('totalDocuments', { count: 45 })}</p>
+                      <p className="mb-4 text-muted-foreground">{t('totalDocuments')}</p>
                       <Button className="w-full bg-astral-purple hover:bg-astral-purple/90">
                         {t('manageDocuments')}
                       </Button>

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from '@/context/LanguageContext';
@@ -34,7 +33,7 @@ const Dashboard: React.FC = () => {
       <Navbar />
       <div className="flex-1 container px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold tracking-tight">{t('welcomeUser', { name: user?.name })}</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{t('welcomeUser')}</h1>
           <p className="text-muted-foreground mt-2">
             {user?.role === 'admin' 
               ? t('adminDashboardSubtitle') 
@@ -46,7 +45,7 @@ const Dashboard: React.FC = () => {
           {user?.role === 'paid' && (
             <div className="mt-4 p-3 bg-astral-purple/10 border border-astral-purple/30 rounded-md inline-block">
               <p className="text-sm font-medium text-astral-purple">
-                {t('subscriptionValidUntil', { date: user.subscriptionEnds })}
+                {t('subscriptionValidUntil')}
               </p>
             </div>
           )}

@@ -178,7 +178,7 @@ export const translations = {
     'incompleteBooking': 'Agendamento Incompleto',
     'pleaseCompleteAllFields': 'Por favor complete todos os campos necessários',
     'bookingSuccessful': 'Agendamento Bem-sucedido',
-    'consultationScheduled': 'Sua consulta foi agendada',
+    'consultationScheduled': 'Sua consulta foi agendada para',
     
     // WhatsApp
     'chatOnWhatsApp': 'Conversar pelo WhatsApp',
@@ -374,7 +374,7 @@ export const translations = {
     'incompleteBooking': 'Incomplete Booking',
     'pleaseCompleteAllFields': 'Please complete all required fields',
     'bookingSuccessful': 'Booking Successful',
-    'consultationScheduled': 'Your consultation has been scheduled',
+    'consultationScheduled': 'Your consultation has been scheduled for',
     
     // WhatsApp
     'chatOnWhatsApp': 'Chat on WhatsApp',

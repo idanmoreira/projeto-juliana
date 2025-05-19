@@ -47,9 +47,14 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
     }
 
     // Here you would typically make an API call to save the booking
+    // The issue is here - we're passing an object to t() but it expects only a string
+    // Let's fix by constructing the message differently
+    const formattedDate = date.toLocaleDateString();
+    const message = `${t('consultationScheduled')} ${formattedDate}, ${timeSlot}`;
+    
     toast({
       title: t('bookingSuccessful'),
-      description: t('consultationScheduled', { date: date.toLocaleDateString(), time: timeSlot }),
+      description: message,
     });
     
     // Reset the form

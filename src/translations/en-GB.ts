@@ -1,5 +1,5 @@
 
-export default {
+const enGB = {
   // General
   appName: 'Juliana Manduca Astrology',
   home: 'Home',
@@ -14,6 +14,25 @@ export default {
   profile: 'Profile',
   dashboard: 'Dashboard',
   admin: 'Admin',
+  language: 'Language:',
+
+  // Hero Section
+  heroTitle: 'Astrological Guidance for Your Soul\'s Journey',
+  heroSubtitle: 'Discover your cosmic blueprint and unlock your true potential with Juliana Manduca\'s transformative astrological consultations.',
+  bookConsultation: 'Book a Consultation',
+  exploreServices: 'Explore Services',
+
+  // Features Section
+  whyChoose: 'Why Choose Juliana Manduca',
+  certifiedDesc: 'Certified astrological consultant with over a decade of experience helping people navigate their life path using ancient wisdom and modern therapeutic techniques.',
+  certifiedPro: 'Certified Professional',
+  certifiedProDesc: 'Internationally certified with extensive training in modern and traditional astrological techniques',
+  approach: 'Integrative Approach',
+  approachDesc: 'Combines astrology with psychology, mindfulness, and therapeutic techniques',
+  tailoredSessions: 'Tailored Sessions',
+  tailoredSessionsDesc: 'Personalized consultations addressing your specific questions and life circumstances',
+  ongoingSupport: 'Ongoing Support',
+  ongoingSupportDesc: 'Access to resources, follow-up materials, and community support after your session',
 
   // Authentication
   email: 'Email',
@@ -80,7 +99,7 @@ export default {
   
   // Consultations
   yourConsultations: 'Your Consultations',
-  bookConsultation: 'Book a Consultation',
+  bookingConsultation: 'Book a Consultation',
   upcomingConsultation: 'Upcoming Consultation',
   personalChartReading: 'Personal Chart Reading',
   personalChartReadingDesc: 'A detailed analysis of your birth chart with Juliana',
@@ -89,6 +108,7 @@ export default {
   pastConsultation: 'Past Consultation',
   introductorySession: 'Introductory Session',
   introductorySessionDesc: 'An introduction to your astrological profile',
+  birthChartReading: 'Birth Chart Reading',
   watchRecording: 'Watch Recording',
   viewNotes: 'View Notes',
   upgradeForConsultations: 'Upgrade to a premium plan to book personal consultations with Juliana',
@@ -195,7 +215,7 @@ export default {
   incompleteBooking: 'Incomplete Booking',
   pleaseCompleteAllFields: 'Please complete all required fields',
   bookingSuccessful: 'Booking Successful',
-  consultationScheduled: 'Your consultation has been scheduled',
+  consultationScheduled: 'Your consultation has been scheduled for',
   
   // WhatsApp
   chatOnWhatsApp: 'Chat on WhatsApp',
@@ -215,4 +235,43 @@ export default {
   rights: '© 2025 Juliana Manduca. All rights reserved.',
   privacyPolicy: 'Privacy Policy',
   termsOfService: 'Terms of Service',
+    
+  // Services Section
+  servicesTitle: 'Services & Offerings',
+  servicesDesc: 'Discover how astrological insights can guide you through life\'s challenges and opportunities.',
+  birthChartDesc: 'Comprehensive analysis of your natal chart revealing your personality, strengths, challenges, and life purpose.',
+  compatibility: 'Relationship Compatibility',
+  compatibilityDesc: 'Discover the dynamics of your relationship through synastry and composite chart analysis.',
+  astrologyCourse: 'Astrology Course',
+  astrologyCourseDesc: 'Learn the fundamentals of astrology in this comprehensive course for beginners.',
+  duration: 'duration',
+  bookNow: 'Book Now',
+  viewAll: 'View All',
+    
+  // Testimonials
+  testimonials: 'Client Testimonials',
+  testimonialsDesc: 'Hear from individuals whose lives have been transformed through astrological guidance.',
+    
+  // Blog Section
+  latestInsights: 'Latest Insights',
+  insightsDesc: 'Explore astrological wisdom, spiritual insights, and practical guidance for your journey.',
+  readMore: 'Read more',
+  viewAllArticles: 'View All Articles',
+    
+  // CTA Section
+  beginJourney: 'Begin Your Astrological Journey Today',
+  journeyDesc: 'Take the first step towards self-discovery and cosmic alignment with a personalized astrological consultation.',
+  consultation: 'Consultation',
+  membership: 'Membership',
+  bookSession: 'Book Your Session Now',
+  individualConsultations: 'Individual consultations starting at R$320',
+  joinPremium: 'Join Premium Membership',
+  accessAll: 'Access all content and resources for R$49/month',
+    
+  // Newsletter Section
+  stayConnected: 'Stay Connected with the Cosmos',
+  newsletterDesc: 'Subscribe to receive monthly astrological insights, exclusive content, and special offers.',
+  privacyConsent: 'By subscribing, you agree to our Privacy Policy and consent to receive updates from Juliana Manduca.',
 };
+
+export default enGB;

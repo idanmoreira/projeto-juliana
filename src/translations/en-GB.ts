@@ -29,11 +29,11 @@ export default {
   alreadyHaveAccount: 'Already have an account?',
 
   // Dashboard
-  welcomeUser: 'Welcome, {{name}}',
+  welcomeUser: 'Welcome',
   freeDashboardSubtitle: 'Explore the basics of astrology with your free account',
   paidDashboardSubtitle: 'Access all premium content and consultations',
   adminDashboardSubtitle: 'Manage users, content and platform settings',
-  subscriptionValidUntil: 'Premium subscription valid until {{date}}',
+  subscriptionValidUntil: 'Premium subscription valid until',
   upgradeToPremium: 'Upgrade to Premium',
   overview: 'Overview',
   courses: 'Courses',
@@ -63,6 +63,9 @@ export default {
   professionalChartReading: 'Professional Chart Reading',
   professionalChartReadingDesc: 'Learn to read charts like a professional astrologer',
   premiumContent: 'Premium Content',
+  unlockPremiumContent: 'Unlock Premium Content',
+  premiumContentDesc: 'Access advanced courses, personalized consultations, and exclusive resources',
+  premiumOnly: 'Premium Only',
   
   // Courses
   yourCourses: 'Your Courses',
@@ -73,9 +76,11 @@ export default {
   professionalReading: 'Professional Reading',
   complete: 'complete',
   continue: 'Continue',
+  viewCertificate: 'View Certificate',
   
   // Consultations
   yourConsultations: 'Your Consultations',
+  bookConsultation: 'Book a Consultation',
   upcomingConsultation: 'Upcoming Consultation',
   personalChartReading: 'Personal Chart Reading',
   personalChartReadingDesc: 'A detailed analysis of your birth chart with Juliana',
@@ -87,6 +92,7 @@ export default {
   watchRecording: 'Watch Recording',
   viewNotes: 'View Notes',
   upgradeForConsultations: 'Upgrade to a premium plan to book personal consultations with Juliana',
+  noConsultations: 'No Consultations',
   
   // Resources
   learningResources: 'Learning Resources',
@@ -120,15 +126,15 @@ export default {
   status: 'Status',
   joined: 'Joined',
   actions: 'Actions',
-  showingUsers: 'Showing {{start}}-{{end}} of {{total}} users',
+  showingUsers: 'Showing users',
   previous: 'Previous',
   next: 'Next',
   
   // Admin content management
   contentManagement: 'Content Management',
-  totalCourses: '{{count}} total courses',
-  totalVideos: '{{count}} total videos',
-  totalDocuments: '{{count}} total documents',
+  totalCourses: 'Total courses',
+  totalVideos: 'Total videos',
+  totalDocuments: 'Total documents',
   manageCourses: 'Manage Courses',
   manageVideos: 'Manage Videos',
   manageDocuments: 'Manage Documents',
@@ -157,6 +163,46 @@ export default {
   newUsers: 'New Users',
   conversions: 'Conversions',
   revenue: 'Revenue',
+  
+  // Social Media
+  connectWithJuliana: 'Connect with Juliana Manduca',
+  socialMediaDesc: 'Follow Juliana on social media for daily insights, live streams, and exclusive content about astrology.',
+  
+  // Astrology Tools
+  astrologyTools: 'Astrology Tools',
+  astrologyToolsDesc: 'Try our free astrology tools to get a glimpse of your celestial blueprint.',
+  birthChart: 'Birth Chart Reading',
+  birthDate: 'Birth Date',
+  birthTime: 'Birth Time',
+  birthLocation: 'Birth Location',
+  enterName: 'Enter your name',
+  pickDate: 'Pick a date',
+  enterLocation: 'Enter birth location',
+  generateChart: 'Generate Basic Chart',
+  yourBasicChart: 'Your Basic Chart',
+  upgradeForFullChart: 'Upgrade to a premium plan to access your full natal chart reading with detailed interpretation.',
+  
+  // Booking Calendar
+  selectDate: 'Select a Date',
+  selectTime: 'Select a Time',
+  selectConsultationType: 'Select Consultation Type',
+  chooseConsultationType: 'Choose consultation type',
+  premiumConsultationsLocked: 'Premium consultations available for subscribers only',
+  selectDateFirst: 'Select a date first',
+  confirmBooking: 'Confirm Booking',
+  relationshipReading: 'Relationship Reading',
+  careerReading: 'Career Reading',
+  incompleteBooking: 'Incomplete Booking',
+  pleaseCompleteAllFields: 'Please complete all required fields',
+  bookingSuccessful: 'Booking Successful',
+  consultationScheduled: 'Your consultation has been scheduled',
+  
+  // WhatsApp
+  chatOnWhatsApp: 'Chat on WhatsApp',
+  
+  // Authentication
+  accessDenied: 'Access Denied',
+  pleaseLogin: 'Please login to access this page',
 
   // Footer
   aboutTitle: 'About Us',

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -6,10 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import { Calendar, Star, ArrowRight, Sparkles, BookOpen, Clock, Shield, Award } from "lucide-react";
+import { Calendar, Star, ArrowRight, Sparkles, BookOpen, Clock, Shield, Award, Globe, Instagram, Youtube, MapPin } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useLanguage } from "../context/LanguageContext";
+import SocialMediaBox from "@/components/SocialMediaBox";
+import AstrologyTools from "@/components/AstrologyTools";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const Index = () => {
   const { toast } = useToast();
@@ -94,6 +96,31 @@ const Index = () => {
       date: "March 10, 2023",
       category: "Relationships",
       image: "/placeholder.svg",
+    },
+  ];
+
+  // Social media channels
+  const socialChannels = [
+    {
+      platform: "Instagram",
+      icon: <Instagram size={40} className="text-white" />,
+      username: "@julianamanduca",
+      url: "https://instagram.com/julianamanduca",
+      bgColor: "bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500",
+    },
+    {
+      platform: "YouTube",
+      icon: <Youtube size={40} className="text-white" />,
+      username: "Juliana Manduca Astrology",
+      url: "https://youtube.com/julianamanduca",
+      bgColor: "bg-red-600",
+    },
+    {
+      platform: "TikTok",
+      icon: <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>,
+      username: "@julianamanduca",
+      url: "https://tiktok.com/@julianamanduca",
+      bgColor: "bg-black",
     },
   ];
 
@@ -189,6 +216,31 @@ const Index = () => {
                 <p className="text-muted-foreground">{t('ongoingSupportDesc')}</p>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+      
+      {/* Social Media Section */}
+      <section className="py-16 md:py-20 bg-gradient-to-b from-astral-midnight/50 to-background">
+        <div className="container px-4 md:px-6">
+          <div className="flex flex-col items-center text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">{t('connectWithJuliana')}</h2>
+            <p className="text-muted-foreground max-w-2xl">
+              {t('socialMediaDesc')}
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {socialChannels.map((channel, index) => (
+              <SocialMediaBox 
+                key={index}
+                platform={channel.platform}
+                username={channel.username}
+                icon={channel.icon}
+                url={channel.url}
+                bgColor={channel.bgColor}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -313,6 +365,20 @@ const Index = () => {
         </div>
       </section>
       
+      {/* Astrology Tools Section */}
+      <section className="py-16 md:py-24 bg-astral-midnight/30">
+        <div className="container px-4 md:px-6">
+          <div className="flex flex-col items-center text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">{t('astrologyTools')}</h2>
+            <p className="text-muted-foreground max-w-2xl">
+              {t('astrologyToolsDesc')}
+            </p>
+          </div>
+          
+          <AstrologyTools />
+        </div>
+      </section>
+      
       {/* CTA Section */}
       <section className="py-16 md:py-24 gradient-bg star-field">
         <div className="container px-4 md:px-6">
@@ -376,6 +442,9 @@ const Index = () => {
       </section>
       
       <Footer />
+      
+      {/* WhatsApp Button */}
+      <WhatsAppButton />
     </div>
   );
 };

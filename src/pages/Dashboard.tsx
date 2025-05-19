@@ -14,12 +14,12 @@ import BookingCalendar from '@/components/BookingCalendar';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import UserFiles from '@/components/UserFiles';
 
-// Sample user files for demonstration
+// Sample user files for demonstration - Updated with proper literal types
 const userFiles = [
   {
     id: "1",
     name: "Birth Chart Analysis.pdf",
-    type: "document",
+    type: "document" as const,  // Using literal type
     size: "2.4 MB",
     date: "2025-04-18",
     url: "#",
@@ -28,7 +28,7 @@ const userFiles = [
   {
     id: "2",
     name: "Transit Forecast 2025.pdf",
-    type: "document",
+    type: "document" as const,  // Using literal type
     size: "3.1 MB",
     date: "2025-05-10",
     url: "#",
@@ -37,7 +37,7 @@ const userFiles = [
   {
     id: "3",
     name: "Your Astral Map.jpg",
-    type: "image",
+    type: "image" as const,  // Using literal type
     size: "1.2 MB",
     date: "2025-04-28",
     url: "#",
@@ -46,7 +46,7 @@ const userFiles = [
   {
     id: "4",
     name: "Venus Retrograde Effects.pptx",
-    type: "presentation",
+    type: "presentation" as const,  // Using literal type
     size: "4.8 MB",
     date: "2025-05-15",
     url: "#",

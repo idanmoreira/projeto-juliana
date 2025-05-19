@@ -165,7 +165,7 @@ export const translations = {
     'premiumOnly': 'Apenas Premium',
     
     // Booking Calendar
-    'bookConsultation': 'Agendar Consulta',
+    'bookingConsultation': 'Agendar Consulta', // Changed from 'bookConsultation' to 'bookingConsultation'
     'selectDate': 'Selecione uma Data',
     'selectTime': 'Selecione um Horário',
     'selectConsultationType': 'Selecione o Tipo de Consulta',
@@ -361,7 +361,7 @@ export const translations = {
     'premiumOnly': 'Premium Only',
     
     // Booking Calendar
-    'bookConsultation': 'Book a Consultation',
+    'bookingConsultation': 'Book a Consultation', // Changed from 'bookConsultation' to 'bookingConsultation'
     'selectDate': 'Select a Date',
     'selectTime': 'Select a Time',
     'selectConsultationType': 'Select Consultation Type',
@@ -393,3 +393,4 @@ export const translations = {
     'manageDocuments': 'Manage Documents'
   }
 };
+

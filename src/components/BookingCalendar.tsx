@@ -47,8 +47,7 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
     }
 
     // Here you would typically make an API call to save the booking
-    // The issue is here - we're passing an object to t() but it expects only a string
-    // Let's fix by constructing the message differently
+    // Create the message with string concatenation instead of using an object parameter
     const formattedDate = date.toLocaleDateString();
     const message = `${t('consultationScheduled')} ${formattedDate}, ${timeSlot}`;
     
@@ -68,7 +67,7 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <CalendarCheck className="h-5 w-5 text-astral-purple" />
-          {t('bookConsultation')}
+          {t('bookingConsultation')}
         </CardTitle>
       </CardHeader>
       <CardContent>

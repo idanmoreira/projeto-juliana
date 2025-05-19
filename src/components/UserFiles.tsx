@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { FileIcon, DownloadIcon, TrashIcon, FileTextIcon, FileImageIcon, FilePresentationIcon } from 'lucide-react';
+import { FileIcon, DownloadIcon, TrashIcon, FileTextIcon, FileImageIcon, PresentationIcon } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 interface UserFile {
@@ -30,7 +29,7 @@ const UserFiles = ({ files, isPremium }: UserFilesProps) => {
       case 'image':
         return <FileImageIcon className="h-6 w-6 text-green-500" />;
       case 'presentation':
-        return <FilePresentationIcon className="h-6 w-6 text-purple-500" />;
+        return <PresentationIcon className="h-6 w-6 text-purple-500" />;
       default:
         return <FileIcon className="h-6 w-6 text-gray-500" />;
     }

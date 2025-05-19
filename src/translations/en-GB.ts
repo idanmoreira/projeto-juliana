@@ -67,7 +67,6 @@ const enGB = {
   noFilesYet: 'You don\'t have any files yet. Files will appear after your consultation.',
   upgradeForFiles: 'Upgrade to premium to access personalized consultation files.',
   scheduleConsultation: 'Schedule a consultation to get personalized astrological guidance',
-  bookNow: 'Book Now',
   
   // Dashboard cards
   coursesEnrolled: 'Courses Enrolled',

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,7 +10,7 @@ import { Calendar, Star, ArrowRight, Sparkles, BookOpen, Clock, Shield, Award, G
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useLanguage } from "../context/LanguageContext";
-import SocialMediaBox from "@/components/SocialMediaBox";
+import VerticalSocialMediaBox from "@/components/VerticalSocialMediaBox";
 import AstrologyTools from "@/components/AstrologyTools";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
@@ -230,9 +231,9 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {socialChannels.map((channel, index) => (
-              <SocialMediaBox 
+              <VerticalSocialMediaBox 
                 key={index}
                 platform={channel.platform}
                 username={channel.username}

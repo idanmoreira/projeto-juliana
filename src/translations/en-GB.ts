@@ -15,6 +15,8 @@ const enGB = {
   dashboard: 'Dashboard',
   admin: 'Admin',
   language: 'Language:',
+  signUpWithGoogle: 'Sign up with Google',
+  orContinueWith: 'or continue with email',
 
   // Hero Section
   heroTitle: 'Astrological Guidance for Your Soul\'s Journey',
@@ -58,6 +60,14 @@ const enGB = {
   courses: 'Courses',
   consultations: 'Consultations',
   resources: 'Resources',
+  myFiles: 'My Files',
+  consultationTypes: 'Consultation Types',
+  filesDescription: 'Access personal files shared during your consultations',
+  noFiles: 'No Files Found',
+  noFilesYet: 'You don\'t have any files yet. Files will appear after your consultation.',
+  upgradeForFiles: 'Upgrade to premium to access personalized consultation files.',
+  scheduleConsultation: 'Schedule a consultation to get personalized astrological guidance',
+  bookNow: 'Book Now',
   
   // Dashboard cards
   coursesEnrolled: 'Courses Enrolled',

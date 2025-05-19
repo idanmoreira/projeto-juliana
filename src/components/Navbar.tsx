@@ -1,10 +1,10 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Menu, X, Globe, LogIn } from "lucide-react";
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
+import { Toggle } from '@/components/ui/toggle';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,9 +24,13 @@ const Navbar = () => {
         <Link to="/" className="flex items-center gap-2">
           <div className="relative w-8 h-8">
             <div className="absolute inset-0 rounded-full bg-astral-purple opacity-70 animate-glow"></div>
-            <div className="absolute inset-1 rounded-full bg-astral-dark border border-astral-purple"></div>
-            <div className="absolute inset-0 flex items-center justify-center text-astral-gold font-serif text-lg">
-              JM
+            <div className="absolute inset-[15%] rounded-full bg-astral-dark border border-astral-purple"></div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-astral-gold animate-float">
+                <circle cx="12" cy="12" r="10" />
+                <path d="m16 12-4-4-4 4" />
+                <path d="m8 12 4 4 4-4" />
+              </svg>
             </div>
           </div>
           <span className="text-lg font-semibold">Juliana Manduca</span>
@@ -48,7 +52,7 @@ const Navbar = () => {
               {t('dashboard')}
             </Link>
           )}
-          {user?.role === 'admin' && (
+          {user?.role === 'admin' && user?.role !== 'admin' && (
             <Link to="/admin" className="text-sm font-medium hover:text-astral-purple transition-colors">
               {t('admin')}
             </Link>
@@ -60,14 +64,40 @@ const Navbar = () => {
           {/* Language Switcher */}
           <div className="flex items-center gap-2">
             <div className="relative">
-              <button 
-                className="flex items-center gap-1 text-sm font-medium px-2 py-1 rounded-md hover:bg-muted transition-colors"
-                onClick={() => changeLanguage(language === 'pt-BR' ? 'en-GB' : 'pt-BR')}
-                aria-label="Toggle language"
+              <Toggle 
+                pressed={language === 'pt-BR'}
+                onPressedChange={() => changeLanguage(language === 'pt-BR' ? 'en-GB' : 'pt-BR')}
+                className="w-[72px] h-8 relative rounded-full border border-border"
               >
-                <Globe size={16} className="text-astral-purple" />
-                <span>{language === 'pt-BR' ? 'PT' : 'EN'}</span>
-              </button>
+                <div className="absolute inset-0 flex items-center justify-between px-1.5">
+                  <span className={`z-10 text-xs font-medium px-1 ${language === 'pt-BR' ? 'text-white' : 'text-muted-foreground'}`}>
+                    PT
+                  </span>
+                  <span className={`z-10 text-xs font-medium px-1 ${language === 'en-GB' ? 'text-white' : 'text-muted-foreground'}`}>
+                    EN
+                  </span>
+                </div>
+                <div className={`absolute top-1 bottom-1 w-[32px] rounded-full transition-all duration-200 ${language === 'pt-BR' ? 'left-1 bg-green-600' : 'right-1 bg-blue-600'}`}>
+                  <div className="w-full h-full flex items-center justify-center">
+                    {language === 'pt-BR' ? (
+                      <div className="w-5 h-3 bg-green-500 rounded-sm overflow-hidden relative">
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-4 h-4 bg-yellow-400 rotate-45 transform -translate-y-1"></div>
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="w-5 h-3 bg-blue-500 rounded-sm overflow-hidden flex flex-col">
+                        <div className="h-[3px] w-full bg-red-500"></div>
+                        <div className="h-[3px] w-full bg-white"></div>
+                        <div className="h-[3px] w-full bg-red-500"></div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </Toggle>
             </div>
           </div>
 
@@ -154,7 +184,7 @@ const Navbar = () => {
                 {t('dashboard')}
               </Link>
             )}
-            {user?.role === 'admin' && (
+            {user?.role === 'admin' && user?.role !== 'admin' && (
               <Link 
                 to="/admin" 
                 className="text-sm font-medium py-2 hover:text-astral-purple"
@@ -166,14 +196,40 @@ const Navbar = () => {
             
             {/* Language Switcher for Mobile */}
             <div className="flex items-center gap-2 py-2">
-              <button 
-                className="flex items-center gap-1 text-sm font-medium px-2 py-1 rounded-md hover:bg-muted transition-colors"
-                onClick={() => changeLanguage(language === 'pt-BR' ? 'en-GB' : 'pt-BR')}
-                aria-label="Toggle language"
+              <Toggle 
+                pressed={language === 'pt-BR'}
+                onPressedChange={() => changeLanguage(language === 'pt-BR' ? 'en-GB' : 'pt-BR')}
+                className="w-[72px] h-8 relative rounded-full border border-border"
               >
-                <Globe size={16} className="text-astral-purple" />
-                <span>{language === 'pt-BR' ? 'PT' : 'EN'}</span>
-              </button>
+                <div className="absolute inset-0 flex items-center justify-between px-1.5">
+                  <span className={`z-10 text-xs font-medium px-1 ${language === 'pt-BR' ? 'text-white' : 'text-muted-foreground'}`}>
+                    PT
+                  </span>
+                  <span className={`z-10 text-xs font-medium px-1 ${language === 'en-GB' ? 'text-white' : 'text-muted-foreground'}`}>
+                    EN
+                  </span>
+                </div>
+                <div className={`absolute top-1 bottom-1 w-[32px] rounded-full transition-all duration-200 ${language === 'pt-BR' ? 'left-1 bg-green-600' : 'right-1 bg-blue-600'}`}>
+                  <div className="w-full h-full flex items-center justify-center">
+                    {language === 'pt-BR' ? (
+                      <div className="w-5 h-3 bg-green-500 rounded-sm overflow-hidden relative">
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-4 h-4 bg-yellow-400 rotate-45 transform -translate-y-1"></div>
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="w-5 h-3 bg-blue-500 rounded-sm overflow-hidden flex flex-col">
+                        <div className="h-[3px] w-full bg-red-500"></div>
+                        <div className="h-[3px] w-full bg-white"></div>
+                        <div className="h-[3px] w-full bg-red-500"></div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </Toggle>
             </div>
             
             <div className="flex flex-col gap-3 pt-2">

@@ -12,6 +12,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import AdminPanel from "./pages/AdminPanel";
+import AdminApiManager from "./pages/AdminApiManager";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
@@ -34,6 +35,14 @@ const AppRoutes = () => (
       element={
         <ProtectedRoute requiredRole="admin">
           <AdminPanel />
+        </ProtectedRoute>
+      } 
+    />
+    <Route 
+      path="/admin/api-manager" 
+      element={
+        <ProtectedRoute requiredRole="admin">
+          <AdminApiManager />
         </ProtectedRoute>
       } 
     />

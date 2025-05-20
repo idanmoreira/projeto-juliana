@@ -3,7 +3,7 @@ import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { TestimonialManager } from '@/components/admin/TestimonialManager';
+import TestimonialManager from '@/components/admin/TestimonialManager';
 import WhatsAppButton from '@/components/WhatsAppButton';
 
 const AdminTestimonialManager = () => {

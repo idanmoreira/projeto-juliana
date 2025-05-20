@@ -4,11 +4,15 @@ import { useLanguage } from "@/context/LanguageContext";
 import TestimonialList from './testimonials/TestimonialList';
 import TestimonialForm from './testimonials/TestimonialForm';
 import useTestimonials from './testimonials/useTestimonials';
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Loader2 } from "lucide-react";
 
 const TestimonialManager = () => {
   const { t } = useLanguage();
   const {
     testimonials,
+    isLoading,
+    error,
     editingTestimonial,
     setEditingTestimonial,
     newTestimonial,
@@ -17,6 +21,25 @@ const TestimonialManager = () => {
     handleDeleteTestimonial,
     handleTestimonialChange
   } = useTestimonials();
+  
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center p-8">
+        <Loader2 className="h-8 w-8 animate-spin text-astral-purple" />
+        <span className="ml-2">Loading testimonials...</span>
+      </div>
+    );
+  }
+  
+  if (error) {
+    return (
+      <Alert variant="destructive" className="mb-6">
+        <AlertDescription>
+          Error loading testimonials: {error.toString()}
+        </AlertDescription>
+      </Alert>
+    );
+  }
   
   return (
     <div className="space-y-8">

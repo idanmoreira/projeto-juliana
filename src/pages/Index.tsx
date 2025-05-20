@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -13,6 +12,8 @@ import { useLanguage } from "../context/LanguageContext";
 import VerticalSocialMediaBox from "@/components/VerticalSocialMediaBox";
 import AstrologyTools from "@/components/AstrologyTools";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { supabase } from "@/integrations/supabase/client";
+import { useQuery } from '@tanstack/react-query';
 
 const Index = () => {
   const { toast } = useToast();

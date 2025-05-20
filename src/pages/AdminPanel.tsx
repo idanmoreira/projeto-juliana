@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { useLanguage } from '@/context/LanguageContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -193,6 +193,30 @@ const AdminPanel: React.FC = () => {
                       <p className="mb-4 text-muted-foreground">{t('totalDocuments')}</p>
                       <Button className="w-full bg-astral-purple hover:bg-astral-purple/90">
                         {t('manageDocuments')}
+                      </Button>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg">{t('astrologyTools')}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="mb-4 text-muted-foreground">Configure astrology API integrations</p>
+                      <Button className="w-full bg-astral-purple hover:bg-astral-purple/90" asChild>
+                        <Link to="/admin/api-manager">{t('manageAstrologyTools')}</Link>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg">{t('testimonials')}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="mb-4 text-muted-foreground">Manage client testimonials for homepage</p>
+                      <Button className="w-full bg-astral-purple hover:bg-astral-purple/90" asChild>
+                        <Link to="/admin/testimonials">{t('manageTestimonials')}</Link>
                       </Button>
                     </CardContent>
                   </Card>

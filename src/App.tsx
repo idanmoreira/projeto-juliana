@@ -13,7 +13,10 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import AdminPanel from "./pages/AdminPanel";
 import AdminApiManager from "./pages/AdminApiManager";
+import Services from "./pages/Services";
+import Blog from "./pages/Blog";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AdminTestimonialManager from "./pages/AdminTestimonialManager";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +25,8 @@ const AppRoutes = () => (
     <Route path="/" element={<Index />} />
     <Route path="/login" element={<Login />} />
     <Route path="/signup" element={<Signup />} />
+    <Route path="/services" element={<Services />} />
+    <Route path="/blog" element={<Blog />} />
     <Route 
       path="/dashboard" 
       element={
@@ -43,6 +48,14 @@ const AppRoutes = () => (
       element={
         <ProtectedRoute requiredRole="admin">
           <AdminApiManager />
+        </ProtectedRoute>
+      } 
+    />
+    <Route 
+      path="/admin/testimonials" 
+      element={
+        <ProtectedRoute requiredRole="admin">
+          <AdminTestimonialManager />
         </ProtectedRoute>
       } 
     />

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Menu, X, Globe, LogIn } from "lucide-react";
@@ -52,7 +53,7 @@ const Navbar = () => {
               {t('dashboard')}
             </Link>
           )}
-          {user?.role === 'admin' && user?.role !== 'admin' && (
+          {user?.role === 'admin' && (
             <Link to="/admin" className="text-sm font-medium hover:text-astral-purple transition-colors">
               {t('admin')}
             </Link>
@@ -61,44 +62,23 @@ const Navbar = () => {
         
         {/* Action Buttons */}
         <div className="hidden md:flex items-center gap-4">
-          {/* Language Switcher */}
-          <div className="flex items-center gap-2">
-            <div className="relative">
-              <Toggle 
-                pressed={language === 'pt-BR'}
-                onPressedChange={() => changeLanguage(language === 'pt-BR' ? 'en-GB' : 'pt-BR')}
-                className="w-[72px] h-8 relative rounded-full border border-border"
-              >
-                <div className="absolute inset-0 flex items-center justify-between px-1.5">
-                  <span className={`z-10 text-xs font-medium px-1 ${language === 'pt-BR' ? 'text-white' : 'text-muted-foreground'}`}>
-                    PT
-                  </span>
-                  <span className={`z-10 text-xs font-medium px-1 ${language === 'en-GB' ? 'text-white' : 'text-muted-foreground'}`}>
-                    EN
-                  </span>
-                </div>
-                <div className={`absolute top-1 bottom-1 w-[32px] rounded-full transition-all duration-200 ${language === 'pt-BR' ? 'left-1 bg-green-600' : 'right-1 bg-blue-600'}`}>
-                  <div className="w-full h-full flex items-center justify-center">
-                    {language === 'pt-BR' ? (
-                      <div className="w-5 h-3 bg-green-500 rounded-sm overflow-hidden relative">
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-4 h-4 bg-yellow-400 rotate-45 transform -translate-y-1"></div>
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="w-5 h-3 bg-blue-500 rounded-sm overflow-hidden flex flex-col">
-                        <div className="h-[3px] w-full bg-red-500"></div>
-                        <div className="h-[3px] w-full bg-white"></div>
-                        <div className="h-[3px] w-full bg-red-500"></div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </Toggle>
-            </div>
+          {/* Language Switcher - Minimalist and Centered */}
+          <div className="flex items-center justify-center">
+            <Toggle 
+              pressed={language === 'pt-BR'}
+              onPressedChange={() => changeLanguage(language === 'pt-BR' ? 'en-GB' : 'pt-BR')}
+              className="w-16 h-8 relative rounded-full border border-border"
+            >
+              <div className="absolute inset-0 flex items-center justify-between px-2">
+                <span className={`z-10 text-xs font-medium ${language === 'pt-BR' ? 'text-white' : 'text-muted-foreground'}`}>
+                  PT
+                </span>
+                <span className={`z-10 text-xs font-medium ${language === 'en-GB' ? 'text-white' : 'text-muted-foreground'}`}>
+                  EN
+                </span>
+              </div>
+              <div className={`absolute top-1 bottom-1 w-7 rounded-full transition-all duration-200 ${language === 'pt-BR' ? 'left-1 bg-green-600' : 'right-1 bg-blue-600'}`} />
+            </Toggle>
           </div>
 
           {isAuthenticated ? (
@@ -184,7 +164,7 @@ const Navbar = () => {
                 {t('dashboard')}
               </Link>
             )}
-            {user?.role === 'admin' && user?.role !== 'admin' && (
+            {user?.role === 'admin' && (
               <Link 
                 to="/admin" 
                 className="text-sm font-medium py-2 hover:text-astral-purple"
@@ -194,41 +174,22 @@ const Navbar = () => {
               </Link>
             )}
             
-            {/* Language Switcher for Mobile */}
-            <div className="flex items-center gap-2 py-2">
+            {/* Language Switcher for Mobile - Minimalist */}
+            <div className="flex items-center py-2 justify-center">
               <Toggle 
                 pressed={language === 'pt-BR'}
                 onPressedChange={() => changeLanguage(language === 'pt-BR' ? 'en-GB' : 'pt-BR')}
-                className="w-[72px] h-8 relative rounded-full border border-border"
+                className="w-16 h-8 relative rounded-full border border-border"
               >
-                <div className="absolute inset-0 flex items-center justify-between px-1.5">
-                  <span className={`z-10 text-xs font-medium px-1 ${language === 'pt-BR' ? 'text-white' : 'text-muted-foreground'}`}>
+                <div className="absolute inset-0 flex items-center justify-between px-2">
+                  <span className={`z-10 text-xs font-medium ${language === 'pt-BR' ? 'text-white' : 'text-muted-foreground'}`}>
                     PT
                   </span>
-                  <span className={`z-10 text-xs font-medium px-1 ${language === 'en-GB' ? 'text-white' : 'text-muted-foreground'}`}>
+                  <span className={`z-10 text-xs font-medium ${language === 'en-GB' ? 'text-white' : 'text-muted-foreground'}`}>
                     EN
                   </span>
                 </div>
-                <div className={`absolute top-1 bottom-1 w-[32px] rounded-full transition-all duration-200 ${language === 'pt-BR' ? 'left-1 bg-green-600' : 'right-1 bg-blue-600'}`}>
-                  <div className="w-full h-full flex items-center justify-center">
-                    {language === 'pt-BR' ? (
-                      <div className="w-5 h-3 bg-green-500 rounded-sm overflow-hidden relative">
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-4 h-4 bg-yellow-400 rotate-45 transform -translate-y-1"></div>
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="w-5 h-3 bg-blue-500 rounded-sm overflow-hidden flex flex-col">
-                        <div className="h-[3px] w-full bg-red-500"></div>
-                        <div className="h-[3px] w-full bg-white"></div>
-                        <div className="h-[3px] w-full bg-red-500"></div>
-                      </div>
-                    )}
-                  </div>
-                </div>
+                <div className={`absolute top-1 bottom-1 w-7 rounded-full transition-all duration-200 ${language === 'pt-BR' ? 'left-1 bg-green-600' : 'right-1 bg-blue-600'}`} />
               </Toggle>
             </div>
             

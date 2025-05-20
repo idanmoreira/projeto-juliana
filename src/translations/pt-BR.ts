@@ -2,18 +2,20 @@
 const ptBR = {
   // Navigation
   'home': 'Início',
-  'services': 'Serviços',
+  'services': 'Atendimentos',
   'blog': 'Blog',
   'booking': 'Agendamento',
   'login': 'Entrar',
   'signUp': 'Cadastrar',
   'language': 'Idioma:',
+  'loginWithGoogle': 'Entrar com Google',
+  'orContinueWith': 'ou continuar com email',
   
   // Hero Section
   'heroTitle': 'Orientação Astrológica para a Jornada da Sua Alma',
   'heroSubtitle': 'Descubra seu mapa cósmico e desbloqueie seu verdadeiro potencial com as consultas astrológicas transformadoras de Juliana Manduca.',
   'bookConsultation': 'Agendar Consulta',
-  'exploreServices': 'Explorar Serviços',
+  'exploreServices': 'Explorar Atendimentos',
   
   // Features Section
   'whyChoose': 'Por que Escolher Juliana Manduca',
@@ -46,7 +48,7 @@ const ptBR = {
   'upgradeForFullChart': 'Faça o upgrade para um plano premium para acessar sua leitura completa de mapa natal com interpretação detalhada.',
   
   // Services Section
-  'servicesTitle': 'Serviços & Ofertas',
+  'servicesTitle': 'Atendimentos',
   'servicesDesc': 'Descubra como os insights astrológicos podem guiá-lo através dos desafios e oportunidades da vida.',
   'birthChartDesc': 'Análise completa do seu mapa natal revelando sua personalidade, forças, desafios e propósito de vida.',
   'compatibility': 'Compatibilidade de Relacionamento',
@@ -105,6 +107,12 @@ const ptBR = {
   'courses': 'Cursos',
   'consultations': 'Consultas',
   'resources': 'Recursos',
+  'myFiles': 'Meus Arquivos',
+  'filesDescription': 'Acesse arquivos pessoais compartilhados durante suas consultas',
+  'noFiles': 'Nenhum Arquivo Encontrado',
+  'noFilesYet': 'Você ainda não tem arquivos. Os arquivos aparecerão após sua consulta.',
+  'upgradeForFiles': 'Faça upgrade para premium para acessar arquivos de consulta personalizados.',
+  'scheduleConsultation': 'Agende uma consulta para obter orientação astrológica personalizada',
   'coursesEnrolled': 'Cursos Matriculados',
   'accessToBasicCourses': 'Acesso a cursos básicos',
   'accessToAllCourses': 'Acesso a todos os cursos premium',
@@ -195,6 +203,8 @@ const ptBR = {
   'manageCourses': 'Gerenciar Cursos',
   'manageVideos': 'Gerenciar Vídeos',
   'manageDocuments': 'Gerenciar Documentos',
+  'manageAstrologyTools': 'Gerenciar Ferramentas Astrológicas',
+  'manageTestimonials': 'Gerenciar Depoimentos',
 
   // General
   'appName': 'Astrologia Juliana Manduca',
@@ -204,6 +214,11 @@ const ptBR = {
   'profile': 'Perfil',
   'dashboard': 'Painel',
   'admin': 'Admin',
+  'adminPanel': 'Painel Admin',
+  'users': 'Usuários',
+  'content': 'Conteúdo',
+  'subscriptions': 'Assinaturas',
+  'analytics': 'Análises',
 
   // Authentication
   'email': 'Email',

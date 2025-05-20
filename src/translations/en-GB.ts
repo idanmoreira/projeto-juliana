@@ -17,6 +17,7 @@ const enGB = {
   language: 'Language:',
   signUpWithGoogle: 'Sign up with Google',
   orContinueWith: 'or continue with email',
+  loginWithGoogle: 'Login with Google',
 
   // Hero Section
   heroTitle: 'Astrological Guidance for Your Soul\'s Journey',
@@ -158,6 +159,8 @@ const enGB = {
   showingUsers: 'Showing users',
   previous: 'Previous',
   next: 'Next',
+  manageAstrologyTools: 'Manage Astrology Tools',
+  manageTestimonials: 'Manage Testimonials',
   
   // Admin content management
   contentManagement: 'Content Management',
@@ -246,7 +249,7 @@ const enGB = {
   termsOfService: 'Terms of Service',
     
   // Services Section
-  servicesTitle: 'Services & Offerings',
+  servicesTitle: 'Services',
   servicesDesc: 'Discover how astrological insights can guide you through life\'s challenges and opportunities.',
   birthChartDesc: 'Comprehensive analysis of your natal chart revealing your personality, strengths, challenges, and life purpose.',
   compatibility: 'Relationship Compatibility',

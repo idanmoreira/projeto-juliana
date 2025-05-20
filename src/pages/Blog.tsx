@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import Navbar from '@/components/Navbar';
@@ -14,7 +13,7 @@ const Blog = () => {
   const blogPosts = [
     {
       title: 'Understanding Mercury Retrograde: Facts vs. Myths',
-      excerpt: 'Mercury retrograde has become a scapegoat for all manner of mishaps, but what's the real astrological significance of this transit?',
+      excerpt: "Mercury retrograde has become a scapegoat for all manner of mishaps, but what's the real astrological significance of this transit?",
       date: '2025-04-15',
       image: '/placeholder.svg',
       category: 'Planetary Transits',
@@ -53,7 +52,7 @@ const Blog = () => {
       author: 'Juliana Manduca'
     },
     {
-      title: 'The North Node: Following Your Soul's Purpose',
+      title: "The North Node: Following Your Soul's Purpose",
       excerpt: 'The lunar nodes in your birth chart reveal karmic lessons and your evolutionary path in this lifetime.',
       date: '2025-02-18',
       image: '/placeholder.svg',

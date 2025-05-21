@@ -1,18 +1,10 @@
+
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { FileIcon, DownloadIcon, TrashIcon, FileTextIcon, FileImageIcon, PresentationIcon } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
-
-interface UserFile {
-  id: string;
-  name: string;
-  type: 'document' | 'image' | 'presentation';
-  size: string;
-  date: string;
-  url: string;
-  consultationId?: string;
-}
+import { UserFile } from '@/hooks/useUserData';
 
 interface UserFilesProps {
   files: UserFile[];
@@ -68,7 +60,7 @@ const UserFiles = ({ files, isPremium }: UserFilesProps) => {
               <div className="flex-1 min-w-0">
                 <h4 className="text-base font-medium truncate">{file.name}</h4>
                 <p className="text-sm text-muted-foreground">
-                  {file.size} • {file.date}
+                  {file.size} • {new Date(file.created_at).toLocaleDateString()}
                 </p>
               </div>
               <div className="flex-shrink-0 flex items-center gap-2">

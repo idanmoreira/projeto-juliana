@@ -1,8 +1,10 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from '@/context/LanguageContext';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Loader2 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
@@ -14,46 +16,7 @@ import DashboardConsultations from '@/components/dashboard/DashboardConsultation
 import DashboardResources from '@/components/dashboard/DashboardResources';
 import DashboardFiles from '@/components/dashboard/DashboardFiles';
 import AccessDenied from '@/components/dashboard/AccessDenied';
-
-// Sample user files for demonstration - Updated with proper literal types
-const userFiles = [
-  {
-    id: "1",
-    name: "Birth Chart Analysis.pdf",
-    type: "document" as const,  // Using literal type
-    size: "2.4 MB",
-    date: "2025-04-18",
-    url: "#",
-    consultationId: "c1"
-  },
-  {
-    id: "2",
-    name: "Transit Forecast 2025.pdf",
-    type: "document" as const,  // Using literal type
-    size: "3.1 MB",
-    date: "2025-05-10",
-    url: "#",
-    consultationId: "c2"
-  },
-  {
-    id: "3",
-    name: "Your Astral Map.jpg",
-    type: "image" as const,  // Using literal type
-    size: "1.2 MB",
-    date: "2025-04-28",
-    url: "#",
-    consultationId: "c1"
-  },
-  {
-    id: "4",
-    name: "Venus Retrograde Effects.pptx",
-    type: "presentation" as const,  // Using literal type
-    size: "4.8 MB",
-    date: "2025-05-15",
-    url: "#",
-    consultationId: "c3"
-  }
-];
+import { useUserData } from '@/hooks/useUserData';
 
 // Sample consultation types
 const consultationTypes = [
@@ -66,19 +29,62 @@ const Dashboard = () => {
   const { user } = useAuth();
   const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState('overview');
+  const { profile, courses, files, consultations, isLoading, error } = useUserData();
   
   if (!user) {
     return <AccessDenied />;
   }
 
-  const isPaid = user.role === 'paid' || user.role === 'admin';
+  if (isLoading) {
+    return (
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        <div className="flex-1 container px-4 py-8 flex items-center justify-center">
+          <div className="text-center">
+            <Loader2 className="h-8 w-8 animate-spin text-astral-purple mx-auto mb-4" />
+            <p className="text-muted-foreground">Loading your dashboard...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        <div className="flex-1 container px-4 py-8">
+          <Alert variant="destructive" className="mb-6">
+            <AlertDescription>
+              Error loading dashboard data: {error.message}
+            </AlertDescription>
+          </Alert>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+  
+  const isPaid = profile?.role === 'paid' || profile?.role === 'admin';
   
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="flex-1 container px-4 py-8">
-        <DashboardHeader user={user} isPaid={isPaid} />
-        <DashboardSummary user={user} isPaid={isPaid} />
+        <DashboardHeader user={{
+          name: profile?.display_name || user.email,
+          email: user.email,
+          role: profile?.role
+        }} isPaid={isPaid} />
+        <DashboardSummary 
+          user={{
+            name: profile?.display_name || user.email,
+            email: user.email,
+            role: profile?.role
+          }} 
+          isPaid={isPaid} 
+        />
         
         <Tabs 
           value={activeTab} 
@@ -97,13 +103,19 @@ const Dashboard = () => {
           
           {isPaid && (
             <TabsContent value="overview">
-              <DashboardOverview isPaid={isPaid} />
+              <DashboardOverview 
+                isPaid={isPaid} 
+                courses={courses}
+              />
             </TabsContent>
           )}
           
           {isPaid && (
             <TabsContent value="courses">
-              <DashboardCourses isPaid={isPaid} />
+              <DashboardCourses 
+                isPaid={isPaid}
+                courses={courses}
+              />
             </TabsContent>
           )}
           
@@ -111,6 +123,7 @@ const Dashboard = () => {
             <DashboardConsultations
               isPaid={isPaid}
               consultationTypes={consultationTypes}
+              consultations={consultations}
             />
           </TabsContent>
           
@@ -120,7 +133,7 @@ const Dashboard = () => {
           
           {isPaid && (
             <TabsContent value="files">
-              <DashboardFiles files={userFiles} isPaid={isPaid} />
+              <DashboardFiles files={files} isPaid={isPaid} />
             </TabsContent>
           )}
         </Tabs>

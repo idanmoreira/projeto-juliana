@@ -95,14 +95,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     );
     
     if (foundUser) {
-      // Remove password from user object before storing
-      const { password: _, ...userWithoutPassword } = foundUser;
-      setUser(userWithoutPassword);
-      localStorage.setItem('user', JSON.stringify(userWithoutPassword));
+      // Create a safe user object without the password before storing
+      const safeUser = {
+        id: foundUser.id,
+        email: foundUser.email,
+        name: foundUser.name,
+        role: foundUser.role,
+        subscriptionEnds: foundUser.subscriptionEnds
+      };
+      
+      setUser(safeUser);
+      localStorage.setItem('user', JSON.stringify(safeUser));
       
       toast({
         title: "Logged in successfully",
-        description: `Welcome, ${userWithoutPassword.name}!`,
+        description: `Welcome, ${safeUser.name}!`,
       });
       
       navigate('/dashboard');
@@ -146,6 +153,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Add to mock database (this would be handled by the backend in a real app)
     MOCK_USERS.push({ ...newUser, password });
     
+    // Store only the safe user data (without password)
     setUser(newUser);
     localStorage.setItem('user', JSON.stringify(newUser));
     
@@ -190,4 +198,3 @@ export const useAuth = () => {
   }
   return context;
 };
-

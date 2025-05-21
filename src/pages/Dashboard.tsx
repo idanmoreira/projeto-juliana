@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from '@/context/LanguageContext';
@@ -68,21 +67,20 @@ const Dashboard = () => {
   
   const isPaid = profile?.role === 'paid' || profile?.role === 'admin';
   
+  // Clean user data to ensure no sensitive information is passed to components
+  const safeUserData = {
+    name: profile?.display_name || user.email?.split('@')[0] || 'User',
+    email: user.email,
+    role: profile?.role
+  };
+  
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="flex-1 container px-4 py-8">
-        <DashboardHeader user={{
-          name: profile?.display_name || user.email,
-          email: user.email,
-          role: profile?.role
-        }} isPaid={isPaid} />
+        <DashboardHeader user={safeUserData} isPaid={isPaid} />
         <DashboardSummary 
-          user={{
-            name: profile?.display_name || user.email,
-            email: user.email,
-            role: profile?.role
-          }} 
+          user={safeUserData} 
           isPaid={isPaid} 
         />
         

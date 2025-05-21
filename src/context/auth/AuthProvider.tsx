@@ -5,6 +5,7 @@ import { useToast } from '@/hooks/use-toast';
 import { AuthContextType, User, UserRole } from './types';
 import { MOCK_USERS } from './mockUsers';
 import { getRoleLevel } from './authUtils';
+import { LoginFormValues, SignupFormValues } from './validation';
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -28,7 +29,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return getRoleLevel(user.role) >= getRoleLevel(minimumRole);
   };
 
-  const login = async (email: string, password: string): Promise<void> => {
+  const login = async (formData: LoginFormValues): Promise<void> => {
     setIsLoading(true);
     
     // Simulate API call delay
@@ -36,7 +37,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     
     // Find user in mock database
     const foundUser = MOCK_USERS.find(
-      u => u.email === email && u.password === password
+      u => u.email === formData.email && u.password === formData.password
     );
     
     if (foundUser) {
@@ -69,14 +70,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(false);
   };
 
-  const signup = async (email: string, password: string, name: string): Promise<void> => {
+  const signup = async (formData: SignupFormValues): Promise<void> => {
     setIsLoading(true);
     
     // Simulate API call delay
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     // Check if user already exists in mock database
-    if (MOCK_USERS.some(u => u.email === email)) {
+    if (MOCK_USERS.some(u => u.email === formData.email)) {
       toast({
         title: "Signup failed",
         description: "Email already exists",
@@ -90,13 +91,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // For demo purposes, we'll just create a new user object
     const newUser = {
       id: `${MOCK_USERS.length + 1}`,
-      email,
-      name,
+      email: formData.email,
+      name: formData.name,
       role: 'free' as UserRole,
     };
     
     // Add to mock database (this would be handled by the backend in a real app)
-    MOCK_USERS.push({ ...newUser, password });
+    MOCK_USERS.push({ ...newUser, password: formData.password });
     
     // Store only the safe user data (without password)
     setUser(newUser);

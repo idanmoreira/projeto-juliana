@@ -16,6 +16,7 @@ import DashboardConsultations from '@/components/dashboard/DashboardConsultation
 import DashboardResources from '@/components/dashboard/DashboardResources';
 import DashboardFiles from '@/components/dashboard/DashboardFiles';
 import AccessDenied from '@/components/dashboard/AccessDenied';
+import AstrologyTools from '@/components/AstrologyTools';
 import { useUserData } from '@/hooks/useUserData';
 
 // Sample consultation types
@@ -81,12 +82,13 @@ const Dashboard = () => {
             className="space-y-4"
           >
             <TabsList className="grid w-full max-w-xl" style={{ 
-              gridTemplateColumns: isPaid ? 'repeat(5, 1fr)' : 'repeat(2, 1fr)' 
+              gridTemplateColumns: isPaid ? 'repeat(6, 1fr)' : 'repeat(3, 1fr)' 
             }}>
               {isPaid && <TabsTrigger value="overview">{t('overview')}</TabsTrigger>}
               {isPaid && <TabsTrigger value="courses">{t('courses')}</TabsTrigger>}
               <TabsTrigger value="consultations">{t('consultations')}</TabsTrigger>
               <TabsTrigger value="resources">{t('resources')}</TabsTrigger>
+              <TabsTrigger value="tools">{t('tools')}</TabsTrigger>
               {isPaid && <TabsTrigger value="files">{t('myFiles')}</TabsTrigger>}
             </TabsList>
             
@@ -120,6 +122,11 @@ const Dashboard = () => {
               <DashboardResources isPaid={isPaid} />
             </TabsContent>
             
+            <TabsContent value="tools">
+              <h2 className="text-2xl font-semibold mb-4">{t('astrologyTools')}</h2>
+              <AstrologyTools />
+            </TabsContent>
+            
             {isPaid && (
               <TabsContent value="files">
                 <DashboardFiles files={files} isPaid={isPaid} />
@@ -149,12 +156,13 @@ const Dashboard = () => {
           className="space-y-4"
         >
           <TabsList className="grid w-full max-w-xl" style={{ 
-            gridTemplateColumns: isPaid ? 'repeat(5, 1fr)' : 'repeat(2, 1fr)' 
+            gridTemplateColumns: isPaid ? 'repeat(6, 1fr)' : 'repeat(3, 1fr)' 
           }}>
             {isPaid && <TabsTrigger value="overview">{t('overview')}</TabsTrigger>}
             {isPaid && <TabsTrigger value="courses">{t('courses')}</TabsTrigger>}
             <TabsTrigger value="consultations">{t('consultations')}</TabsTrigger>
             <TabsTrigger value="resources">{t('resources')}</TabsTrigger>
+            <TabsTrigger value="tools">{t('tools')}</TabsTrigger>
             {isPaid && <TabsTrigger value="files">{t('myFiles')}</TabsTrigger>}
           </TabsList>
           
@@ -186,6 +194,11 @@ const Dashboard = () => {
           
           <TabsContent value="resources">
             <DashboardResources isPaid={isPaid} />
+          </TabsContent>
+          
+          <TabsContent value="tools">
+            <h2 className="text-2xl font-semibold mb-4">{t('astrologyTools')}</h2>
+            <AstrologyTools />
           </TabsContent>
           
           {isPaid && (

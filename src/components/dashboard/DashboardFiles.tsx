@@ -2,16 +2,7 @@
 import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import UserFiles from '@/components/UserFiles';
-
-interface UserFile {
-  id: string;
-  name: string;
-  type: "document" | "image" | "presentation";
-  size: string;
-  date: string;
-  url: string;
-  consultationId?: string;
-}
+import { UserFile } from '@/hooks/useUserData';
 
 interface DashboardFilesProps {
   files: UserFile[];

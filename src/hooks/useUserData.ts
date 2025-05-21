@@ -58,57 +58,86 @@ export const useUserData = () => {
         setIsLoading(true);
         setError(null);
         
-        // Fetch profile
-        const { data: profileData, error: profileError } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', user.id)
-          .single();
+        // Try to fetch profile from Supabase
+        try {
+          const { data: profileData, error: profileError } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', user.id)
+            .single();
+            
+          if (profileError) throw new Error(`Error fetching profile: ${profileError.message}`);
+          setProfile(profileData);
+        } catch (profileErr) {
+          console.warn('Failed to fetch profile from Supabase, using fallback data:', profileErr);
+          // Create fallback profile data from auth user
+          const fallbackProfile: UserProfile = {
+            id: user.id,
+            display_name: user.name || null,
+            avatar_url: null,
+            role: user.role,
+            is_paid: user.role === 'paid' || user.role === 'admin'
+          };
+          setProfile(fallbackProfile);
+        }
+        
+        // Try to fetch courses
+        try {
+          const { data: userCoursesData, error: coursesError } = await supabase
+            .from('user_courses')
+            .select(`
+              id, progress, completed,
+              courses:course_id (id, title, description)
+            `)
+            .eq('user_id', user.id);
+            
+          if (coursesError) throw new Error(`Error fetching courses: ${coursesError.message}`);
           
-        if (profileError) throw new Error(`Error fetching profile: ${profileError.message}`);
-        setProfile(profileData);
-        
-        // Fetch user courses with course details
-        const { data: userCoursesData, error: coursesError } = await supabase
-          .from('user_courses')
-          .select(`
-            id, progress, completed,
-            courses:course_id (id, title, description)
-          `)
-          .eq('user_id', user.id);
+          // Transform the data structure to match our component needs
+          const formattedCourses = userCoursesData?.map(item => ({
+            id: item.id,
+            course_id: item.courses.id,
+            title: item.courses.title,
+            description: item.courses.description,
+            progress: item.progress,
+            completed: item.completed
+          })) || [];
           
-        if (coursesError) throw new Error(`Error fetching courses: ${coursesError.message}`);
+          setCourses(formattedCourses);
+        } catch (coursesErr) {
+          console.warn('Failed to fetch courses from Supabase, using fallback data:', coursesErr);
+          // Empty courses array as fallback
+          setCourses([]);
+        }
         
-        // Transform the data structure to match our component needs
-        const formattedCourses = userCoursesData.map(item => ({
-          id: item.id,
-          course_id: item.courses.id,
-          title: item.courses.title,
-          description: item.courses.description,
-          progress: item.progress,
-          completed: item.completed
-        }));
+        // Try to fetch files
+        try {
+          const { data: filesData, error: filesError } = await supabase
+            .from('files')
+            .select('*')
+            .eq('user_id', user.id);
+            
+          if (filesError) throw new Error(`Error fetching files: ${filesError.message}`);
+          setFiles(filesData || []);
+        } catch (filesErr) {
+          console.warn('Failed to fetch files from Supabase, using fallback data:', filesErr);
+          setFiles([]);
+        }
         
-        setCourses(formattedCourses);
-        
-        // Fetch files
-        const { data: filesData, error: filesError } = await supabase
-          .from('files')
-          .select('*')
-          .eq('user_id', user.id);
-          
-        if (filesError) throw new Error(`Error fetching files: ${filesError.message}`);
-        setFiles(filesData);
-        
-        // Fetch consultations
-        const { data: consultationsData, error: consultationsError } = await supabase
-          .from('consultations')
-          .select('*')
-          .eq('user_id', user.id)
-          .order('date', { ascending: true });
-          
-        if (consultationsError) throw new Error(`Error fetching consultations: ${consultationsError.message}`);
-        setConsultations(consultationsData);
+        // Try to fetch consultations
+        try {
+          const { data: consultationsData, error: consultationsError } = await supabase
+            .from('consultations')
+            .select('*')
+            .eq('user_id', user.id)
+            .order('date', { ascending: true });
+            
+          if (consultationsError) throw new Error(`Error fetching consultations: ${consultationsError.message}`);
+          setConsultations(consultationsData || []);
+        } catch (consultErr) {
+          console.warn('Failed to fetch consultations from Supabase, using fallback data:', consultErr);
+          setConsultations([]);
+        }
 
       } catch (err) {
         console.error('Error fetching user data:', err);

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from '@/context/LanguageContext';
@@ -49,30 +50,88 @@ const Dashboard = () => {
     );
   }
 
+  // Build a safe user profile even if there's an error
+  const safeUserData = {
+    name: profile?.display_name || user.name || user.email?.split('@')[0] || 'User',
+    email: user.email,
+    role: profile?.role || user.role || 'free'
+  };
+
+  // Determine if user has paid features
+  const isPaid = safeUserData.role === 'paid' || safeUserData.role === 'admin';
+
   if (error) {
+    // Show error alert but still render the dashboard with available data
     return (
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <div className="flex-1 container px-4 py-8">
           <Alert variant="destructive" className="mb-6">
             <AlertDescription>
-              Error loading dashboard data: {error.message}
+              Error loading some dashboard data: {error.message}
             </AlertDescription>
           </Alert>
+
+          <DashboardHeader user={safeUserData} isPaid={isPaid} />
+          <DashboardSummary user={safeUserData} isPaid={isPaid} />
+          
+          <Tabs 
+            value={activeTab} 
+            onValueChange={setActiveTab}
+            className="space-y-4"
+          >
+            <TabsList className="grid w-full max-w-xl" style={{ 
+              gridTemplateColumns: isPaid ? 'repeat(5, 1fr)' : 'repeat(2, 1fr)' 
+            }}>
+              {isPaid && <TabsTrigger value="overview">{t('overview')}</TabsTrigger>}
+              {isPaid && <TabsTrigger value="courses">{t('courses')}</TabsTrigger>}
+              <TabsTrigger value="consultations">{t('consultations')}</TabsTrigger>
+              <TabsTrigger value="resources">{t('resources')}</TabsTrigger>
+              {isPaid && <TabsTrigger value="files">{t('myFiles')}</TabsTrigger>}
+            </TabsList>
+            
+            {isPaid && (
+              <TabsContent value="overview">
+                <DashboardOverview 
+                  isPaid={isPaid} 
+                  courses={courses}
+                />
+              </TabsContent>
+            )}
+            
+            {isPaid && (
+              <TabsContent value="courses">
+                <DashboardCourses 
+                  isPaid={isPaid}
+                  courses={courses}
+                />
+              </TabsContent>
+            )}
+            
+            <TabsContent value="consultations">
+              <DashboardConsultations
+                isPaid={isPaid}
+                consultationTypes={consultationTypes}
+                consultations={consultations}
+              />
+            </TabsContent>
+            
+            <TabsContent value="resources">
+              <DashboardResources isPaid={isPaid} />
+            </TabsContent>
+            
+            {isPaid && (
+              <TabsContent value="files">
+                <DashboardFiles files={files} isPaid={isPaid} />
+              </TabsContent>
+            )}
+          </Tabs>
         </div>
         <Footer />
+        <WhatsAppButton />
       </div>
     );
   }
-  
-  const isPaid = profile?.role === 'paid' || profile?.role === 'admin';
-  
-  // Clean user data to ensure no sensitive information is passed to components
-  const safeUserData = {
-    name: profile?.display_name || user.email?.split('@')[0] || 'User',
-    email: user.email,
-    role: profile?.role
-  };
   
   return (
     <div className="flex flex-col min-h-screen">

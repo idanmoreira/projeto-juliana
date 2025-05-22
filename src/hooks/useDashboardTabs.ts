@@ -9,13 +9,13 @@ export function useDashboardTabs(isPaid: boolean) {
   // Get available tabs based on user role
   const availableTabs: Array<{ value: DashboardTab; label: string }> = [
     ...(isPaid ? [
-      { value: 'overview', label: 'overview' },
-      { value: 'courses', label: 'courses' },
+      { value: 'overview' as DashboardTab, label: 'overview' },
+      { value: 'courses' as DashboardTab, label: 'courses' },
     ] : []),
-    { value: 'consultations', label: 'consultations' },
-    { value: 'resources', label: 'resources' },
-    { value: 'tools', label: 'tools' },
-    ...(isPaid ? [{ value: 'files', label: 'files' }] : []),
+    { value: 'consultations' as DashboardTab, label: 'consultations' },
+    { value: 'resources' as DashboardTab, label: 'resources' },
+    { value: 'tools' as DashboardTab, label: 'tools' },
+    ...(isPaid ? [{ value: 'files' as DashboardTab, label: 'files' }] : []),
   ];
 
   return {

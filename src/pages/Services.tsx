@@ -55,7 +55,7 @@ const Services = () => {
               <div className="inline-block bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 px-3 py-1 rounded-full text-sm font-medium mb-2">
                 {t('servicesTitle')}
               </div>
-              <h1 className="text-3xl md:text-5xl font-bold tracking-tighter">
+              <h1 className="text-3xl md:text-5xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-astral-purple via-astral-indigo to-astral-dark dark:from-astral-purple dark:via-white dark:to-astral-gold">
                 {t('servicesDesc')}
               </h1>
               <p className="text-muted-foreground text-lg max-w-[700px]">
@@ -69,26 +69,26 @@ const Services = () => {
         <div className="container px-4 md:px-6 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
             {services.map((service, index) => (
-              <Card key={index} className="overflow-hidden transition-all hover:shadow-lg">
-                <div className="aspect-video bg-purple-100 dark:bg-purple-900/20 relative">
+              <Card key={index} className="overflow-hidden transition-all hover:shadow-lg border-astral-indigo/30 hover:border-astral-purple">
+                <div className="aspect-video bg-gradient-to-br from-purple-100 to-astral-indigo/10 dark:from-purple-900/20 dark:to-astral-dark/50 relative">
                   <img 
                     src={service.image} 
                     alt={service.title}
                     className="object-cover w-full h-full opacity-60" 
                   />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-4xl text-purple-500 dark:text-purple-300">✧</div>
+                    <div className="text-4xl text-astral-purple dark:text-purple-300">✧</div>
                   </div>
                 </div>
                 <CardHeader>
-                  <CardTitle>{service.title}</CardTitle>
+                  <CardTitle className="text-astral-indigo dark:text-white">{service.title}</CardTitle>
                   <div className="flex items-center text-sm text-muted-foreground">
                     <Clock className="mr-1 h-4 w-4" />
                     <span>{service.duration} • {service.price}</span>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-base">{service.description}</CardDescription>
+                  <CardDescription className="text-base text-foreground/80">{service.description}</CardDescription>
                 </CardContent>
                 <CardFooter>
                   <Button className="w-full bg-astral-purple hover:bg-astral-purple/90">
@@ -101,10 +101,12 @@ const Services = () => {
         </div>
         
         {/* CTA Section */}
-        <div className="bg-purple-50 dark:bg-purple-950/10 py-16">
+        <div className="bg-gradient-to-r from-purple-50 to-astral-purple/5 dark:from-purple-950/10 dark:to-astral-dark/50 py-16">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center text-center space-y-4">
-              <h2 className="text-2xl md:text-3xl font-bold">{t('beginJourney')}</h2>
+              <h2 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-astral-indigo to-astral-purple dark:from-white dark:to-astral-purple/80">
+                {t('beginJourney')}
+              </h2>
               <p className="text-muted-foreground max-w-[600px]">
                 {t('journeyDesc')}
               </p>

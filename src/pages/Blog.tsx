@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -6,9 +7,14 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import WhatsAppButton from '@/components/WhatsAppButton';
+import { Input } from '@/components/ui/input';
+import { useToast } from '@/components/ui/use-toast';
 
 const Blog = () => {
   const { t } = useLanguage();
+  const { toast } = useToast();
+  const [email, setEmail] = useState('');
+  const [activeCategory, setActiveCategory] = useState('All Posts');
   
   const blogPosts = [
     {
@@ -71,6 +77,15 @@ const Blog = () => {
     'Life Guidance',
     'Beginners Guide'
   ];
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Subscribed!",
+      description: "Thank you for joining our newsletter.",
+    });
+    setEmail("");
+  };
   
   return (
     <div className="flex flex-col min-h-screen">
@@ -84,7 +99,7 @@ const Blog = () => {
               <div className="inline-block bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 px-3 py-1 rounded-full text-sm font-medium mb-2">
                 {t('blog')}
               </div>
-              <h1 className="text-3xl md:text-5xl font-bold tracking-tighter">
+              <h1 className="text-3xl md:text-5xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-astral-purple via-astral-indigo to-astral-dark dark:from-astral-purple dark:via-white dark:to-astral-gold">
                 {t('latestInsights')}
               </h1>
               <p className="text-muted-foreground text-lg max-w-[700px]">
@@ -100,9 +115,10 @@ const Blog = () => {
             {categories.map((category, index) => (
               <Button
                 key={index}
-                variant={index === 0 ? "default" : "outline"}
+                variant={category === activeCategory ? "default" : "outline"}
                 size="sm"
-                className={index === 0 ? "bg-astral-purple hover:bg-astral-purple/90" : ""}
+                onClick={() => setActiveCategory(category)}
+                className={category === activeCategory ? "bg-astral-purple hover:bg-astral-purple/90" : ""}
               >
                 {category}
               </Button>
@@ -110,30 +126,31 @@ const Blog = () => {
           </div>
         </div>
         
-        <Separator className="my-2" />
+        <Separator className="my-2 bg-astral-indigo/20" />
         
         {/* Blog Grid */}
         <div className="container px-4 md:px-6 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogPosts.map((post, index) => (
-              <Card key={index} className="overflow-hidden flex flex-col h-full">
-                <div className="aspect-video bg-muted relative">
+              <Card key={index} className="overflow-hidden flex flex-col h-full border-astral-indigo/30 hover:border-astral-purple transition-all hover:shadow-lg">
+                <div className="aspect-video bg-gradient-to-br from-purple-100 to-astral-indigo/10 dark:from-purple-900/20 dark:to-astral-dark/50 relative">
                   <img 
                     src={post.image} 
                     alt={post.title}
                     className="object-cover w-full h-full" 
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
                 </div>
                 <CardHeader>
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-xs text-purple-600 dark:text-purple-400 font-medium">{post.category}</span>
+                    <span className="text-xs text-astral-purple dark:text-purple-400 font-medium">{post.category}</span>
                     <span className="text-xs text-muted-foreground">•</span>
                     <span className="text-xs text-muted-foreground">{post.date}</span>
                   </div>
-                  <CardTitle className="line-clamp-2">{post.title}</CardTitle>
+                  <CardTitle className="line-clamp-2 text-astral-indigo dark:text-white">{post.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="line-clamp-3">{post.excerpt}</CardDescription>
+                  <CardDescription className="line-clamp-3 text-foreground/80">{post.excerpt}</CardDescription>
                 </CardContent>
                 <CardFooter className="mt-auto pt-4">
                   <Button variant="ghost" className="text-astral-purple hover:text-astral-purple/90 hover:bg-purple-50 dark:hover:bg-purple-950/20 p-0">
@@ -145,28 +162,33 @@ const Blog = () => {
           </div>
           
           <div className="flex justify-center mt-12">
-            <Button variant="outline" size="lg">
+            <Button variant="outline" size="lg" className="border-astral-indigo hover:bg-astral-indigo/10">
               Load More Articles
             </Button>
           </div>
         </div>
         
         {/* Newsletter Section */}
-        <div className="bg-purple-50 dark:bg-purple-950/10 py-16">
+        <div className="bg-gradient-to-r from-purple-50 to-astral-purple/5 dark:from-purple-950/10 dark:to-astral-dark/50 py-16">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center text-center space-y-4 max-w-md mx-auto">
-              <h2 className="text-2xl font-bold">{t('stayConnected')}</h2>
+              <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-astral-indigo to-astral-purple dark:from-white dark:to-astral-purple/80">
+                {t('stayConnected')}
+              </h2>
               <p className="text-muted-foreground">
                 {t('newsletterDesc')}
               </p>
-              <div className="flex w-full max-w-sm items-center space-x-2 mt-4">
-                <input
+              <form onSubmit={handleSubscribe} className="flex w-full max-w-sm items-center space-x-2 mt-4">
+                <Input
                   type="email"
                   placeholder={t('yourEmail')}
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="flex h-10 w-full rounded-md border border-astral-indigo/30 bg-card px-3 py-2 text-sm"
+                  required
                 />
-                <Button className="bg-astral-purple hover:bg-astral-purple/90">{t('subscribe')}</Button>
-              </div>
+                <Button type="submit" className="bg-astral-purple hover:bg-astral-purple/90">{t('subscribe')}</Button>
+              </form>
               <p className="text-xs text-muted-foreground max-w-[350px]">
                 {t('privacyConsent')}
               </p>

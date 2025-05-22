@@ -1,8 +1,8 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from '@/context/LanguageContext';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
@@ -10,14 +10,11 @@ import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import DashboardHeader from '@/components/dashboard/DashboardHeader';
 import DashboardSummary from '@/components/dashboard/DashboardSummary';
-import DashboardOverview from '@/components/dashboard/DashboardOverview';
-import DashboardCourses from '@/components/dashboard/DashboardCourses';
-import DashboardConsultations from '@/components/dashboard/DashboardConsultations';
-import DashboardResources from '@/components/dashboard/DashboardResources';
-import DashboardFiles from '@/components/dashboard/DashboardFiles';
+import DashboardTabsList from '@/components/dashboard/DashboardTabsList';
+import DashboardTabsContent from '@/components/dashboard/DashboardTabsContent';
 import AccessDenied from '@/components/dashboard/AccessDenied';
-import AstrologyTools from '@/components/AstrologyTools';
 import { useUserData } from '@/hooks/useUserData';
+import { useDashboardTabs } from '@/hooks/useDashboardTabs';
 
 // Sample consultation types
 const consultationTypes = [
@@ -28,8 +25,6 @@ const consultationTypes = [
 
 const Dashboard = () => {
   const { user } = useAuth();
-  const { t } = useLanguage();
-  const [activeTab, setActiveTab] = useState('overview');
   const { profile, courses, files, consultations, isLoading, error } = useUserData();
   
   if (!user) {
@@ -37,18 +32,7 @@ const Dashboard = () => {
   }
 
   if (isLoading) {
-    return (
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
-        <div className="flex-1 container px-4 py-8 flex items-center justify-center">
-          <div className="text-center">
-            <Loader2 className="h-8 w-8 animate-spin text-astral-purple mx-auto mb-4" />
-            <p className="text-muted-foreground">Loading your dashboard...</p>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    );
+    return <DashboardLoadingState />;
   }
 
   // Build a safe user profile even if there's an error
@@ -60,84 +44,17 @@ const Dashboard = () => {
 
   // Determine if user has paid features
   const isPaid = safeUserData.role === 'paid' || safeUserData.role === 'admin';
+  const { activeTab, setActiveTab, availableTabs } = useDashboardTabs(isPaid);
 
   if (error) {
-    // Show error alert but still render the dashboard with available data
-    return (
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
-        <div className="flex-1 container px-4 py-8">
-          <Alert variant="destructive" className="mb-6">
-            <AlertDescription>
-              Error loading some dashboard data: {error.message}
-            </AlertDescription>
-          </Alert>
-
-          <DashboardHeader user={safeUserData} isPaid={isPaid} />
-          <DashboardSummary user={safeUserData} isPaid={isPaid} />
-          
-          <Tabs 
-            value={activeTab} 
-            onValueChange={setActiveTab}
-            className="space-y-4"
-          >
-            <TabsList className="grid w-full max-w-xl" style={{ 
-              gridTemplateColumns: isPaid ? 'repeat(6, 1fr)' : 'repeat(3, 1fr)' 
-            }}>
-              {isPaid && <TabsTrigger value="overview">{t('overview')}</TabsTrigger>}
-              {isPaid && <TabsTrigger value="courses">{t('courses')}</TabsTrigger>}
-              <TabsTrigger value="consultations">{t('consultations')}</TabsTrigger>
-              <TabsTrigger value="resources">{t('resources')}</TabsTrigger>
-              <TabsTrigger value="tools">{t('tools')}</TabsTrigger>
-              {isPaid && <TabsTrigger value="files">{t('myFiles')}</TabsTrigger>}
-            </TabsList>
-            
-            {isPaid && (
-              <TabsContent value="overview">
-                <DashboardOverview 
-                  isPaid={isPaid} 
-                  courses={courses}
-                />
-              </TabsContent>
-            )}
-            
-            {isPaid && (
-              <TabsContent value="courses">
-                <DashboardCourses 
-                  isPaid={isPaid}
-                  courses={courses}
-                />
-              </TabsContent>
-            )}
-            
-            <TabsContent value="consultations">
-              <DashboardConsultations
-                isPaid={isPaid}
-                consultationTypes={consultationTypes}
-                consultations={consultations}
-              />
-            </TabsContent>
-            
-            <TabsContent value="resources">
-              <DashboardResources isPaid={isPaid} />
-            </TabsContent>
-            
-            <TabsContent value="tools">
-              <h2 className="text-2xl font-semibold mb-4">{t('astrologyTools')}</h2>
-              <AstrologyTools />
-            </TabsContent>
-            
-            {isPaid && (
-              <TabsContent value="files">
-                <DashboardFiles files={files} isPaid={isPaid} />
-              </TabsContent>
-            )}
-          </Tabs>
-        </div>
-        <Footer />
-        <WhatsAppButton />
-      </div>
-    );
+    return <DashboardWithError 
+      error={error} 
+      safeUserData={safeUserData}
+      isPaid={isPaid}
+      courses={courses}
+      files={files}
+      consultations={consultations}
+    />;
   }
   
   return (
@@ -152,60 +69,87 @@ const Dashboard = () => {
         
         <Tabs 
           value={activeTab} 
-          onValueChange={setActiveTab}
+          onValueChange={(value) => setActiveTab(value as any)}
           className="space-y-4"
         >
-          <TabsList className="grid w-full max-w-xl" style={{ 
-            gridTemplateColumns: isPaid ? 'repeat(6, 1fr)' : 'repeat(3, 1fr)' 
-          }}>
-            {isPaid && <TabsTrigger value="overview">{t('overview')}</TabsTrigger>}
-            {isPaid && <TabsTrigger value="courses">{t('courses')}</TabsTrigger>}
-            <TabsTrigger value="consultations">{t('consultations')}</TabsTrigger>
-            <TabsTrigger value="resources">{t('resources')}</TabsTrigger>
-            <TabsTrigger value="tools">{t('tools')}</TabsTrigger>
-            {isPaid && <TabsTrigger value="files">{t('myFiles')}</TabsTrigger>}
-          </TabsList>
+          <DashboardTabsList availableTabs={availableTabs} />
           
-          {isPaid && (
-            <TabsContent value="overview">
-              <DashboardOverview 
-                isPaid={isPaid} 
-                courses={courses}
-              />
-            </TabsContent>
-          )}
+          <DashboardTabsContent 
+            activeTab={activeTab}
+            isPaid={isPaid}
+            courses={courses}
+            files={files}
+            consultations={consultations}
+            consultationTypes={consultationTypes}
+          />
+        </Tabs>
+      </div>
+      <Footer />
+      <WhatsAppButton />
+    </div>
+  );
+};
+
+// Extracted components for better code organization
+
+const DashboardLoadingState = () => (
+  <div className="flex flex-col min-h-screen">
+    <Navbar />
+    <div className="flex-1 container px-4 py-8 flex items-center justify-center">
+      <div className="text-center">
+        <Loader2 className="h-8 w-8 animate-spin text-astral-purple mx-auto mb-4" />
+        <p className="text-muted-foreground">Loading your dashboard...</p>
+      </div>
+    </div>
+    <Footer />
+  </div>
+);
+
+const DashboardWithError = ({ 
+  error, 
+  safeUserData, 
+  isPaid,
+  courses,
+  files,
+  consultations
+}: { 
+  error: Error, 
+  safeUserData: any,
+  isPaid: boolean,
+  courses: any[],
+  files: any[],
+  consultations: any[]
+}) => {
+  const { activeTab, setActiveTab, availableTabs } = useDashboardTabs(isPaid);
+  
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
+      <div className="flex-1 container px-4 py-8">
+        <Alert variant="destructive" className="mb-6">
+          <AlertDescription>
+            Error loading some dashboard data: {error.message}
+          </AlertDescription>
+        </Alert>
+
+        <DashboardHeader user={safeUserData} isPaid={isPaid} />
+        <DashboardSummary user={safeUserData} isPaid={isPaid} />
+        
+        <Tabs 
+          value={activeTab} 
+          onValueChange={(value) => setActiveTab(value as any)}
+          className="space-y-4"
+        >
+          <DashboardTabsList availableTabs={availableTabs} />
           
-          {isPaid && (
-            <TabsContent value="courses">
-              <DashboardCourses 
-                isPaid={isPaid}
-                courses={courses}
-              />
-            </TabsContent>
-          )}
-          
-          <TabsContent value="consultations">
-            <DashboardConsultations
-              isPaid={isPaid}
-              consultationTypes={consultationTypes}
-              consultations={consultations}
-            />
-          </TabsContent>
-          
-          <TabsContent value="resources">
-            <DashboardResources isPaid={isPaid} />
-          </TabsContent>
-          
-          <TabsContent value="tools">
-            <h2 className="text-2xl font-semibold mb-4">{t('astrologyTools')}</h2>
-            <AstrologyTools />
-          </TabsContent>
-          
-          {isPaid && (
-            <TabsContent value="files">
-              <DashboardFiles files={files} isPaid={isPaid} />
-            </TabsContent>
-          )}
+          <DashboardTabsContent 
+            activeTab={activeTab}
+            isPaid={isPaid}
+            courses={courses}
+            files={files}
+            consultations={consultations}
+            consultationTypes={consultationTypes}
+          />
         </Tabs>
       </div>
       <Footer />

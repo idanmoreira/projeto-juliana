@@ -92,17 +92,17 @@ const Blog = () => {
       <Navbar />
       
       <main className="flex-1">
-        {/* Hero Section */}
-        <div className="bg-gradient-to-b from-purple-50 to-white dark:from-purple-950/20 dark:to-background py-16 md:py-24">
+        {/* Hero Section - Updated background to match home page */}
+        <div className="relative gradient-bg star-field overflow-hidden py-16 md:py-24">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="inline-block bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 px-3 py-1 rounded-full text-sm font-medium mb-2">
+              <div className="inline-block bg-purple-100/20 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 px-3 py-1 rounded-full text-sm font-medium mb-2">
                 {t('blog')}
               </div>
-              <h1 className="text-3xl md:text-5xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-astral-purple via-astral-indigo to-astral-dark dark:from-astral-purple dark:via-white dark:to-astral-gold">
+              <h1 className="text-3xl md:text-5xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-astral-purple via-white to-astral-gold">
                 {t('latestInsights')}
               </h1>
-              <p className="text-muted-foreground text-lg max-w-[700px]">
+              <p className="text-xl md:text-2xl text-muted-foreground max-w-[700px]">
                 {t('insightsDesc')}
               </p>
             </div>
@@ -168,14 +168,14 @@ const Blog = () => {
           </div>
         </div>
         
-        {/* Newsletter Section */}
-        <div className="bg-gradient-to-r from-purple-50 to-astral-purple/5 dark:from-purple-950/10 dark:to-astral-dark/50 py-16">
+        {/* Newsletter Section - Updated background to match home page */}
+        <div className="relative gradient-bg star-field overflow-hidden py-16">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center text-center space-y-4 max-w-md mx-auto">
               <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-astral-indigo to-astral-purple dark:from-white dark:to-astral-purple/80">
                 {t('stayConnected')}
               </h2>
-              <p className="text-muted-foreground">
+              <p className="text-xl text-muted-foreground">
                 {t('newsletterDesc')}
               </p>
               <form onSubmit={handleSubscribe} className="flex w-full max-w-sm items-center space-x-2 mt-4">
@@ -184,7 +184,7 @@ const Blog = () => {
                   placeholder={t('yourEmail')}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="flex h-10 w-full rounded-md border border-astral-indigo/30 bg-card px-3 py-2 text-sm"
+                  className="flex h-10 w-full rounded-md border border-astral-indigo/30 bg-card/50 px-3 py-2 text-sm"
                   required
                 />
                 <Button type="submit" className="bg-astral-purple hover:bg-astral-purple/90">{t('subscribe')}</Button>

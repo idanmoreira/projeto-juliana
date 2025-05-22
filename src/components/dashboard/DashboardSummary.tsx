@@ -57,7 +57,7 @@ const DashboardSummary = ({ isPaid, user }: DashboardSummaryProps) => {
                   : t('freeAccount')
               }
             </div>
-            <Badge variant={isPaid ? "default" : "outline"} className={isPaid ? "bg-astral-gold" : ""}>
+            <Badge variant={isPaid ? "default" : "outline"} className={isPaid ? "bg-astral-purple" : ""}>
               {isPaid ? "Premium" : "Free"}
             </Badge>
           </div>
@@ -66,7 +66,7 @@ const DashboardSummary = ({ isPaid, user }: DashboardSummaryProps) => {
           </p>
           {!isPaid && (
             <Button 
-              className="mt-4 w-full bg-astral-gold hover:bg-astral-gold/90 text-astral-dark"
+              className="mt-4 w-full bg-astral-purple hover:bg-astral-purple/90 text-white"
             >
               {t('upgradeToPremium')}
             </Button>

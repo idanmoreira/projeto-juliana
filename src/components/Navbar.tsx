@@ -77,7 +77,7 @@ const Navbar = () => {
                   EN
                 </span>
               </div>
-              <div className={`absolute top-1 bottom-1 w-7 rounded-full transition-all duration-200 ${language === 'pt-BR' ? 'left-1 bg-green-600' : 'right-1 bg-blue-600'}`} />
+              <div className={`absolute top-1 bottom-1 w-7 rounded-full transition-all duration-200 ${language === 'pt-BR' ? 'left-1 bg-blue-600' : 'right-1 bg-blue-600'}`} />
             </Toggle>
           </div>
 
@@ -189,7 +189,7 @@ const Navbar = () => {
                     EN
                   </span>
                 </div>
-                <div className={`absolute top-1 bottom-1 w-7 rounded-full transition-all duration-200 ${language === 'pt-BR' ? 'left-1 bg-green-600' : 'right-1 bg-blue-600'}`} />
+                <div className={`absolute top-1 bottom-1 w-7 rounded-full transition-all duration-200 ${language === 'pt-BR' ? 'left-1 bg-blue-600' : 'right-1 bg-blue-600'}`} />
               </Toggle>
             </div>
             

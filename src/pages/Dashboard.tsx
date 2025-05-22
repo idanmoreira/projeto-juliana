@@ -44,93 +44,41 @@ const Dashboard = () => {
 
   // Determine if user has paid features
   const isPaid = safeUserData.role === 'paid' || safeUserData.role === 'admin';
-  const { activeTab, setActiveTab, availableTabs } = useDashboardTabs(isPaid);
-
-  if (error) {
-    return <DashboardWithError 
-      error={error} 
+  
+  return (
+    <DashboardContent 
       safeUserData={safeUserData}
       isPaid={isPaid}
       courses={courses}
       files={files}
       consultations={consultations}
-    />;
-  }
-  
-  return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <div className="flex-1 container px-4 py-8">
-        <DashboardHeader user={safeUserData} isPaid={isPaid} />
-        <DashboardSummary 
-          user={safeUserData} 
-          isPaid={isPaid} 
-        />
-        
-        <Tabs 
-          value={activeTab} 
-          onValueChange={(value) => setActiveTab(value as any)}
-          className="space-y-4"
-        >
-          <DashboardTabsList availableTabs={availableTabs} />
-          
-          <DashboardTabsContent 
-            activeTab={activeTab}
-            isPaid={isPaid}
-            courses={courses}
-            files={files}
-            consultations={consultations}
-            consultationTypes={consultationTypes}
-          />
-        </Tabs>
-      </div>
-      <Footer />
-      <WhatsAppButton />
-    </div>
+      error={error}
+    />
   );
 };
 
 // Extracted components for better code organization
-
-const DashboardLoadingState = () => (
-  <div className="flex flex-col min-h-screen">
-    <Navbar />
-    <div className="flex-1 container px-4 py-8 flex items-center justify-center">
-      <div className="text-center">
-        <Loader2 className="h-8 w-8 animate-spin text-astral-purple mx-auto mb-4" />
-        <p className="text-muted-foreground">Loading your dashboard...</p>
-      </div>
-    </div>
-    <Footer />
-  </div>
-);
-
-const DashboardWithError = ({ 
-  error, 
+const DashboardContent = ({ 
   safeUserData, 
-  isPaid,
-  courses,
-  files,
-  consultations
-}: { 
-  error: Error, 
-  safeUserData: any,
-  isPaid: boolean,
-  courses: any[],
-  files: any[],
-  consultations: any[]
+  isPaid, 
+  courses, 
+  files, 
+  consultations, 
+  error 
 }) => {
   const { activeTab, setActiveTab, availableTabs } = useDashboardTabs(isPaid);
-  
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="flex-1 container px-4 py-8">
-        <Alert variant="destructive" className="mb-6">
-          <AlertDescription>
-            Error loading some dashboard data: {error.message}
-          </AlertDescription>
-        </Alert>
+        {error && (
+          <Alert variant="destructive" className="mb-6">
+            <AlertDescription>
+              Error loading some dashboard data: {error.message}
+            </AlertDescription>
+          </Alert>
+        )}
 
         <DashboardHeader user={safeUserData} isPaid={isPaid} />
         <DashboardSummary user={safeUserData} isPaid={isPaid} />
@@ -157,5 +105,18 @@ const DashboardWithError = ({
     </div>
   );
 };
+
+const DashboardLoadingState = () => (
+  <div className="flex flex-col min-h-screen">
+    <Navbar />
+    <div className="flex-1 container px-4 py-8 flex items-center justify-center">
+      <div className="text-center">
+        <Loader2 className="h-8 w-8 animate-spin text-astral-purple mx-auto mb-4" />
+        <p className="text-muted-foreground">Loading your dashboard...</p>
+      </div>
+    </div>
+    <Footer />
+  </div>
+);
 
 export default Dashboard;

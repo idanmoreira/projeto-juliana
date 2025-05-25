@@ -3,11 +3,10 @@ import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import SocialMediaBox from '../components/SocialMediaBox';
 import WhatsAppButton from '../components/WhatsAppButton';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Star, Heart, Users } from "lucide-react";
+import { Star, Instagram, Youtube } from "lucide-react";
 import { Link } from 'react-router-dom';
 
 const Index = () => {
@@ -71,7 +70,36 @@ const Index = () => {
                 </div>
               </div>
               <div className="flex items-center justify-center">
-                <SocialMediaBox />
+                <div className="grid grid-cols-1 gap-4 max-w-sm">
+                  <a 
+                    href="https://instagram.com/julianamanduca" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="block rounded-lg overflow-hidden transition-transform hover:scale-105 bg-gradient-to-br from-pink-500 to-purple-600"
+                  >
+                    <div className="p-6 flex flex-col items-center text-white">
+                      <div className="mb-4">
+                        <Instagram className="w-8 h-8" />
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">Instagram</h3>
+                      <p className="text-white/80">@julianamanduca</p>
+                    </div>
+                  </a>
+                  <a 
+                    href="https://youtube.com/@julianamanduca" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="block rounded-lg overflow-hidden transition-transform hover:scale-105 bg-gradient-to-br from-red-500 to-red-700"
+                  >
+                    <div className="p-6 flex flex-col items-center text-white">
+                      <div className="mb-4">
+                        <Youtube className="w-8 h-8" />
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">YouTube</h3>
+                      <p className="text-white/80">@julianamanduca</p>
+                    </div>
+                  </a>
+                </div>
               </div>
             </div>
           </div>

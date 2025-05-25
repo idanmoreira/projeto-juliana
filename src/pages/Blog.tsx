@@ -8,11 +8,9 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Separator } from '@/components/ui/separator';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/components/ui/use-toast';
 
 const Blog = () => {
   const { t } = useLanguage();
-  const { toast } = useToast();
   const [email, setEmail] = useState('');
   const [activeCategory, setActiveCategory] = useState('All Posts');
   
@@ -80,10 +78,7 @@ const Blog = () => {
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Subscribed!",
-      description: "Thank you for joining our newsletter.",
-    });
+    alert("Thank you for your interest! Please contact us via WhatsApp to subscribe to our newsletter.");
     setEmail("");
   };
   
@@ -92,7 +87,7 @@ const Blog = () => {
       <Navbar />
       
       <main className="flex-1">
-        {/* Hero Section - Updated background to match home page */}
+        {/* Hero Section */}
         <div className="relative gradient-bg star-field overflow-hidden py-16 md:py-24">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center text-center space-y-4">
@@ -168,7 +163,7 @@ const Blog = () => {
           </div>
         </div>
         
-        {/* Newsletter Section - Updated background to match home page */}
+        {/* Newsletter Section */}
         <div className="relative gradient-bg star-field overflow-hidden py-16">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center text-center space-y-4 max-w-md mx-auto">

@@ -6,7 +6,6 @@ import Footer from '@/components/Footer';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Clock } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import WhatsAppButton from '@/components/WhatsAppButton';
 
 const Services = () => {
@@ -43,12 +42,17 @@ const Services = () => {
     }
   ];
 
+  const handleBooking = () => {
+    // Simple contact redirection
+    window.open('https://wa.me/5511999999999', '_blank');
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
       
       <main className="flex-1">
-        {/* Hero Section - Updated background to match home page */}
+        {/* Hero Section */}
         <div className="relative gradient-bg star-field overflow-hidden py-16 md:py-24">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center text-center space-y-4">
@@ -91,8 +95,11 @@ const Services = () => {
                   <CardDescription className="text-base text-foreground/80">{service.description}</CardDescription>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-astral-purple hover:bg-astral-purple/90">
-                    {t('bookNow')}
+                  <Button 
+                    className="w-full bg-astral-purple hover:bg-astral-purple/90"
+                    onClick={handleBooking}
+                  >
+                    Contact via WhatsApp
                   </Button>
                 </CardFooter>
               </Card>
@@ -100,7 +107,7 @@ const Services = () => {
           </div>
         </div>
         
-        {/* CTA Section - Updated background to match home page */}
+        {/* CTA Section */}
         <div className="relative gradient-bg star-field overflow-hidden py-16">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center text-center space-y-4">
@@ -111,8 +118,12 @@ const Services = () => {
                 {t('journeyDesc')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mt-6">
-                <Button className="bg-astral-purple hover:bg-astral-purple/90" size="lg" asChild>
-                  <Link to="/booking">{t('bookConsultation')}</Link>
+                <Button 
+                  className="bg-astral-purple hover:bg-astral-purple/90" 
+                  size="lg"
+                  onClick={handleBooking}
+                >
+                  Contact for Consultation
                 </Button>
               </div>
             </div>

@@ -2,12 +2,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/components/ui/use-toast';
+import { toast } from '@/components/ui/sonner';
 import { useLanguage } from '@/context/LanguageContext';
 
 const GoogleSignupButton = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
   const { t } = useLanguage();
   const [isLoading, setIsLoading] = useState(false);
   
@@ -16,8 +15,7 @@ const GoogleSignupButton = () => {
     try {
       // Mock Google signup for now
       setTimeout(() => {
-        toast({
-          title: "Success",
+        toast.success("Success", {
           description: "Signed up with Google successfully",
         });
         navigate('/dashboard');
@@ -25,10 +23,8 @@ const GoogleSignupButton = () => {
       }, 1000);
     } catch (error) {
       console.error('Google signup error:', error);
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: "Failed to sign up with Google. Please try again.",
-        variant: "destructive",
       });
       setIsLoading(false);
     }

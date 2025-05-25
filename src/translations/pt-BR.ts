@@ -231,7 +231,8 @@ const ptBR = {
   'loggingIn': 'Entrando...',
   'creatingAccount': 'Criando conta...',
   'noAccount': "Não tem uma conta?",
-  'alreadyHaveAccount': 'Já tem uma conta?'
+  'alreadyHaveAccount': 'Já tem uma conta?',
+  'signupErrorDefault': "Falha no cadastro. Por favor, tente novamente.",
 };
 
 export default ptBR;

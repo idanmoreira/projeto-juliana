@@ -1,12 +1,11 @@
 
 import { useState, useEffect } from 'react';
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "@/components/ui/sonner";
 import { Testimonial } from './types';
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function useTestimonials() {
-  const { toast } = useToast();
   const queryClient = useQueryClient();
   const [editingTestimonial, setEditingTestimonial] = useState<Testimonial | null>(null);
   const [newTestimonial, setNewTestimonial] = useState<Partial<Testimonial>>({
@@ -66,8 +65,7 @@ export default function useTestimonials() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['testimonials'] });
-      toast({
-        title: "Success",
+      toast.success("Success", {
         description: "Testimonial added successfully"
       });
       
@@ -80,10 +78,8 @@ export default function useTestimonials() {
       });
     },
     onError: (error) => {
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: error.message || "Failed to add testimonial",
-        variant: "destructive"
       });
     }
   });
@@ -113,18 +109,15 @@ export default function useTestimonials() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['testimonials'] });
-      toast({
-        title: "Success",
+      toast.success("Success", {
         description: "Testimonial updated successfully"
       });
       
       setEditingTestimonial(null);
     },
     onError: (error) => {
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: error.message || "Failed to update testimonial",
-        variant: "destructive"
       });
     }
   });
@@ -146,26 +139,21 @@ export default function useTestimonials() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['testimonials'] });
-      toast({
-        title: "Success",
+      toast.success("Success", {
         description: "Testimonial deleted successfully"
       });
     },
     onError: (error) => {
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: error.message || "Failed to delete testimonial",
-        variant: "destructive"
       });
     }
   });
   
   const handleAddTestimonial = () => {
     if (!newTestimonial.name || !newTestimonial.text || !newTestimonial.position) {
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: "Please fill all required fields",
-        variant: "destructive"
       });
       return;
     }

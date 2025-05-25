@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "@/components/ui/sonner";
 import { useLanguage } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
 import { CalendarCheck, Clock } from 'lucide-react';
@@ -15,7 +15,6 @@ interface BookingCalendarProps {
 
 const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
   const { t } = useLanguage();
-  const { toast } = useToast();
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [timeSlot, setTimeSlot] = useState<string>("");
   const [consultationType, setConsultationType] = useState<string>("");
@@ -38,10 +37,8 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
 
   const handleBooking = () => {
     if (!date || !timeSlot || !consultationType) {
-      toast({
-        title: t('incompleteBooking'),
+      toast.error(t('incompleteBooking'), {
         description: t('pleaseCompleteAllFields'),
-        variant: "destructive",
       });
       return;
     }
@@ -51,8 +48,7 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
     const formattedDate = date.toLocaleDateString();
     const message = `${t('consultationScheduled')} ${formattedDate}, ${timeSlot}`;
     
-    toast({
-      title: t('bookingSuccessful'),
+    toast.success(t('bookingSuccessful'), {
       description: message,
     });
     

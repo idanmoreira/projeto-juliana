@@ -2,18 +2,16 @@
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "@/components/ui/sonner";
 import { useLanguage } from "@/context/LanguageContext";
 
 const NewsletterSection = () => {
-  const { toast } = useToast();
   const [email, setEmail] = useState("");
   const { t } = useLanguage();
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Subscribed!",
+    toast.success("Subscribed!", {
       description: "Thank you for joining our newsletter.",
     });
     setEmail("");

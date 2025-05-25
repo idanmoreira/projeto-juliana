@@ -284,6 +284,7 @@ const enGB = {
   stayConnected: 'Stay Connected with the Cosmos',
   newsletterDesc: 'Subscribe to receive monthly astrological insights, exclusive content, and special offers.',
   privacyConsent: 'By subscribing, you agree to our Privacy Policy and consent to receive updates from Juliana Manduca.',
+  signupErrorDefault: "Signup failed. Please try again.",
 };
 
 export default enGB;

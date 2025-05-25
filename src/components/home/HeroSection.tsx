@@ -2,7 +2,15 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/context/LanguageContext";
+import HeroLogo from '@/assets/icons/hero-logo.svg?react';
 
+/**
+ * Renders the main hero section for the homepage.
+ * This component displays a prominent title, subtitle, and call-to-action buttons.
+ * It features an animated logo and a gradient background with a star field effect.
+ * Internationalization is handled using the `useLanguage` hook to fetch translated strings.
+ * @returns {JSX.Element} The hero section component.
+ */
 const HeroSection = () => {
   const { t } = useLanguage();
 
@@ -13,11 +21,7 @@ const HeroSection = () => {
           <div className="absolute inset-0 rounded-full bg-astral-purple opacity-30 animate-pulse"></div>
           <div className="absolute inset-[15%] rounded-full bg-astral-gold/20 border border-astral-gold"></div>
           <div className="absolute inset-0 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-12 h-12 text-astral-gold animate-float">
-              <circle cx="12" cy="12" r="10" />
-              <path d="m16 12-4-4-4 4" />
-              <path d="m8 12 4 4 4-4" />
-            </svg>
+            <HeroLogo className="w-12 h-12 text-astral-gold animate-float" />
           </div>
         </div>
         

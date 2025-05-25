@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "@/components/ui/sonner";
 import { Eye, EyeOff, Save, Plus, Trash2 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -20,7 +20,6 @@ interface ApiKey {
 
 const ApiManager = () => {
   const { t } = useLanguage();
-  const { toast } = useToast();
   
   // Mock API keys
   const [apiKeys, setApiKeys] = useState<ApiKey[]>([
@@ -61,10 +60,8 @@ const ApiManager = () => {
   
   const handleAddApiKey = () => {
     if (!newApi.name || !newApi.key || !newApi.provider) {
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: "Please fill all required fields",
-        variant: "destructive"
       });
       return;
     }
@@ -84,8 +81,7 @@ const ApiManager = () => {
       description: ""
     });
     
-    toast({
-      title: "Success",
+    toast.success("Success", {
       description: "API key added successfully"
     });
   };
@@ -99,8 +95,7 @@ const ApiManager = () => {
   const handleDeleteApiKey = (id: string) => {
     setApiKeys(apiKeys.filter(api => api.id !== id));
     
-    toast({
-      title: "Success",
+    toast.success("Success", {
       description: "API key deleted successfully"
     });
   };

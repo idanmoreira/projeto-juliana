@@ -11,11 +11,9 @@ import { format } from "date-fns";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { useLanguage } from '../context/LanguageContext';
-import { useAuth } from '../context/AuthContext';
 
 const AstrologyTools = () => {
   const { t } = useLanguage();
-  const { user } = useAuth();
   const [name, setName] = useState('');
   const [date, setDate] = useState<Date>();
   const [time, setTime] = useState('');
@@ -114,17 +112,15 @@ const AstrologyTools = () => {
               <h4 className="font-semibold mb-2">{t('yourBasicChart')}</h4>
               <p>{chartResult}</p>
               
-              {!user || user.role === 'free' ? (
-                <div className="mt-4 p-3 bg-astral-gold/10 border border-astral-gold rounded">
-                  <p className="text-sm">{t('upgradeForFullChart')}</p>
-                  <Button 
-                    variant="default" 
-                    className="mt-2 bg-astral-gold hover:bg-astral-gold/90 text-astral-dark"
-                  >
-                    {t('upgradeToPremium')}
-                  </Button>
-                </div>
-              ) : null}
+              <div className="mt-4 p-3 bg-astral-gold/10 border border-astral-gold rounded">
+                <p className="text-sm">{t('upgradeForFullChart')}</p>
+                <Button 
+                  variant="default" 
+                  className="mt-2 bg-astral-gold hover:bg-astral-gold/90 text-astral-dark"
+                >
+                  {t('upgradeToPremium')}
+                </Button>
+              </div>
             </div>
           )}
         </CardContent>

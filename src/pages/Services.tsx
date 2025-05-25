@@ -1,13 +1,12 @@
 
 import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import PageLayout from '@/components/layout/PageLayout';
+import PageHeader from '@/components/layout/PageHeader';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import WhatsAppButton from '@/components/WhatsAppButton';
 
 const Services = () => {
   const { t } = useLanguage();
@@ -44,85 +43,65 @@ const Services = () => {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      
-      <main className="flex-1">
-        {/* Hero Section - Updated background to match home page */}
-        <div className="relative gradient-bg star-field overflow-hidden py-16 md:py-24">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="inline-block bg-purple-100/20 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 px-3 py-1 rounded-full text-sm font-medium mb-2">
-                {t('servicesTitle')}
-              </div>
-              <h1 className="text-3xl md:text-5xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-astral-purple via-white to-astral-gold">
-                {t('servicesDesc')}
-              </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground max-w-[700px]">
-                Discover how astrological insights can guide you through life's challenges and opportunities.
-              </p>
-            </div>
-          </div>
-        </div>
+    <PageLayout>
+      <PageHeader 
+        badge={t('servicesTitle')}
+        title={t('servicesDesc')}
+        description="Discover how astrological insights can guide you through life's challenges and opportunities."
+      />
 
-        {/* Services Grid */}
-        <div className="container px-4 md:px-6 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-            {services.map((service, index) => (
-              <Card key={index} className="overflow-hidden transition-all hover:shadow-lg border-astral-indigo/30 hover:border-astral-purple">
-                <div className="aspect-video bg-gradient-to-br from-purple-100 to-astral-indigo/10 dark:from-purple-900/20 dark:to-astral-dark/50 relative">
-                  <img 
-                    src={service.image} 
-                    alt={service.title}
-                    className="object-cover w-full h-full opacity-60" 
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-4xl text-astral-purple dark:text-purple-300">✧</div>
-                  </div>
+      <div className="container px-4 md:px-6 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+          {services.map((service, index) => (
+            <Card key={index} className="overflow-hidden transition-all hover:shadow-lg border-astral-indigo/30 hover:border-astral-purple">
+              <div className="aspect-video bg-gradient-to-br from-purple-100 to-astral-indigo/10 dark:from-purple-900/20 dark:to-astral-dark/50 relative">
+                <img 
+                  src={service.image} 
+                  alt={service.title}
+                  className="object-cover w-full h-full opacity-60" 
+                />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-4xl text-astral-purple dark:text-purple-300">✧</div>
                 </div>
-                <CardHeader>
-                  <CardTitle className="text-astral-indigo dark:text-white">{service.title}</CardTitle>
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <Clock className="mr-1 h-4 w-4" />
-                    <span>{service.duration} • {service.price}</span>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base text-foreground/80">{service.description}</CardDescription>
-                </CardContent>
-                <CardFooter>
-                  <Button className="w-full bg-astral-purple hover:bg-astral-purple/90">
-                    {t('bookNow')}
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
-        </div>
-        
-        {/* CTA Section - Updated background to match home page */}
-        <div className="relative gradient-bg star-field overflow-hidden py-16">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center text-center space-y-4">
-              <h2 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-astral-purple via-white to-astral-gold">
-                {t('beginJourney')}
-              </h2>
-              <p className="text-xl text-muted-foreground max-w-[600px]">
-                {t('journeyDesc')}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 mt-6">
-                <Button className="bg-astral-purple hover:bg-astral-purple/90" size="lg" asChild>
-                  <Link to="/booking">{t('bookConsultation')}</Link>
-                </Button>
               </div>
+              <CardHeader>
+                <CardTitle className="text-astral-indigo dark:text-white">{service.title}</CardTitle>
+                <div className="flex items-center text-sm text-muted-foreground">
+                  <Clock className="mr-1 h-4 w-4" />
+                  <span>{service.duration} • {service.price}</span>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-base text-foreground/80">{service.description}</CardDescription>
+              </CardContent>
+              <CardFooter>
+                <Button className="w-full bg-astral-purple hover:bg-astral-purple/90">
+                  {t('bookNow')}
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      </div>
+      
+      <div className="relative gradient-bg star-field overflow-hidden py-16">
+        <div className="container px-4 md:px-6">
+          <div className="flex flex-col items-center text-center space-y-4">
+            <h2 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-astral-purple via-white to-astral-gold">
+              {t('beginJourney')}
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-[600px]">
+              {t('journeyDesc')}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 mt-6">
+              <Button className="bg-astral-purple hover:bg-astral-purple/90" size="lg" asChild>
+                <Link to="/booking">{t('bookConsultation')}</Link>
+              </Button>
             </div>
           </div>
         </div>
-      </main>
-      
-      <Footer />
-      <WhatsAppButton />
-    </div>
+      </div>
+    </PageLayout>
   );
 };
 

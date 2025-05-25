@@ -1,12 +1,10 @@
-
 import React, { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import PageLayout from '@/components/layout/PageLayout';
+import PageHeader from '@/components/layout/PageHeader';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import WhatsAppButton from '@/components/WhatsAppButton';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
 
@@ -88,118 +86,99 @@ const Blog = () => {
   };
   
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
+    <PageLayout>
+      <PageHeader 
+        badge={t('blog')}
+        title={t('latestInsights')}
+        description={t('insightsDesc')}
+      />
       
-      <main className="flex-1">
-        {/* Hero Section - Updated background to match home page */}
-        <div className="relative gradient-bg star-field overflow-hidden py-16 md:py-24">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="inline-block bg-purple-100/20 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 px-3 py-1 rounded-full text-sm font-medium mb-2">
-                {t('blog')}
-              </div>
-              <h1 className="text-3xl md:text-5xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-astral-purple via-white to-astral-gold">
-                {t('latestInsights')}
-              </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground max-w-[700px]">
-                {t('insightsDesc')}
-              </p>
-            </div>
-          </div>
-        </div>
-        
-        {/* Category Navigation */}
-        <div className="container px-4 md:px-6 py-6">
-          <div className="flex flex-wrap gap-2 justify-center">
-            {categories.map((category, index) => (
-              <Button
-                key={index}
-                variant={category === activeCategory ? "default" : "outline"}
-                size="sm"
-                onClick={() => setActiveCategory(category)}
-                className={category === activeCategory ? "bg-astral-purple hover:bg-astral-purple/90" : ""}
-              >
-                {category}
-              </Button>
-            ))}
-          </div>
-        </div>
-        
-        <Separator className="my-2 bg-astral-indigo/20" />
-        
-        {/* Blog Grid */}
-        <div className="container px-4 md:px-6 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogPosts.map((post, index) => (
-              <Card key={index} className="overflow-hidden flex flex-col h-full border-astral-indigo/30 hover:border-astral-purple transition-all hover:shadow-lg">
-                <div className="aspect-video bg-gradient-to-br from-purple-100 to-astral-indigo/10 dark:from-purple-900/20 dark:to-astral-dark/50 relative">
-                  <img 
-                    src={post.image} 
-                    alt={post.title}
-                    className="object-cover w-full h-full" 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                </div>
-                <CardHeader>
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-xs text-astral-purple dark:text-purple-400 font-medium">{post.category}</span>
-                    <span className="text-xs text-muted-foreground">•</span>
-                    <span className="text-xs text-muted-foreground">{post.date}</span>
-                  </div>
-                  <CardTitle className="line-clamp-2 text-astral-indigo dark:text-white">{post.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="line-clamp-3 text-foreground/80">{post.excerpt}</CardDescription>
-                </CardContent>
-                <CardFooter className="mt-auto pt-4">
-                  <Button variant="ghost" className="text-astral-purple hover:text-astral-purple/90 hover:bg-purple-50 dark:hover:bg-purple-950/20 p-0">
-                    {t('readMore')} →
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
-          
-          <div className="flex justify-center mt-12">
-            <Button variant="outline" size="lg" className="border-astral-indigo hover:bg-astral-indigo/10">
-              Load More Articles
+      <div className="container px-4 md:px-6 py-6">
+        <div className="flex flex-wrap gap-2 justify-center">
+          {categories.map((category, index) => (
+            <Button
+              key={index}
+              variant={category === activeCategory ? "default" : "outline"}
+              size="sm"
+              onClick={() => setActiveCategory(category)}
+              className={category === activeCategory ? "bg-astral-purple hover:bg-astral-purple/90" : ""}
+            >
+              {category}
             </Button>
-          </div>
+          ))}
+        </div>
+      </div>
+      
+      <Separator className="my-2 bg-astral-indigo/20" />
+      
+      {/* Blog Grid */}
+      <div className="container px-4 md:px-6 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {blogPosts.map((post, index) => (
+            <Card key={index} className="overflow-hidden flex flex-col h-full border-astral-indigo/30 hover:border-astral-purple transition-all hover:shadow-lg">
+              <div className="aspect-video bg-gradient-to-br from-purple-100 to-astral-indigo/10 dark:from-purple-900/20 dark:to-astral-dark/50 relative">
+                <img 
+                  src={post.image} 
+                  alt={post.title}
+                  className="object-cover w-full h-full" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+              </div>
+              <CardHeader>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xs text-astral-purple dark:text-purple-400 font-medium">{post.category}</span>
+                  <span className="text-xs text-muted-foreground">•</span>
+                  <span className="text-xs text-muted-foreground">{post.date}</span>
+                </div>
+                <CardTitle className="line-clamp-2 text-astral-indigo dark:text-white">{post.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="line-clamp-3 text-foreground/80">{post.excerpt}</CardDescription>
+              </CardContent>
+              <CardFooter className="mt-auto pt-4">
+                <Button variant="ghost" className="text-astral-purple hover:text-astral-purple/90 hover:bg-purple-50 dark:hover:bg-purple-950/20 p-0">
+                  {t('readMore')} →
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
         </div>
         
-        {/* Newsletter Section - Updated background to match home page */}
-        <div className="relative gradient-bg star-field overflow-hidden py-16">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center text-center space-y-4 max-w-md mx-auto">
-              <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-astral-indigo to-astral-purple dark:from-white dark:to-astral-purple/80">
-                {t('stayConnected')}
-              </h2>
-              <p className="text-xl text-muted-foreground">
-                {t('newsletterDesc')}
-              </p>
-              <form onSubmit={handleSubscribe} className="flex w-full max-w-sm items-center space-x-2 mt-4">
-                <Input
-                  type="email"
-                  placeholder={t('yourEmail')}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="flex h-10 w-full rounded-md border border-astral-indigo/30 bg-card/50 px-3 py-2 text-sm"
-                  required
-                />
-                <Button type="submit" className="bg-astral-purple hover:bg-astral-purple/90">{t('subscribe')}</Button>
-              </form>
-              <p className="text-xs text-muted-foreground max-w-[350px]">
-                {t('privacyConsent')}
-              </p>
-            </div>
+        <div className="flex justify-center mt-12">
+          <Button variant="outline" size="lg" className="border-astral-indigo hover:bg-astral-indigo/10">
+            Load More Articles
+          </Button>
+        </div>
+      </div>
+      
+      {/* Newsletter Section - Updated background to match home page */}
+      <div className="relative gradient-bg star-field overflow-hidden py-16">
+        <div className="container px-4 md:px-6">
+          <div className="flex flex-col items-center text-center space-y-4 max-w-md mx-auto">
+            <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-astral-indigo to-astral-purple dark:from-white dark:to-astral-purple/80">
+              {t('stayConnected')}
+            </h2>
+            <p className="text-xl text-muted-foreground">
+              {t('newsletterDesc')}
+            </p>
+            <form onSubmit={handleSubscribe} className="flex w-full max-w-sm items-center space-x-2 mt-4">
+              <Input
+                type="email"
+                placeholder={t('yourEmail')}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="flex h-10 w-full rounded-md border border-astral-indigo/30 bg-card/50 px-3 py-2 text-sm"
+                required
+              />
+              <Button type="submit" className="bg-astral-purple hover:bg-astral-purple/90">{t('subscribe')}</Button>
+            </form>
+            <p className="text-xs text-muted-foreground max-w-[350px]">
+              {t('privacyConsent')}
+            </p>
           </div>
         </div>
-      </main>
-      
-      <Footer />
-      <WhatsAppButton />
-    </div>
+      </div>
+    </PageLayout>
   );
 };
 

@@ -1,14 +1,32 @@
 
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
-import { Link } from 'react-router-dom';
+import { Menu, X, User, LogOut } from "lucide-react";
+import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
+import { useAuth } from '../context/AuthContext';
 import { Toggle } from '@/components/ui/toggle';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { language, changeLanguage, t } = useLanguage();
+  const { user, logout, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  const handleContactClick = () => {
+    if (isAuthenticated) {
+      navigate('/dashboard');
+    } else {
+      navigate('/login');
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
@@ -43,7 +61,7 @@ const Navbar = () => {
         
         {/* Action Buttons */}
         <div className="hidden md:flex items-center gap-4">
-          {/* Language Switcher - Minimalist and Centered */}
+          {/* Language Switcher */}
           <div className="flex items-center justify-center">
             <Toggle 
               pressed={language === 'pt-BR'}
@@ -62,10 +80,39 @@ const Navbar = () => {
             </Toggle>
           </div>
 
-          {/* Contact Button */}
-          <Button className="bg-astral-purple hover:bg-astral-purple/90 text-white">
-            {t('contact')}
-          </Button>
+          {/* Authentication */}
+          {isAuthenticated ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="flex items-center gap-2">
+                  <User className="h-4 w-4" />
+                  {user?.name}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => navigate('/dashboard')}>
+                  {t('dashboard')}
+                </DropdownMenuItem>
+                {user?.role === 'admin' && (
+                  <DropdownMenuItem onClick={() => navigate('/admin')}>
+                    Admin Panel
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={logout} className="text-red-600">
+                  <LogOut className="h-4 w-4 mr-2" />
+                  {t('logout')}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button 
+              className="bg-astral-purple hover:bg-astral-purple/90 text-white"
+              onClick={handleContactClick}
+            >
+              {t('login')}
+            </Button>
+          )}
         </div>
         
         {/* Mobile Menu Button */}
@@ -106,7 +153,7 @@ const Navbar = () => {
               {t('blog')}
             </Link>
             
-            {/* Language Switcher for Mobile - Minimalist */}
+            {/* Language Switcher for Mobile */}
             <div className="flex items-center py-2 justify-center">
               <Toggle 
                 pressed={language === 'pt-BR'}
@@ -126,12 +173,52 @@ const Navbar = () => {
             </div>
             
             <div className="flex flex-col gap-3 pt-2">
-              <Button 
-                className="bg-astral-purple hover:bg-astral-purple/90 text-white w-full"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {t('contact')}
-              </Button>
+              {isAuthenticated ? (
+                <>
+                  <Button 
+                    variant="outline"
+                    className="w-full"
+                    onClick={() => {
+                      navigate('/dashboard');
+                      setIsMobileMenuOpen(false);
+                    }}
+                  >
+                    {t('dashboard')}
+                  </Button>
+                  {user?.role === 'admin' && (
+                    <Button 
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => {
+                        navigate('/admin');
+                        setIsMobileMenuOpen(false);
+                      }}
+                    >
+                      Admin Panel
+                    </Button>
+                  )}
+                  <Button 
+                    variant="destructive"
+                    className="w-full"
+                    onClick={() => {
+                      logout();
+                      setIsMobileMenuOpen(false);
+                    }}
+                  >
+                    {t('logout')}
+                  </Button>
+                </>
+              ) : (
+                <Button 
+                  className="bg-astral-purple hover:bg-astral-purple/90 text-white w-full"
+                  onClick={() => {
+                    handleContactClick();
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  {t('login')}
+                </Button>
+              )}
             </div>
           </div>
         </div>

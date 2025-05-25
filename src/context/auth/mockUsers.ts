@@ -1,28 +1,37 @@
 
-import { User, UserRole } from './types';
+import { UserRole } from './types';
 
-// Mock user database - in a real app, this would be stored in a database
-export const MOCK_USERS = [
+export interface MockUser {
+  id: string;
+  email: string;
+  name: string;
+  role: UserRole;
+  password: string;
+  subscriptionEnds?: string | null;
+}
+
+// Mock users for demo purposes - replace with backend integration
+export const MOCK_USERS: MockUser[] = [
   {
     id: '1',
     email: 'admin@example.com',
-    password: 'admin123',
     name: 'Admin User',
-    role: 'admin' as UserRole,
+    role: 'admin',
+    password: 'admin123'
   },
   {
     id: '2',
     email: 'paid@example.com',
-    password: 'paid123',
     name: 'Premium User',
-    role: 'paid' as UserRole,
-    subscriptionEnds: '2025-12-31',
+    role: 'paid',
+    password: 'paid123',
+    subscriptionEnds: '2025-12-31'
   },
   {
     id: '3',
     email: 'free@example.com',
-    password: 'free123',
     name: 'Free User',
-    role: 'free' as UserRole,
-  },
+    role: 'free',
+    password: 'free123'
+  }
 ];

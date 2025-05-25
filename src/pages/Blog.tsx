@@ -6,11 +6,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/components/ui/use-toast';
+import { toast } from '@/components/ui/sonner';
 
 const Blog = () => {
   const { t } = useLanguage();
-  const { toast } = useToast();
   const [email, setEmail] = useState('');
   const [activeCategory, setActiveCategory] = useState('All Posts');
   
@@ -78,8 +77,7 @@ const Blog = () => {
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Subscribed!",
+    toast.success("Subscribed!", {
       description: "Thank you for joining our newsletter.",
     });
     setEmail("");

@@ -1,20 +1,17 @@
 
 import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "@/components/ui/sonner";
 import { useAuth } from '@/context/AuthContext';
 
 export const useCourseEnrollment = () => {
   const { user } = useAuth();
-  const { toast } = useToast();
   const [isEnrolling, setIsEnrolling] = useState(false);
 
   const enrollInCourse = async (courseId: string) => {
     if (!user) {
-      toast({
-        title: "Authentication required",
+      toast.error("Authentication required", {
         description: "Please log in to enroll in courses",
-        variant: "destructive"
       });
       return false;
     }
@@ -31,8 +28,7 @@ export const useCourseEnrollment = () => {
         .single();
         
       if (existingEnrollment) {
-        toast({
-          title: "Already enrolled",
+        toast.info("Already enrolled", {
           description: "You are already enrolled in this course"
         });
         return true;
@@ -50,18 +46,15 @@ export const useCourseEnrollment = () => {
         
       if (error) throw error;
       
-      toast({
-        title: "Success",
+      toast.success("Success", {
         description: "Successfully enrolled in course"
       });
       
       return true;
     } catch (error) {
       console.error('Error enrolling in course:', error);
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: "Failed to enroll in course. Please try again.",
-        variant: "destructive"
       });
       return false;
     } finally {
@@ -88,10 +81,8 @@ export const useCourseEnrollment = () => {
       return true;
     } catch (error) {
       console.error('Error updating course progress:', error);
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: "Failed to update course progress",
-        variant: "destructive"
       });
       return false;
     }

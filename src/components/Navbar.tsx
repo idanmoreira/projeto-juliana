@@ -1,14 +1,23 @@
 
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe, LogIn } from "lucide-react";
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
+import { useAuth } from '../context/AuthContext';
 import { Toggle } from '@/components/ui/toggle';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { language, changeLanguage, t } = useLanguage();
+  const { user, isAuthenticated, logout } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
@@ -39,6 +48,16 @@ const Navbar = () => {
           <Link to="/blog" className="text-sm font-medium hover:text-astral-purple transition-colors">
             {t('blog')}
           </Link>
+          {isAuthenticated && (
+            <Link to="/dashboard" className="text-sm font-medium hover:text-astral-purple transition-colors">
+              {t('dashboard')}
+            </Link>
+          )}
+          {user?.role === 'admin' && (
+            <Link to="/admin" className="text-sm font-medium hover:text-astral-purple transition-colors">
+              {t('admin')}
+            </Link>
+          )}
         </div>
         
         {/* Action Buttons */}
@@ -62,12 +81,41 @@ const Navbar = () => {
             </Toggle>
           </div>
 
-          <Button 
-            className="bg-astral-purple hover:bg-astral-purple/90 text-white" 
-            onClick={() => window.open('https://wa.me/5511999999999', '_blank')}
-          >
-            {t('contact')}
-          </Button>
+          {isAuthenticated ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="border-astral-indigo text-astral-indigo hover:bg-astral-indigo/10">
+                  {user?.name || t('account')}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem asChild>
+                  <Link to="/dashboard">{t('dashboard')}</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/profile">{t('profile')}</Link>
+                </DropdownMenuItem>
+                {user?.role === 'admin' && (
+                  <DropdownMenuItem asChild>
+                    <Link to="/admin">{t('adminPanel')}</Link>
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={logout}>
+                  {t('logout')}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <>
+              <Button variant="outline" size="sm" className="border-astral-indigo text-astral-indigo hover:bg-astral-indigo/10" asChild>
+                <Link to="/login">{t('login')}</Link>
+              </Button>
+              <Button className="bg-astral-purple hover:bg-astral-purple/90 text-white" asChild>
+                <Link to="/signup">{t('signUp')}</Link>
+              </Button>
+            </>
+          )}
         </div>
         
         {/* Mobile Menu Button */}
@@ -107,6 +155,24 @@ const Navbar = () => {
             >
               {t('blog')}
             </Link>
+            {isAuthenticated && (
+              <Link 
+                to="/dashboard" 
+                className="text-sm font-medium py-2 hover:text-astral-purple"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t('dashboard')}
+              </Link>
+            )}
+            {user?.role === 'admin' && (
+              <Link 
+                to="/admin" 
+                className="text-sm font-medium py-2 hover:text-astral-purple"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t('admin')}
+              </Link>
+            )}
             
             {/* Language Switcher for Mobile - Minimalist */}
             <div className="flex items-center py-2 justify-center">
@@ -128,15 +194,49 @@ const Navbar = () => {
             </div>
             
             <div className="flex flex-col gap-3 pt-2">
-              <Button 
-                className="bg-astral-purple hover:bg-astral-purple/90 text-white w-full" 
-                onClick={() => {
-                  window.open('https://wa.me/5511999999999', '_blank');
-                  setIsMobileMenuOpen(false);
-                }}
-              >
-                {t('contact')}
-              </Button>
+              {isAuthenticated ? (
+                <>
+                  <div className="py-2 px-3 bg-muted/50 rounded-md">
+                    <p className="font-medium">{user?.name}</p>
+                    <p className="text-sm text-muted-foreground">{user?.email}</p>
+                  </div>
+                  <Button 
+                    onClick={() => {
+                      logout();
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="bg-astral-purple hover:bg-astral-purple/90 text-white w-full"
+                  >
+                    {t('logout')}
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button 
+                    variant="outline" 
+                    className="border-astral-indigo text-astral-indigo hover:bg-astral-indigo/10 w-full" 
+                    asChild
+                  >
+                    <Link 
+                      to="/login" 
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {t('login')}
+                    </Link>
+                  </Button>
+                  <Button 
+                    className="bg-astral-purple hover:bg-astral-purple/90 text-white w-full" 
+                    asChild
+                  >
+                    <Link 
+                      to="/signup" 
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {t('signUp')}
+                    </Link>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>

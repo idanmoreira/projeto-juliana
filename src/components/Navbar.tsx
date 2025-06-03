@@ -1,118 +1,26 @@
 
 import React, { useState } from 'react';
-import { Button } from "@/components/ui/button";
-import { Menu, X, User, LogOut } from "lucide-react";
-import { Link, useNavigate } from 'react-router-dom';
-import { useLanguage } from '../context/LanguageContext';
-import { useAuth } from '../context/AuthContext';
-import { Toggle } from '@/components/ui/toggle';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Menu, X } from "lucide-react";
+import NavbarLogo from './navbar/NavbarLogo';
+import NavbarDesktopMenu from './navbar/NavbarDesktopMenu';
+import NavbarLanguageToggle from './navbar/NavbarLanguageToggle';
+import NavbarUserMenu from './navbar/NavbarUserMenu';
+import NavbarMobileMenu from './navbar/NavbarMobileMenu';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { language, changeLanguage, t } = useLanguage();
-  const { user, logout, isAuthenticated } = useAuth();
-  const navigate = useNavigate();
-
-  const handleContactClick = () => {
-    if (isAuthenticated) {
-      navigate('/dashboard');
-    } else {
-      navigate('/login');
-    }
-  };
 
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
       <nav className="container flex items-center justify-between h-16 px-4 md:px-6">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="relative w-8 h-8">
-            <div className="absolute inset-0 rounded-full bg-astral-purple opacity-70 animate-glow"></div>
-            <div className="absolute inset-[15%] rounded-full bg-astral-dark border border-astral-purple"></div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-astral-gold animate-float">
-                <circle cx="12" cy="12" r="10" />
-                <path d="m16 12-4-4-4 4" />
-                <path d="m8 12 4 4 4-4" />
-              </svg>
-            </div>
-          </div>
-          <span className="text-lg font-semibold">Juliana Manduca</span>
-        </Link>
+        <NavbarLogo />
         
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-6">
-          <Link to="/" className="text-sm font-medium hover:text-astral-purple transition-colors">
-            {t('home')}
-          </Link>
-          <Link to="/services" className="text-sm font-medium hover:text-astral-purple transition-colors">
-            {t('services')}
-          </Link>
-          <Link to="/blog" className="text-sm font-medium hover:text-astral-purple transition-colors">
-            {t('blog')}
-          </Link>
-        </div>
+        <NavbarDesktopMenu />
         
         {/* Action Buttons */}
         <div className="hidden md:flex items-center gap-4">
-          {/* Language Switcher */}
-          <div className="flex items-center justify-center">
-            <Toggle 
-              pressed={language === 'pt-BR'}
-              onPressedChange={() => changeLanguage(language === 'pt-BR' ? 'en-GB' : 'pt-BR')}
-              className="w-16 h-8 relative rounded-full border border-border bg-muted hover:bg-muted/80"
-            >
-              <div className="absolute inset-0 flex items-center justify-between px-2">
-                <span className={`z-10 text-xs font-medium transition-colors ${language === 'pt-BR' ? 'text-white' : 'text-muted-foreground'}`}>
-                  PT
-                </span>
-                <span className={`z-10 text-xs font-medium transition-colors ${language === 'en-GB' ? 'text-white' : 'text-muted-foreground'}`}>
-                  EN
-                </span>
-              </div>
-              <div className={`absolute top-1 bottom-1 w-7 rounded-full transition-all duration-200 ${language === 'pt-BR' ? 'left-1 bg-astral-indigo' : 'right-1 bg-astral-indigo'}`} />
-            </Toggle>
-          </div>
-
-          {/* Authentication */}
-          {isAuthenticated ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="flex items-center gap-2">
-                  <User className="h-4 w-4" />
-                  {user?.name}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => navigate('/dashboard')}>
-                  {t('dashboard')}
-                </DropdownMenuItem>
-                {user?.role === 'admin' && (
-                  <DropdownMenuItem onClick={() => navigate('/admin')}>
-                    Admin Panel
-                  </DropdownMenuItem>
-                )}
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={logout} className="text-red-600">
-                  <LogOut className="h-4 w-4 mr-2" />
-                  {t('logout')}
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <Button 
-              className="bg-astral-purple hover:bg-astral-purple/90 text-white"
-              onClick={handleContactClick}
-            >
-              {t('login')}
-            </Button>
-          )}
+          <NavbarLanguageToggle />
+          <NavbarUserMenu />
         </div>
         
         {/* Mobile Menu Button */}
@@ -127,102 +35,10 @@ const Navbar = () => {
         </button>
       </nav>
       
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden astro-glass py-4 px-6 border-b border-border">
-          <div className="flex flex-col space-y-4">
-            <Link 
-              to="/" 
-              className="text-sm font-medium py-2 hover:text-astral-purple"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {t('home')}
-            </Link>
-            <Link 
-              to="/services" 
-              className="text-sm font-medium py-2 hover:text-astral-purple"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {t('services')}
-            </Link>
-            <Link 
-              to="/blog" 
-              className="text-sm font-medium py-2 hover:text-astral-purple"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {t('blog')}
-            </Link>
-            
-            {/* Language Switcher for Mobile */}
-            <div className="flex items-center py-2 justify-center">
-              <Toggle 
-                pressed={language === 'pt-BR'}
-                onPressedChange={() => changeLanguage(language === 'pt-BR' ? 'en-GB' : 'pt-BR')}
-                className="w-16 h-8 relative rounded-full border border-border bg-muted hover:bg-muted/80"
-              >
-                <div className="absolute inset-0 flex items-center justify-between px-2">
-                  <span className={`z-10 text-xs font-medium transition-colors ${language === 'pt-BR' ? 'text-white' : 'text-muted-foreground'}`}>
-                    PT
-                  </span>
-                  <span className={`z-10 text-xs font-medium transition-colors ${language === 'en-GB' ? 'text-white' : 'text-muted-foreground'}`}>
-                    EN
-                  </span>
-                </div>
-                <div className={`absolute top-1 bottom-1 w-7 rounded-full transition-all duration-200 ${language === 'pt-BR' ? 'left-1 bg-astral-indigo' : 'right-1 bg-astral-indigo'}`} />
-              </Toggle>
-            </div>
-            
-            <div className="flex flex-col gap-3 pt-2">
-              {isAuthenticated ? (
-                <>
-                  <Button 
-                    variant="outline"
-                    className="w-full"
-                    onClick={() => {
-                      navigate('/dashboard');
-                      setIsMobileMenuOpen(false);
-                    }}
-                  >
-                    {t('dashboard')}
-                  </Button>
-                  {user?.role === 'admin' && (
-                    <Button 
-                      variant="outline"
-                      className="w-full"
-                      onClick={() => {
-                        navigate('/admin');
-                        setIsMobileMenuOpen(false);
-                      }}
-                    >
-                      Admin Panel
-                    </Button>
-                  )}
-                  <Button 
-                    variant="destructive"
-                    className="w-full"
-                    onClick={() => {
-                      logout();
-                      setIsMobileMenuOpen(false);
-                    }}
-                  >
-                    {t('logout')}
-                  </Button>
-                </>
-              ) : (
-                <Button 
-                  className="bg-astral-purple hover:bg-astral-purple/90 text-white w-full"
-                  onClick={() => {
-                    handleContactClick();
-                    setIsMobileMenuOpen(false);
-                  }}
-                >
-                  {t('login')}
-                </Button>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+      <NavbarMobileMenu 
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+      />
     </header>
   );
 };

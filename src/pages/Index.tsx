@@ -1,8 +1,6 @@
 
 import React from 'react';
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import WhatsAppButton from "@/components/WhatsAppButton";
+import PageLayout from "@/components/layout/PageLayout";
 import HeroSection from "@/components/home/HeroSection";
 import FeaturesSection from "@/components/home/FeaturesSection";
 import SocialMediaSection from "@/components/home/SocialMediaSection";
@@ -15,8 +13,7 @@ import NewsletterSection from "@/components/home/NewsletterSection";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
+    <PageLayout>
       <HeroSection />
       <FeaturesSection />
       <SocialMediaSection />
@@ -26,9 +23,7 @@ const Index = () => {
       <ToolsSection />
       <CTASection />
       <NewsletterSection />
-      <Footer />
-      <WhatsAppButton />
-    </div>
+    </PageLayout>
   );
 };
 

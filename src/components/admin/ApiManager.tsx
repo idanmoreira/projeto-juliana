@@ -1,13 +1,12 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "@/components/ui/sonner";
-import { Eye, EyeOff, Save, Plus, Trash2 } from "lucide-react";
-import { useLanguage } from "@/context/LanguageContext";
+import { Eye, EyeOff, Plus, Trash2 } from "lucide-react";
 
 interface ApiKey {
   id: string;
@@ -19,8 +18,6 @@ interface ApiKey {
 }
 
 const ApiManager = () => {
-  const { t } = useLanguage();
-  
   // Mock API keys
   const [apiKeys, setApiKeys] = useState<ApiKey[]>([
     {

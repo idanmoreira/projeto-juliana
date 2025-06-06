@@ -1,5 +1,4 @@
 
-import { useLanguage } from '@/context/LanguageContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ContentManager from '@/components/admin/ContentManager';

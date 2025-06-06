@@ -1,5 +1,4 @@
 
-import { useLanguage } from "@/context/LanguageContext";
 import TestimonialList from './testimonials/TestimonialList';
 import TestimonialForm from './testimonials/TestimonialForm';
 import useTestimonials from './testimonials/useTestimonials';

@@ -1,5 +1,4 @@
 
-import React from 'react';
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/context/LanguageContext";
 import HeroLogo from '@/assets/icons/hero-logo.svg?react';

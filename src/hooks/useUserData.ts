@@ -38,6 +38,19 @@ export interface UserConsultation {
   status: string;
 }
 
+interface CourseData {
+  id: string;
+  title: string;
+  description: string;
+}
+
+interface UserCourseItem {
+  id: string;
+  progress: number;
+  completed: boolean;
+  courses: CourseData;
+}
+
 export const useUserData = () => {
   const { user } = useAuth();
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -94,7 +107,7 @@ export const useUserData = () => {
           if (coursesError) throw new Error(`Error fetching courses: ${coursesError.message}`);
           
           // Transform the data structure to match our component needs
-          const formattedCourses = userCoursesData?.map(item => ({
+          const formattedCourses = userCoursesData?.map((item: UserCourseItem) => ({
             id: item.id,
             course_id: item.courses.id,
             title: item.courses.title,

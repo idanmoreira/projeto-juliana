@@ -1,5 +1,4 @@
 
-import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import PageLayout from '@/components/layout/PageLayout';
 import PageHeader from '@/components/layout/PageHeader';

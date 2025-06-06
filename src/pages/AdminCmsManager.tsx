@@ -1,5 +1,4 @@
 
-import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -8,8 +7,6 @@ import WhatsAppButton from '@/components/WhatsAppButton';
 import ProtectedRoute from '@/components/ProtectedRoute';
 
 const AdminCmsManager = () => {
-  const { t } = useLanguage();
-
   return (
     <ProtectedRoute requiredRole="admin">
       <div className="flex flex-col min-h-screen">

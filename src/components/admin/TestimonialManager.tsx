@@ -1,5 +1,4 @@
 
-import React from 'react';
 import { useLanguage } from "@/context/LanguageContext";
 import TestimonialList from './testimonials/TestimonialList';
 import TestimonialForm from './testimonials/TestimonialForm';
@@ -8,7 +7,6 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2 } from "lucide-react";
 
 const TestimonialManager = () => {
-  const { t } = useLanguage();
   const {
     testimonials,
     isLoading,

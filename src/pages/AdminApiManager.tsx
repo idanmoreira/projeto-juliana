@@ -1,5 +1,4 @@
 
-import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -7,8 +6,6 @@ import ApiManager from '@/components/admin/ApiManager';
 import WhatsAppButton from '@/components/WhatsAppButton';
 
 const AdminApiManager = () => {
-  const { t } = useLanguage();
-
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />

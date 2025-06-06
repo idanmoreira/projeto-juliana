@@ -1,6 +1,5 @@
 
-import React from 'react';
-import { Instagram, Youtube, Mail, MapPin, Phone } from 'lucide-react';
+import { Instagram, Youtube, Mail, MapPin } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useLanguage } from '../context/LanguageContext';

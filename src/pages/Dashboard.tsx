@@ -1,7 +1,5 @@
 
-import React from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { useLanguage } from '@/context/LanguageContext';
 import { Tabs } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2 } from 'lucide-react';
@@ -23,6 +21,21 @@ const consultationTypes = [
   { id: "type3", name: "Relationship Synastry", description: "Compatibility analysis" },
 ];
 
+interface SafeUserData {
+  name: string;
+  email: string;
+  role: string;
+}
+
+interface DashboardContentProps {
+  safeUserData: SafeUserData;
+  isPaid: boolean;
+  courses: any[];
+  files: any[];
+  consultations: any[];
+  error: Error | null;
+}
+
 const Dashboard = () => {
   const { user } = useAuth();
   const { profile, courses, files, consultations, isLoading, error } = useUserData();
@@ -36,7 +49,7 @@ const Dashboard = () => {
   }
 
   // Build a safe user profile even if there's an error
-  const safeUserData = {
+  const safeUserData: SafeUserData = {
     name: profile?.display_name || user.name || user.email?.split('@')[0] || 'User',
     email: user.email,
     role: profile?.role || user.role || 'free'
@@ -65,7 +78,7 @@ const DashboardContent = ({
   files, 
   consultations, 
   error 
-}) => {
+}: DashboardContentProps) => {
   const { activeTab, setActiveTab, availableTabs } = useDashboardTabs(isPaid);
 
   return (

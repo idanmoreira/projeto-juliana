@@ -1,5 +1,4 @@
 
-import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Star } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";

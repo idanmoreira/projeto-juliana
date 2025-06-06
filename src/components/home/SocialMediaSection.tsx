@@ -1,5 +1,4 @@
 
-import React from 'react';
 import { Instagram, Youtube } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import VerticalSocialMediaBox from "@/components/VerticalSocialMediaBox";

@@ -1,6 +1,4 @@
 
-import React from 'react';
-
 interface PageHeaderProps {
   badge?: string;
   title: string;

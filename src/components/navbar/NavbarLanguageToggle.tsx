@@ -1,5 +1,4 @@
 
-import React from 'react';
 import { Toggle } from '@/components/ui/toggle';
 import { useLanguage } from '../../context/LanguageContext';
 

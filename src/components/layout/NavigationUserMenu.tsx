@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useAuth } from '@/context/AuthContext';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -17,13 +17,13 @@ import { useUserData } from '@/hooks/useUserData';
  * Part of the layout/navigation molecules in Atomic Design.
  */
 const NavigationUserMenu = ({ isMobile = false, onMenuClose }: { isMobile?: boolean, onMenuClose?: () => void }) => {
-  const { user, signOut } = useAuth();
+  const { user, logout } = useAuth();
   const { t } = useLanguage();
   const navigate = useNavigate();
   const { profile } = useUserData();
 
   const handleSignOut = async () => {
-    await signOut();
+    await logout();
     navigate('/login');
     onMenuClose?.();
   };

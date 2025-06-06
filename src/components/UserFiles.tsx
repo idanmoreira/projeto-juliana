@@ -1,5 +1,4 @@
 
-import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { FileIcon, DownloadIcon, TrashIcon, FileTextIcon, FileImageIcon, PresentationIcon } from 'lucide-react';
@@ -70,7 +69,7 @@ const UserFiles = ({ files, isPremium }: UserFilesProps) => {
                   </a>
                 </Button>
                 <Button variant="ghost" size="sm" className="text-destructive">
-                  <TrashIcon className="h-4 w-4" />
+                  <TrashIcon className="h-4 h-4" />
                 </Button>
               </div>
             </div>

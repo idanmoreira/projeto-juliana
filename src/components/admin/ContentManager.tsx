@@ -64,6 +64,19 @@ interface ContentItem {
   seoDescription?: string;
 }
 
+interface ContentFormData {
+  title: string;
+  slug: string;
+  content: string;
+  excerpt: string;
+  type: 'page' | 'blog' | 'service' | 'course';
+  status: 'published' | 'draft' | 'archived';
+  tags: string[];
+  featuredImage?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+}
+
 const mockContent: ContentItem[] = [
   {
     id: '1',
@@ -105,7 +118,7 @@ const ContentManager = () => {
   const [filterType, setFilterType] = useState<string>('all');
   const [filterStatus, setFilterStatus] = useState<string>('all');
 
-  const form = useForm<ContentItem>({
+  const form = useForm<ContentFormData>({
     defaultValues: {
       title: '',
       slug: '',
@@ -119,15 +132,18 @@ const ContentManager = () => {
     }
   });
 
-  const handleSave = (data: ContentItem) => {
+  const handleSave = (data: ContentFormData) => {
     const currentDate = new Date().toISOString().split('T')[0];
     
     if (selectedContent) {
       // Update existing content
+      const updatedContent: ContentItem = {
+        ...selectedContent,
+        ...data,
+        updatedAt: currentDate
+      };
       setContent(prev => prev.map(item => 
-        item.id === selectedContent.id 
-          ? { ...data, id: selectedContent.id, updatedAt: currentDate }
-          : item
+        item.id === selectedContent.id ? updatedContent : item
       ));
       toast.success('Content updated successfully');
     } else {
@@ -150,7 +166,19 @@ const ContentManager = () => {
 
   const handleEdit = (item: ContentItem) => {
     setSelectedContent(item);
-    form.reset(item);
+    const formData: ContentFormData = {
+      title: item.title,
+      slug: item.slug,
+      content: item.content,
+      excerpt: item.excerpt,
+      type: item.type,
+      status: item.status,
+      tags: item.tags,
+      featuredImage: item.featuredImage,
+      seoTitle: item.seoTitle,
+      seoDescription: item.seoDescription
+    };
+    form.reset(formData);
     setIsDialogOpen(true);
   };
 

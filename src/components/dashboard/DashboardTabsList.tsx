@@ -1,5 +1,3 @@
-
-import React from 'react';
 import { TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useLanguage } from '@/context/LanguageContext';
 import { DashboardTab } from '@/hooks/useDashboardTabs';

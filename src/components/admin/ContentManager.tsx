@@ -72,9 +72,9 @@ interface ContentFormData {
   type: 'page' | 'blog' | 'service' | 'course';
   status: 'published' | 'draft' | 'archived';
   tags: string[];
-  featuredImage?: string;
-  seoTitle?: string;
-  seoDescription?: string;
+  featuredImage: string;
+  seoTitle: string;
+  seoDescription: string;
 }
 
 const mockContent: ContentItem[] = [
@@ -127,6 +127,7 @@ const ContentManager = () => {
       type: 'blog',
       status: 'draft',
       tags: [],
+      featuredImage: '',
       seoTitle: '',
       seoDescription: ''
     }

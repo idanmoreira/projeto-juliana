@@ -174,9 +174,9 @@ const ContentManager = () => {
       type: item.type,
       status: item.status,
       tags: item.tags,
-      featuredImage: item.featuredImage,
-      seoTitle: item.seoTitle,
-      seoDescription: item.seoDescription
+      featuredImage: item.featuredImage || '',
+      seoTitle: item.seoTitle || '',
+      seoDescription: item.seoDescription || ''
     };
     form.reset(formData);
     setIsDialogOpen(true);

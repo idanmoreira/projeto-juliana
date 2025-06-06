@@ -1,5 +1,5 @@
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
 import { translations } from '../translations';
 
 type Language = 'pt-BR' | 'en-GB';
@@ -46,7 +46,8 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
    * @returns {string} The translated string, the fallback string, or the key itself.
    */
   const t = (key: string, fallback?: string): string => {
-    return translations[language][key] || fallback || key;
+    const translation = translations[language] as Record<string, string>;
+    return translation[key] || fallback || key;
   };
 
   return (

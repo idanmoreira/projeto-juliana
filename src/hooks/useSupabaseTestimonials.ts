@@ -12,6 +12,16 @@ export interface Testimonial {
   socialMediaLink?: string;
 }
 
+interface SupabaseTestimonial {
+  id: string;
+  name: string;
+  text: string;
+  stars: number;
+  position: string;
+  social_media_link?: string;
+  created_at: string;
+}
+
 export const useSupabaseTestimonials = () => {
   const queryClient = useQueryClient();
   
@@ -30,7 +40,7 @@ export const useSupabaseTestimonials = () => {
       }
       
       // Transform the data to match our Testimonial type
-      return data.map(item => ({
+      return data.map((item: SupabaseTestimonial) => ({
         id: item.id,
         name: item.name,
         text: item.text,

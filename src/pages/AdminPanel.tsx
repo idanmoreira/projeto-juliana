@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Navigate, Link } from 'react-router-dom';
@@ -19,7 +20,7 @@ import { Input } from '@/components/ui/input';
 import ContentManager from '@/components/admin/ContentManager';
 
 const AdminPanel: React.FC = () => {
-  const { user, isAuthenticated, hasAccess, isLoading } = useAuth();
+  const { isAuthenticated, hasAccess, isLoading } = useAuth();
   const { t } = useLanguage();
   
   if (isLoading) {

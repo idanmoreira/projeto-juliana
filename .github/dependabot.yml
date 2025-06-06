@@ -1,0 +1,46 @@
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "julianamanduca"
+    assignees:
+      - "julianamanduca"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "automated"
+    ignore:
+      # Ignore major version updates for critical dependencies
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+    groups:
+      testing:
+        patterns:
+          - "@testing-library/*"
+          - "jest*"
+          - "vitest*"
+          - "playwright*"
+          - "cypress*"
+      ui:
+        patterns:
+          - "@radix-ui/*"
+          - "lucide-react"
+          - "tailwindcss*"
+      build:
+        patterns:
+          - "vite*"
+          - "@vitejs/*"
+          - "typescript"
+          - "eslint*"
+          - "prettier*"

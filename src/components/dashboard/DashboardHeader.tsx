@@ -1,7 +1,4 @@
 
-import React from 'react';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/context/LanguageContext';
 
 interface DashboardHeaderProps {

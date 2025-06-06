@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -24,7 +24,7 @@ interface DashboardConsultationsProps {
 
 const DashboardConsultations = ({ isPaid, consultationTypes, consultations }: DashboardConsultationsProps) => {
   const { t } = useLanguage();
-  const [selectedConsultationType, setSelectedConsultationType] = useState(consultationTypes[0].id);
+  const [selectedConsultationType, setSelectedConsultationType] = useState(consultationTypes[0]?.id || '');
   
   const upcomingConsultations = consultations.filter(
     c => c.status === 'scheduled' && new Date(c.date) > new Date()
@@ -38,18 +38,20 @@ const DashboardConsultations = ({ isPaid, consultationTypes, consultations }: Da
     <div>
       <h2 className="text-2xl font-semibold mb-4">{t('consultationTypes')}</h2>
       
-      <ToggleGroup type="single" value={selectedConsultationType} onValueChange={(value) => {
-        if (value) setSelectedConsultationType(value);
-      }} className="mb-8">
-        {consultationTypes.map((type) => (
-          <ToggleGroupItem key={type.id} value={type.id} className="flex-1 py-2">
-            <div className="text-center">
-              <div className="font-medium">{type.name}</div>
-              <div className="text-xs text-muted-foreground">{type.description}</div>
-            </div>
-          </ToggleGroupItem>
-        ))}
-      </ToggleGroup>
+      {consultationTypes.length > 0 && (
+        <ToggleGroup type="single" value={selectedConsultationType} onValueChange={(value) => {
+          if (value) setSelectedConsultationType(value);
+        }} className="mb-8">
+          {consultationTypes.map((type) => (
+            <ToggleGroupItem key={type.id} value={type.id} className="flex-1 py-2">
+              <div className="text-center">
+                <div className="font-medium">{type.name}</div>
+                <div className="text-xs text-muted-foreground">{type.description}</div>
+              </div>
+            </ToggleGroupItem>
+          ))}
+        </ToggleGroup>
+      )}
       
       <h3 className="text-xl font-semibold mb-4">{t('yourConsultations')}</h3>
       

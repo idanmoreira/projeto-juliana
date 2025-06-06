@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Navigate, Link } from 'react-router-dom';
@@ -17,6 +16,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
+import ContentManager from '@/components/admin/ContentManager';
 
 const AdminPanel: React.FC = () => {
   const { user, isAuthenticated, hasAccess, isLoading } = useAuth();
@@ -54,6 +54,7 @@ const AdminPanel: React.FC = () => {
           <TabsList className="overflow-x-auto">
             <TabsTrigger value="users">{t('users')}</TabsTrigger>
             <TabsTrigger value="content">{t('content')}</TabsTrigger>
+            <TabsTrigger value="cms">CMS</TabsTrigger>
             <TabsTrigger value="subscriptions">{t('subscriptions')}</TabsTrigger>
             <TabsTrigger value="analytics">{t('analytics')}</TabsTrigger>
           </TabsList>
@@ -163,6 +164,18 @@ const AdminPanel: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <Card>
                     <CardHeader>
+                      <CardTitle className="text-lg">CMS Manager</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="mb-4 text-muted-foreground">Manage all content across your application</p>
+                      <Button className="w-full bg-astral-purple hover:bg-astral-purple/90" asChild>
+                        <Link to="/admin/cms">Manage Content</Link>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card>
+                    <CardHeader>
                       <CardTitle className="text-lg">{t('courses')}</CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -223,6 +236,10 @@ const AdminPanel: React.FC = () => {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+          
+          <TabsContent value="cms">
+            <ContentManager />
           </TabsContent>
           
           <TabsContent value="subscriptions">

@@ -1,4 +1,3 @@
-
 import { Toaster as Sonner, toast } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -10,6 +9,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import AdminPanel from "./pages/AdminPanel";
 import AdminTestimonialManager from "./pages/AdminTestimonialManager";
+import AdminCmsManager from "./pages/AdminCmsManager";
 import { LanguageProvider } from "./context/LanguageContext";
 import { AuthProvider } from "./context/auth/AuthProvider";
 import Services from "./pages/Services";
@@ -52,6 +52,14 @@ const AppRoutes = () => (
       element={
         <ProtectedRoute requiredRole="admin">
           <AdminTestimonialManager />
+        </ProtectedRoute>
+      } 
+    />
+    <Route 
+      path="/admin/cms" 
+      element={
+        <ProtectedRoute requiredRole="admin">
+          <AdminCmsManager />
         </ProtectedRoute>
       } 
     />

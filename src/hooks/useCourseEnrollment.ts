@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { supabase } from '@/lib/supabaseClient';
 import { toast } from "@/components/ui/sonner";
 import { useAuth } from '@/context/AuthContext';
 

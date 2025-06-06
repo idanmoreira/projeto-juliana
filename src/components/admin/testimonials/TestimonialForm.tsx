@@ -1,5 +1,4 @@
 
-import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,7 +11,7 @@ interface TestimonialFormProps {
   isEditing: boolean;
   onSubmit: () => void;
   onCancel?: () => void;
-  onChange: (field: string, value: any) => void;
+  onChange: (field: string, value: string | number) => void;
 }
 
 const TestimonialForm = ({

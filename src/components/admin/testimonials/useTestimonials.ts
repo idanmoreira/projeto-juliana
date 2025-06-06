@@ -47,7 +47,7 @@ export default function useTestimonials() {
     deleteTestimonial(id);
   };
   
-  const handleTestimonialChange = (field: string, value: any) => {
+  const handleTestimonialChange = (field: string, value: string | number) => {
     if (editingTestimonial) {
       setEditingTestimonial({...editingTestimonial, [field]: value});
     } else {

@@ -1,5 +1,4 @@
 
-import React from 'react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -11,7 +10,7 @@ interface DashboardCoursesProps {
   courses: UserCourse[];
 }
 
-const DashboardCourses = ({ isPaid, courses }: DashboardCoursesProps) => {
+const DashboardCourses = ({ courses }: DashboardCoursesProps) => {
   const { t } = useLanguage();
   
   const defaultCourses = [

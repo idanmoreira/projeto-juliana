@@ -1,11 +1,10 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import {
   Table,
@@ -43,11 +42,7 @@ import {
   Edit, 
   Trash2, 
   Eye, 
-  EyeOff, 
-  Calendar,
-  Tag,
-  FileText,
-  Image as ImageIcon
+  EyeOff
 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from '@/components/ui/sonner';
@@ -125,11 +120,13 @@ const ContentManager = () => {
   });
 
   const handleSave = (data: ContentItem) => {
+    const currentDate = new Date().toISOString().split('T')[0];
+    
     if (selectedContent) {
       // Update existing content
       setContent(prev => prev.map(item => 
         item.id === selectedContent.id 
-          ? { ...data, id: selectedContent.id, updatedAt: new Date().toISOString().split('T')[0] }
+          ? { ...data, id: selectedContent.id, updatedAt: currentDate }
           : item
       ));
       toast.success('Content updated successfully');
@@ -139,8 +136,8 @@ const ContentManager = () => {
         ...data,
         id: Date.now().toString(),
         author: 'Current User',
-        createdAt: new Date().toISOString().split('T')[0],
-        updatedAt: new Date().toISOString().split('T')[0]
+        createdAt: currentDate,
+        updatedAt: currentDate
       };
       setContent(prev => [newContent, ...prev]);
       toast.success('Content created successfully');
@@ -163,9 +160,10 @@ const ContentManager = () => {
   };
 
   const handleStatusToggle = (id: string, newStatus: 'published' | 'draft') => {
+    const currentDate = new Date().toISOString().split('T')[0];
     setContent(prev => prev.map(item => 
       item.id === id 
-        ? { ...item, status: newStatus, updatedAt: new Date().toISOString().split('T')[0] }
+        ? { ...item, status: newStatus, updatedAt: currentDate }
         : item
     ));
     toast.success(`Content ${newStatus === 'published' ? 'published' : 'unpublished'}`);

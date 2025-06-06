@@ -1,5 +1,4 @@
 
-import React from 'react';
 import { TabsContent } from '@/components/ui/tabs';
 import DashboardOverview from '@/components/dashboard/DashboardOverview';
 import DashboardCourses from '@/components/dashboard/DashboardCourses';
@@ -27,7 +26,6 @@ interface DashboardTabsContentProps {
 }
 
 const DashboardTabsContent: React.FC<DashboardTabsContentProps> = ({
-  activeTab,
   isPaid,
   courses,
   files,

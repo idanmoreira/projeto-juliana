@@ -5,14 +5,27 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
 import { LanguageProvider } from "./context/LanguageContext";
 import { AuthProvider } from "./context/auth/AuthProvider";
+import { SecurityProvider } from "./context/SecurityContext";
 import { AppRoutes } from "./routes";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      retry: (failureCount, error: any) => {
+        // Don't retry on auth errors
+        if (error?.status === 401 || error?.status === 403) {
+          return false;
+        }
+        return failureCount < 3;
+      },
+    },
+  },
+});
 
 /**
  * The root component of the application.
- * Focused only on setting up providers and rendering the router.
- * Route definitions are centralized in routes.tsx for better maintainability.
+ * Enhanced with security context and error handling.
  */
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -20,8 +33,10 @@ const App = () => (
       <LanguageProvider>
         <BrowserRouter>
           <AuthProvider>
-            <Sonner />
-            <AppRoutes />
+            <SecurityProvider>
+              <Sonner />
+              <AppRoutes />
+            </SecurityProvider>
           </AuthProvider>
         </BrowserRouter>
       </LanguageProvider>

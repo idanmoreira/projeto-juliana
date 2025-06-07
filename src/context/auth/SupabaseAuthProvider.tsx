@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from '@/components/ui/sonner';
@@ -49,7 +48,7 @@ export const SupabaseAuthProvider: React.FC<{ children: React.ReactNode }> = ({ 
               setUser(userWithProfile);
 
               // Handle signup success - redirect new users to dashboard
-              if (event === 'SIGNED_UP' || (event === 'SIGNED_IN' && !profile)) {
+              if (event === 'SIGNED_IN' && !profile) {
                 toast.success("Welcome!", {
                   description: "Your account has been created successfully.",
                 });

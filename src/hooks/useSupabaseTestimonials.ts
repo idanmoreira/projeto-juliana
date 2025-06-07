@@ -12,16 +12,6 @@ export interface Testimonial {
   socialMediaLink?: string;
 }
 
-interface SupabaseTestimonial {
-  id: string;
-  name: string;
-  text: string;
-  stars: number;
-  position: string;
-  social_media_link: string | null;
-  created_at: string;
-}
-
 export const useSupabaseTestimonials = () => {
   const queryClient = useQueryClient();
   

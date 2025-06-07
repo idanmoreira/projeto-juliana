@@ -4,7 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
 import { LanguageProvider } from "./context/LanguageContext";
-import { AuthProvider } from "./context/auth/AuthProvider";
+import { SupabaseAuthProvider } from "./context/auth/SupabaseAuthProvider";
 import { SecurityProvider } from "./context/SecurityContext";
 import { AppRoutes } from "./routes";
 
@@ -25,19 +25,19 @@ const queryClient = new QueryClient({
 
 /**
  * The root component of the application.
- * Enhanced with security context and error handling.
+ * Enhanced with Supabase authentication and security context.
  */
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <LanguageProvider>
         <BrowserRouter>
-          <AuthProvider>
+          <SupabaseAuthProvider>
             <SecurityProvider>
               <Sonner />
               <AppRoutes />
             </SecurityProvider>
-          </AuthProvider>
+          </SupabaseAuthProvider>
         </BrowserRouter>
       </LanguageProvider>
     </TooltipProvider>

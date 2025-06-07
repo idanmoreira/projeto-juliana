@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabaseClient';
+import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/context/AuthContext';
 
 export interface UserProfile {
@@ -52,7 +52,7 @@ interface UserCourseItem {
 }
 
 export const useUserData = () => {
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [courses, setCourses] = useState<UserCourse[]>([]);
   const [files, setFiles] = useState<UserFile[]>([]);
@@ -62,7 +62,7 @@ export const useUserData = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      if (!user) {
+      if (!user || !isAuthenticated) {
         setIsLoading(false);
         return;
       }
@@ -71,7 +71,7 @@ export const useUserData = () => {
         setIsLoading(true);
         setError(null);
         
-        // Try to fetch profile from Supabase
+        // Fetch profile
         try {
           const { data: profileData, error: profileError } = await supabase
             .from('profiles')
@@ -79,11 +79,22 @@ export const useUserData = () => {
             .eq('id', user.id)
             .single();
             
-          if (profileError) throw new Error(`Error fetching profile: ${profileError.message}`);
-          setProfile(profileData);
+          if (profileError) {
+            console.warn('Error fetching profile:', profileError);
+            // Create fallback profile data from auth user
+            const fallbackProfile: UserProfile = {
+              id: user.id,
+              display_name: user.name || null,
+              avatar_url: null,
+              role: user.role,
+              is_paid: user.role === 'paid' || user.role === 'admin'
+            };
+            setProfile(fallbackProfile);
+          } else {
+            setProfile(profileData);
+          }
         } catch (profileErr) {
-          console.warn('Failed to fetch profile from Supabase, using fallback data:', profileErr);
-          // Create fallback profile data from auth user
+          console.warn('Failed to fetch profile:', profileErr);
           const fallbackProfile: UserProfile = {
             id: user.id,
             display_name: user.name || null,
@@ -94,7 +105,7 @@ export const useUserData = () => {
           setProfile(fallbackProfile);
         }
         
-        // Try to fetch courses
+        // Fetch courses
         try {
           const { data: userCoursesData, error: coursesError } = await supabase
             .from('user_courses')
@@ -104,40 +115,50 @@ export const useUserData = () => {
             `)
             .eq('user_id', user.id);
             
-          if (coursesError) throw new Error(`Error fetching courses: ${coursesError.message}`);
-          
-          // Transform the data structure to match our component needs
-          const formattedCourses = userCoursesData?.map((item: UserCourseItem) => ({
-            id: item.id,
-            course_id: item.courses.id,
-            title: item.courses.title,
-            description: item.courses.description,
-            progress: item.progress,
-            completed: item.completed
-          })) || [];
-          
-          setCourses(formattedCourses);
+          if (coursesError) {
+            console.warn('Error fetching courses:', coursesError);
+            setCourses([]);
+          } else {
+            // Transform the data structure to match our component needs
+            const formattedCourses = userCoursesData?.map((item: UserCourseItem) => ({
+              id: item.id,
+              course_id: item.courses.id,
+              title: item.courses.title,
+              description: item.courses.description,
+              progress: item.progress,
+              completed: item.completed
+            })) || [];
+            
+            setCourses(formattedCourses);
+          }
         } catch (coursesErr) {
-          console.warn('Failed to fetch courses from Supabase, using fallback data:', coursesErr);
-          // Empty courses array as fallback
+          console.warn('Failed to fetch courses:', coursesErr);
           setCourses([]);
         }
         
-        // Try to fetch files
+        // Fetch files
         try {
           const { data: filesData, error: filesError } = await supabase
             .from('files')
             .select('*')
             .eq('user_id', user.id);
             
-          if (filesError) throw new Error(`Error fetching files: ${filesError.message}`);
-          setFiles(filesData || []);
+          if (filesError) {
+            console.warn('Error fetching files:', filesError);
+            setFiles([]);
+          } else {
+            const formattedFiles = filesData?.map(file => ({
+              ...file,
+              size: file.size.toString() // Convert to string to match interface
+            })) || [];
+            setFiles(formattedFiles);
+          }
         } catch (filesErr) {
-          console.warn('Failed to fetch files from Supabase, using fallback data:', filesErr);
+          console.warn('Failed to fetch files:', filesErr);
           setFiles([]);
         }
         
-        // Try to fetch consultations
+        // Fetch consultations
         try {
           const { data: consultationsData, error: consultationsError } = await supabase
             .from('consultations')
@@ -145,10 +166,14 @@ export const useUserData = () => {
             .eq('user_id', user.id)
             .order('date', { ascending: true });
             
-          if (consultationsError) throw new Error(`Error fetching consultations: ${consultationsError.message}`);
-          setConsultations(consultationsData || []);
+          if (consultationsError) {
+            console.warn('Error fetching consultations:', consultationsError);
+            setConsultations([]);
+          } else {
+            setConsultations(consultationsData || []);
+          }
         } catch (consultErr) {
-          console.warn('Failed to fetch consultations from Supabase, using fallback data:', consultErr);
+          console.warn('Failed to fetch consultations:', consultErr);
           setConsultations([]);
         }
 
@@ -161,7 +186,7 @@ export const useUserData = () => {
     };
 
     fetchUserData();
-  }, [user]);
+  }, [user, isAuthenticated]);
 
   return {
     profile,

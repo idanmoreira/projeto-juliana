@@ -1,4 +1,4 @@
 
 // This file is kept for backward compatibility
-// It re-exports everything from the auth directory
-export * from './auth';
+// It re-exports everything from the Supabase auth provider
+export * from './auth/SupabaseAuthProvider';

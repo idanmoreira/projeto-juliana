@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useLanguage } from '@/context/LanguageContext';
 import { toast } from "@/components/ui/sonner";
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/context/auth/SupabaseAuthProvider';
 import { signupSchema, SignupFormValues } from '@/context/auth/validation';
 import {
   Form,

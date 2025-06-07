@@ -25,7 +25,7 @@ export const SupabaseAuthProvider: React.FC<{ children: React.ReactNode }> = ({ 
         setSession(session);
         
         if (session?.user) {
-          // Fetch user profile to get role information
+          // Use setTimeout to defer Supabase calls and prevent deadlock
           setTimeout(async () => {
             try {
               const { data: profile, error } = await supabase
@@ -34,28 +34,38 @@ export const SupabaseAuthProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 .eq('id', session.user.id)
                 .single();
 
-              if (error) {
+              if (error && error.code !== 'PGRST116') {
                 console.error('Error fetching profile:', error);
-                // Create a basic user object without profile data
-                const basicUser: User = {
-                  id: session.user.id,
-                  email: session.user.email || '',
-                  name: session.user.user_metadata?.name || session.user.email?.split('@')[0] || 'User',
-                  role: 'free'
-                };
-                setUser(basicUser);
-              } else {
-                const userWithProfile: User = {
-                  id: session.user.id,
-                  email: session.user.email || '',
-                  name: profile.display_name || session.user.user_metadata?.name || session.user.email?.split('@')[0] || 'User',
-                  role: profile.role as UserRole,
-                  subscriptionEnds: null
-                };
-                setUser(userWithProfile);
+              }
+
+              const userWithProfile: User = {
+                id: session.user.id,
+                email: session.user.email || '',
+                name: profile?.display_name || session.user.user_metadata?.name || session.user.email?.split('@')[0] || 'User',
+                role: (profile?.role as UserRole) || 'free',
+                subscriptionEnds: null
+              };
+              
+              setUser(userWithProfile);
+
+              // Handle signup success - redirect new users to dashboard
+              if (event === 'SIGNED_UP' || (event === 'SIGNED_IN' && !profile)) {
+                toast.success("Welcome!", {
+                  description: "Your account has been created successfully.",
+                });
+                navigate('/dashboard');
               }
             } catch (err) {
               console.error('Error in auth state change:', err);
+              // Create a fallback user object
+              const fallbackUser: User = {
+                id: session.user.id,
+                email: session.user.email || '',
+                name: session.user.user_metadata?.name || session.user.email?.split('@')[0] || 'User',
+                role: 'free',
+                subscriptionEnds: null
+              };
+              setUser(fallbackUser);
             }
           }, 0);
         } else {
@@ -75,7 +85,7 @@ export const SupabaseAuthProvider: React.FC<{ children: React.ReactNode }> = ({ 
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [navigate]);
 
   const hasAccess = (minimumRole: UserRole): boolean => {
     if (!user) return false;
@@ -151,16 +161,13 @@ export const SupabaseAuthProvider: React.FC<{ children: React.ReactNode }> = ({ 
       }
 
       if (data.user) {
-        if (data.user.email_confirmed_at) {
+        // Check if email confirmation is required
+        if (!data.user.email_confirmed_at) {
           toast.success("Account created", {
-            description: "Your account has been created successfully.",
-          });
-          navigate('/dashboard');
-        } else {
-          toast.success("Account created", {
-            description: "Please check your email to confirm your account.",
+            description: "Please check your email to confirm your account before logging in.",
           });
         }
+        // If email is already confirmed (like in development), the onAuthStateChange will handle the redirect
       }
     } catch (err) {
       console.error('Signup error:', err);

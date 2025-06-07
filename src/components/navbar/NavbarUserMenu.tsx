@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { User, LogOut } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '@/context/auth/SupabaseAuthProvider';
 import {
   DropdownMenu,
   DropdownMenuContent,

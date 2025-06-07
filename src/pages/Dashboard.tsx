@@ -1,5 +1,5 @@
 
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/context/auth/SupabaseAuthProvider';
 import { Tabs } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2 } from 'lucide-react';

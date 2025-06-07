@@ -18,7 +18,7 @@ interface SupabaseTestimonial {
   text: string;
   stars: number;
   position: string;
-  social_media_link?: string;
+  social_media_link: string | null;
   created_at: string;
 }
 
@@ -40,13 +40,13 @@ export const useSupabaseTestimonials = () => {
       }
       
       // Transform the data to match our Testimonial type
-      return data.map((item: SupabaseTestimonial) => ({
+      return data.map((item) => ({
         id: item.id,
         name: item.name,
         text: item.text,
         stars: item.stars,
         position: item.position,
-        socialMediaLink: item.social_media_link
+        socialMediaLink: item.social_media_link || undefined
       }));
     }
   });
@@ -54,15 +54,20 @@ export const useSupabaseTestimonials = () => {
   // Add testimonial mutation
   const addTestimonialMutation = useMutation({
     mutationFn: async (testimonial: Partial<Testimonial>) => {
+      // Validate required fields
+      if (!testimonial.name || !testimonial.text || !testimonial.position || !testimonial.stars) {
+        throw new Error('Missing required fields');
+      }
+
       const { data, error } = await supabase
         .from('testimonials')
-        .insert([{
+        .insert({
           name: testimonial.name,
           text: testimonial.text,
           stars: testimonial.stars,
           position: testimonial.position,
-          social_media_link: testimonial.socialMediaLink
-        }])
+          social_media_link: testimonial.socialMediaLink || null
+        })
         .select();
       
       if (error) {
@@ -95,7 +100,7 @@ export const useSupabaseTestimonials = () => {
           text: testimonial.text,
           stars: testimonial.stars,
           position: testimonial.position,
-          social_media_link: testimonial.socialMediaLink,
+          social_media_link: testimonial.socialMediaLink || null,
           updated_at: new Date().toISOString()
         })
         .eq('id', testimonial.id)

@@ -41,13 +41,13 @@ export interface UserConsultation {
 interface CourseData {
   id: string;
   title: string;
-  description: string;
+  description: string | null;
 }
 
 interface UserCourseItem {
   id: string;
-  progress: number;
-  completed: boolean;
+  progress: number | null;
+  completed: boolean | null;
   courses: CourseData;
 }
 
@@ -124,9 +124,9 @@ export const useUserData = () => {
               id: item.id,
               course_id: item.courses.id,
               title: item.courses.title,
-              description: item.courses.description,
-              progress: item.progress,
-              completed: item.completed
+              description: item.courses.description || '',
+              progress: item.progress || 0,
+              completed: item.completed || false
             })) || [];
             
             setCourses(formattedCourses);
@@ -149,7 +149,8 @@ export const useUserData = () => {
           } else {
             const formattedFiles = filesData?.map(file => ({
               ...file,
-              size: file.size.toString() // Convert to string to match interface
+              size: file.size.toString(),
+              created_at: file.created_at || new Date().toISOString()
             })) || [];
             setFiles(formattedFiles);
           }
@@ -170,7 +171,11 @@ export const useUserData = () => {
             console.warn('Error fetching consultations:', consultationsError);
             setConsultations([]);
           } else {
-            setConsultations(consultationsData || []);
+            const formattedConsultations = consultationsData?.map(consultation => ({
+              ...consultation,
+              status: consultation.status || 'scheduled'
+            })) || [];
+            setConsultations(formattedConsultations);
           }
         } catch (consultErr) {
           console.warn('Failed to fetch consultations:', consultErr);

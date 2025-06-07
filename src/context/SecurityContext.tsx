@@ -1,6 +1,6 @@
 
 import React, { createContext, useContext, ReactNode } from 'react';
-import { useAuth } from './auth';
+import { useAuth } from './auth/SupabaseAuthProvider';
 import { useApiErrorHandler } from '@/hooks/useApiErrorHandler';
 
 interface SecurityContextType {

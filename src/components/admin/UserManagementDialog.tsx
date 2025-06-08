@@ -17,7 +17,6 @@ import {
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { useLanguage } from '@/context/LanguageContext';
 import { toast } from '@/components/ui/sonner';
 
 interface UserManagementDialogProps {
@@ -35,7 +34,6 @@ const UserManagementDialog: React.FC<UserManagementDialogProps> = ({
   onUpdateRole,
   onDeleteUser,
 }) => {
-  const { t } = useLanguage();
   const [selectedRole, setSelectedRole] = useState(user?.role || 'free');
   const [isUpdating, setIsUpdating] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);

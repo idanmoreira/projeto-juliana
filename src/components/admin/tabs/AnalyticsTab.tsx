@@ -1,12 +1,10 @@
 
-import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAdminData } from '@/hooks/useAdminData';
 import { formatDistanceToNow } from 'date-fns';
 
 const AnalyticsTab = () => {
-  const { t } = useLanguage();
   const { statistics, auditLogs, isLoading } = useAdminData();
 
   if (isLoading) {

@@ -85,7 +85,8 @@ export const useAdminData = () => {
         throw statsError;
       }
 
-      setStatistics(statsData);
+      // Cast the Json response to our UserStatistics interface
+      setStatistics(statsData as UserStatistics);
     } catch (err) {
       console.error('Error fetching statistics:', err);
       setError(err instanceof Error ? err : new Error('Failed to fetch statistics'));
@@ -108,7 +109,21 @@ export const useAdminData = () => {
         throw logsError;
       }
 
-      setAuditLogs(logsData || []);
+      // Transform the Supabase data to match our AuditLog interface
+      const transformedLogs: AuditLog[] = (logsData || []).map(log => ({
+        id: log.id,
+        admin_user_id: log.admin_user_id,
+        action: log.action,
+        target_table: log.target_table,
+        target_id: log.target_id,
+        old_values: log.old_values as Record<string, any> | null,
+        new_values: log.new_values as Record<string, any> | null,
+        ip_address: log.ip_address as string | null,
+        user_agent: log.user_agent,
+        created_at: log.created_at,
+      }));
+
+      setAuditLogs(transformedLogs);
     } catch (err) {
       console.error('Error fetching audit logs:', err);
       setError(err instanceof Error ? err : new Error('Failed to fetch audit logs'));

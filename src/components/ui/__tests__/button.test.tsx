@@ -1,6 +1,6 @@
 
 import { render } from '@testing-library/react';
-import { screen } from '@testing-library/react';
+import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import { Button } from '../button';
 import { describe, it, expect, vi } from 'vitest';

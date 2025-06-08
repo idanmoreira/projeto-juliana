@@ -1,7 +1,8 @@
 
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth, UserRole } from '@/context/auth';
+import { useAuth } from '@/context/auth/SupabaseAuthProvider';
+import { UserRole } from '@/context/auth/types';
 import { toast } from '@/components/ui/sonner';
 
 interface ProtectedRouteProps {

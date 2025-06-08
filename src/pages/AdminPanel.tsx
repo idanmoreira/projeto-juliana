@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/context/auth/SupabaseAuthProvider';
 import { Navigate } from 'react-router-dom';
 import { useLanguage } from '@/context/LanguageContext';
 import Navbar from '@/components/Navbar';

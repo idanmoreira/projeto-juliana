@@ -85,8 +85,22 @@ export const useAdminData = () => {
         throw statsError;
       }
 
-      // Cast the Json response to our UserStatistics interface
-      setStatistics(statsData as UserStatistics);
+      // Safely convert the Json response to our UserStatistics interface
+      if (statsData && typeof statsData === 'object' && !Array.isArray(statsData)) {
+        const stats = statsData as Record<string, any>;
+        setStatistics({
+          total_users: Number(stats.total_users) || 0,
+          admin_users: Number(stats.admin_users) || 0,
+          paid_users: Number(stats.paid_users) || 0,
+          free_users: Number(stats.free_users) || 0,
+          total_courses: Number(stats.total_courses) || 0,
+          total_consultations: Number(stats.total_consultations) || 0,
+          total_files: Number(stats.total_files) || 0,
+        });
+      } else {
+        console.warn('Invalid statistics data received:', statsData);
+        setStatistics(null);
+      }
     } catch (err) {
       console.error('Error fetching statistics:', err);
       setError(err instanceof Error ? err : new Error('Failed to fetch statistics'));

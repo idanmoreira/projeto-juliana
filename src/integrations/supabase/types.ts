@@ -9,6 +9,83 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      admin_users: {
+        Row: {
+          admin_level: string
+          created_at: string
+          created_by: string | null
+          id: string
+          permissions: Json | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          admin_level?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          permissions?: Json | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          admin_level?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          permissions?: Json | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      audit_logs: {
+        Row: {
+          action: string
+          admin_user_id: string
+          created_at: string
+          id: string
+          ip_address: unknown | null
+          new_values: Json | null
+          old_values: Json | null
+          target_id: string | null
+          target_table: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          action: string
+          admin_user_id: string
+          created_at?: string
+          id?: string
+          ip_address?: unknown | null
+          new_values?: Json | null
+          old_values?: Json | null
+          target_id?: string | null
+          target_table?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          action?: string
+          admin_user_id?: string
+          created_at?: string
+          id?: string
+          ip_address?: unknown | null
+          new_values?: Json | null
+          old_values?: Json | null
+          target_id?: string | null
+          target_table?: string | null
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audit_logs_admin_user_id_fkey"
+            columns: ["admin_user_id"]
+            isOneToOne: false
+            referencedRelation: "admin_users"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       consultations: {
         Row: {
           created_at: string | null
@@ -144,6 +221,33 @@ export type Database = {
         }
         Relationships: []
       }
+      system_settings: {
+        Row: {
+          description: string | null
+          id: string
+          setting_key: string
+          setting_value: Json
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          description?: string | null
+          id?: string
+          setting_key: string
+          setting_value: Json
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          description?: string | null
+          id?: string
+          setting_key?: string
+          setting_value?: Json
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       testimonials: {
         Row: {
           created_at: string | null
@@ -257,8 +361,16 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: string
       }
+      get_user_statistics: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
       has_role: {
         Args: { _role: string }
+        Returns: boolean
+      }
+      update_user_role: {
+        Args: { target_user_id: string; new_role: string }
         Returns: boolean
       }
     }

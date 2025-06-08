@@ -1,5 +1,7 @@
 
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { screen } from '@testing-library/dom';
+import userEvent from '@testing-library/user-event';
 import { Button } from '../button';
 import { describe, it, expect, vi } from 'vitest';
 
@@ -33,11 +35,12 @@ describe('Button Component', () => {
     expect(screen.getByRole('button')).toHaveClass('h-10', 'w-10');
   });
 
-  it('handles click events', () => {
+  it('handles click events', async () => {
     const handleClick = vi.fn();
+    const user = userEvent.setup();
     render(<Button onClick={handleClick}>Click me</Button>);
     
-    fireEvent.click(screen.getByRole('button'));
+    await user.click(screen.getByRole('button'));
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 

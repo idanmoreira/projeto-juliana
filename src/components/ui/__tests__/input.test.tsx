@@ -1,5 +1,7 @@
 
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { screen } from '@testing-library/dom';
+import userEvent from '@testing-library/user-event';
 import { Input } from '../input';
 import { describe, it, expect, vi } from 'vitest';
 
@@ -19,12 +21,13 @@ describe('Input Component', () => {
     expect(screen.getByLabelText(/password/i) || screen.getByDisplayValue('')).toHaveAttribute('type', 'password');
   });
 
-  it('handles value changes', () => {
+  it('handles value changes', async () => {
     const handleChange = vi.fn();
+    const user = userEvent.setup();
     render(<Input onChange={handleChange} />);
     
     const input = screen.getByRole('textbox');
-    fireEvent.change(input, { target: { value: 'test value' } });
+    await user.type(input, 'test value');
     
     expect(handleChange).toHaveBeenCalled();
   });

@@ -1,40 +1,114 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "@/components/ui/sonner";
 import { useLanguage } from '../context/LanguageContext';
+import { useAuth } from '../context/auth/SupabaseAuthProvider';
 import { CalendarCheck, Clock } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 interface BookingCalendarProps {
   isPremium: boolean;
 }
 
+interface ConsultationType {
+  id: string;
+  name: string;
+  description: string;
+  duration_minutes: number;
+  price: number;
+  is_premium: boolean;
+}
+
+interface TimeSlot {
+  id: string;
+  date: string;
+  start_time: string;
+  end_time: string;
+  datetime_display: string;
+}
+
 const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
   const { t } = useLanguage();
+  const { user, isAuthenticated } = useAuth();
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [timeSlot, setTimeSlot] = useState<string>("");
   const [consultationType, setConsultationType] = useState<string>("");
+  const [consultationTypes, setConsultationTypes] = useState<ConsultationType[]>([]);
+  const [availableSlots, setAvailableSlots] = useState<TimeSlot[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Mock available time slots
-  const timeSlots = ['10:00', '11:30', '14:00', '15:30', '17:00'];
-  
-  // Mock consultation types with availability based on user plan
-  const consultationTypes = [
-    { id: "intro", label: t('introductorySession'), availableForFree: true },
-    { id: "birth_chart", label: t('birthChartReading'), availableForFree: false },
-    { id: "relationship", label: t('relationshipReading'), availableForFree: false },
-    { id: "career", label: t('careerReading'), availableForFree: false },
-  ];
+  // Fetch consultation types on component mount
+  useEffect(() => {
+    const fetchConsultationTypes = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('consultation_types')
+          .select('*')
+          .eq('is_active', true)
+          .order('price');
+
+        if (error) {
+          console.error('Error fetching consultation types:', error);
+          return;
+        }
+
+        setConsultationTypes(data || []);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchConsultationTypes();
+  }, []);
+
+  // Fetch available slots when date is selected
+  useEffect(() => {
+    if (date) {
+      const fetchAvailableSlots = async () => {
+        try {
+          const { data, error } = await supabase
+            .rpc('get_available_slots', {
+              consultation_date: date.toISOString().split('T')[0]
+            });
+
+          if (error) {
+            console.error('Error fetching slots:', error);
+            return;
+          }
+
+          setAvailableSlots(data || []);
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
+
+      fetchAvailableSlots();
+    } else {
+      setAvailableSlots([]);
+    }
+    setTimeSlot(""); // Reset selected time slot when date changes
+  }, [date]);
 
   // Filter consultation types based on user plan
-  const availableConsultations = isPremium 
+  const availableConsultations = isPremium || (user && (user.role === 'paid' || user.role === 'admin'))
     ? consultationTypes 
-    : consultationTypes.filter(type => type.availableForFree);
+    : consultationTypes.filter(type => !type.is_premium);
 
-  const handleBooking = () => {
+  const selectedSlot = availableSlots.find(slot => slot.id === timeSlot);
+  const selectedConsultation = consultationTypes.find(type => type.id === consultationType);
+
+  const handleBooking = async () => {
+    if (!isAuthenticated) {
+      toast.error(t('loginRequired'), {
+        description: t('pleaseLoginToBook'),
+      });
+      return;
+    }
+
     if (!date || !timeSlot || !consultationType) {
       toast.error(t('incompleteBooking'), {
         description: t('pleaseCompleteAllFields'),
@@ -42,19 +116,47 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
       return;
     }
 
-    // Here you would typically make an API call to save the booking
-    // Create the message with string concatenation instead of using an object parameter
-    const formattedDate = date.toLocaleDateString();
-    const message = `${t('consultationScheduled')} ${formattedDate}, ${timeSlot}`;
-    
-    toast.success(t('bookingSuccessful'), {
-      description: message,
-    });
-    
-    // Reset the form
-    setDate(undefined);
-    setTimeSlot("");
-    setConsultationType("");
+    setIsLoading(true);
+
+    try {
+      const { data: consultationId, error } = await supabase
+        .rpc('book_consultation', {
+          consultation_type_id: consultationType,
+          appointment_slot_id: timeSlot,
+          consultation_title: selectedConsultation?.name,
+          consultation_description: selectedConsultation?.description
+        });
+
+      if (error) {
+        console.error('Booking error:', error);
+        toast.error(t('bookingFailed'), {
+          description: error.message,
+        });
+        return;
+      }
+
+      // Success - show confirmation
+      const formattedDate = date.toLocaleDateString();
+      const message = `${t('consultationScheduled')} ${formattedDate}, ${selectedSlot?.start_time}`;
+      
+      toast.success(t('bookingSuccessful'), {
+        description: message,
+      });
+      
+      // Reset the form
+      setDate(undefined);
+      setTimeSlot("");
+      setConsultationType("");
+      setAvailableSlots([]);
+      
+    } catch (error) {
+      console.error('Error booking consultation:', error);
+      toast.error(t('bookingFailed'), {
+        description: t('unexpectedError'),
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -75,7 +177,7 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
               onSelect={setDate}
               className="border rounded-md"
               disabled={(date) => {
-                // Disable dates in the past and weekends in this example
+                // Disable dates in the past and weekends
                 const now = new Date();
                 now.setHours(0, 0, 0, 0);
                 const day = date.getDay();
@@ -93,12 +195,21 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
                 </SelectTrigger>
                 <SelectContent>
                   {availableConsultations.map((type) => (
-                    <SelectItem key={type.id} value={type.id}>{type.label}</SelectItem>
+                    <SelectItem key={type.id} value={type.id}>
+                      {type.name} - ${type.price}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
               
-              {!isPremium && (
+              {selectedConsultation && (
+                <div className="text-sm text-muted-foreground">
+                  <p>{selectedConsultation.description}</p>
+                  <p className="mt-1">Duration: {selectedConsultation.duration_minutes} minutes</p>
+                </div>
+              )}
+              
+              {!isPremium && !(user && (user.role === 'paid' || user.role === 'admin')) && (
                 <div className="text-sm text-muted-foreground">
                   <p>{t('premiumConsultationsLocked')}</p>
                 </div>
@@ -112,18 +223,22 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
               </h3>
               
               {date ? (
-                <div className="grid grid-cols-3 gap-2">
-                  {timeSlots.map((time) => (
-                    <Button
-                      key={time}
-                      variant={timeSlot === time ? "default" : "outline"}
-                      className={timeSlot === time ? "bg-astral-purple hover:bg-astral-purple/90" : ""}
-                      onClick={() => setTimeSlot(time)}
-                    >
-                      {time}
-                    </Button>
-                  ))}
-                </div>
+                availableSlots.length > 0 ? (
+                  <div className="grid grid-cols-2 gap-2">
+                    {availableSlots.map((slot) => (
+                      <Button
+                        key={slot.id}
+                        variant={timeSlot === slot.id ? "default" : "outline"}
+                        className={timeSlot === slot.id ? "bg-astral-purple hover:bg-astral-purple/90" : ""}
+                        onClick={() => setTimeSlot(slot.id)}
+                      >
+                        {slot.start_time}
+                      </Button>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground">{t('noSlotsAvailable')}</p>
+                )
               ) : (
                 <p className="text-sm text-muted-foreground">{t('selectDateFirst')}</p>
               )}
@@ -132,9 +247,9 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
             <Button
               onClick={handleBooking}
               className="w-full bg-astral-purple hover:bg-astral-purple/90"
-              disabled={!date || !timeSlot || !consultationType}
+              disabled={!date || !timeSlot || !consultationType || isLoading}
             >
-              {t('confirmBooking')}
+              {isLoading ? t('booking') : t('confirmBooking')}
             </Button>
           </div>
         </div>

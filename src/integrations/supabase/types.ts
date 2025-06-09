@@ -39,6 +39,33 @@ export type Database = {
         }
         Relationships: []
       }
+      appointment_slots: {
+        Row: {
+          created_at: string | null
+          date: string
+          end_time: string
+          id: string
+          is_available: boolean | null
+          start_time: string
+        }
+        Insert: {
+          created_at?: string | null
+          date: string
+          end_time: string
+          id?: string
+          is_available?: boolean | null
+          start_time: string
+        }
+        Update: {
+          created_at?: string | null
+          date?: string
+          end_time?: string
+          id?: string
+          is_available?: boolean | null
+          start_time?: string
+        }
+        Relationships: []
+      }
       audit_logs: {
         Row: {
           action: string
@@ -86,41 +113,110 @@ export type Database = {
           },
         ]
       }
+      consultation_types: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          duration_minutes: number | null
+          id: string
+          is_active: boolean | null
+          is_premium: boolean | null
+          name: string
+          price: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          is_active?: boolean | null
+          is_premium?: boolean | null
+          name: string
+          price?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          is_active?: boolean | null
+          is_premium?: boolean | null
+          name?: string
+          price?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       consultations: {
         Row: {
+          appointment_slot_id: string | null
+          consultation_type_id: string | null
           created_at: string | null
           date: string
           description: string | null
           id: string
+          is_premium: boolean | null
+          meeting_url: string | null
           notes: string | null
+          payment_status: string | null
+          price: number | null
           status: string | null
           title: string
           updated_at: string | null
           user_id: string
         }
         Insert: {
+          appointment_slot_id?: string | null
+          consultation_type_id?: string | null
           created_at?: string | null
           date: string
           description?: string | null
           id?: string
+          is_premium?: boolean | null
+          meeting_url?: string | null
           notes?: string | null
+          payment_status?: string | null
+          price?: number | null
           status?: string | null
           title: string
           updated_at?: string | null
           user_id: string
         }
         Update: {
+          appointment_slot_id?: string | null
+          consultation_type_id?: string | null
           created_at?: string | null
           date?: string
           description?: string | null
           id?: string
+          is_premium?: boolean | null
+          meeting_url?: string | null
           notes?: string | null
+          payment_status?: string | null
+          price?: number | null
           status?: string | null
           title?: string
           updated_at?: string | null
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "consultations_appointment_slot_id_fkey"
+            columns: ["appointment_slot_id"]
+            isOneToOne: false
+            referencedRelation: "appointment_slots"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "consultations_consultation_type_id_fkey"
+            columns: ["consultation_type_id"]
+            isOneToOne: false
+            referencedRelation: "consultation_types"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       courses: {
         Row: {
@@ -188,6 +284,54 @@ export type Database = {
           type?: string
           url?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      learning_resources: {
+        Row: {
+          content: string | null
+          created_at: string | null
+          description: string | null
+          difficulty_level: string | null
+          duration_minutes: number | null
+          file_url: string | null
+          id: string
+          is_premium: boolean | null
+          is_published: boolean | null
+          resource_type: string
+          thumbnail_url: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string | null
+          description?: string | null
+          difficulty_level?: string | null
+          duration_minutes?: number | null
+          file_url?: string | null
+          id?: string
+          is_premium?: boolean | null
+          is_published?: boolean | null
+          resource_type: string
+          thumbnail_url?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          content?: string | null
+          created_at?: string | null
+          description?: string | null
+          difficulty_level?: string | null
+          duration_minutes?: number | null
+          file_url?: string | null
+          id?: string
+          is_premium?: boolean | null
+          is_published?: boolean | null
+          resource_type?: string
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -357,6 +501,25 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      book_consultation: {
+        Args: {
+          consultation_type_id: string
+          appointment_slot_id: string
+          consultation_title?: string
+          consultation_description?: string
+        }
+        Returns: string
+      }
+      get_available_slots: {
+        Args: { consultation_date?: string }
+        Returns: {
+          id: string
+          date: string
+          start_time: string
+          end_time: string
+          datetime_display: string
+        }[]
+      }
       get_current_user_role: {
         Args: Record<PropertyKey, never>
         Returns: string

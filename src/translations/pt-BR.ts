@@ -1,4 +1,3 @@
-
 const ptBR = {
   // Navigation
   'home': 'Início',
@@ -233,6 +232,14 @@ const ptBR = {
   'noAccount': "Não tem uma conta?",
   'alreadyHaveAccount': 'Já tem uma conta?',
   'signupErrorDefault': "Falha no cadastro. Por favor, tente novamente.",
+  
+  // New booking-related translations
+  loginRequired: "Login Necessário",
+  pleaseLoginToBook: "Faça login para agendar uma consulta",
+  noSlotsAvailable: "Nenhum horário disponível para esta data",
+  booking: "Agendando...",
+  bookingFailed: "Falha no Agendamento",
+  unexpectedError: "Ocorreu um erro inesperado",
 };
 
 export default ptBR;

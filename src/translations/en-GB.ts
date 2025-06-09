@@ -1,4 +1,3 @@
-
 const enGB = {
   // General
   appName: 'Juliana Manduca Astrology',
@@ -285,6 +284,14 @@ const enGB = {
   newsletterDesc: 'Subscribe to receive monthly astrological insights, exclusive content, and special offers.',
   privacyConsent: 'By subscribing, you agree to our Privacy Policy and consent to receive updates from Juliana Manduca.',
   signupErrorDefault: "Signup failed. Please try again.",
+  
+  // New booking-related translations
+  loginRequired: "Login Required",
+  pleaseLoginToBook: "Please log in to book a consultation",
+  noSlotsAvailable: "No available time slots for this date",
+  booking: "Booking...",
+  bookingFailed: "Booking Failed",
+  unexpectedError: "An unexpected error occurred",
 };
 
 export default enGB;

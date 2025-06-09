@@ -16,6 +16,11 @@ export default defineConfig(({ mode, command }) => ({
   },
   preview: {
     port: parseInt(process.env.PORT) || 3002, // usado em `vite preview`
+    host: true,
+    allowedHosts: [
+      'dev.julianamanduca.com.br',
+      'live-projects-1-aplication-juliana-dev.leapir.easypanel.host'
+    ]
   },
   plugins: [
     react(),

@@ -3,7 +3,7 @@ import { useLanguage } from '../context/LanguageContext';
 
 const WhatsAppButton = () => {
   const { t } = useLanguage();
-  const phoneNumber = "5511999999999"; // Replace with actual number
+  const phoneNumber = "353830269432"; // Replace with actual number
   const whatsappUrl = `https://wa.me/${phoneNumber}`;
   
   return (

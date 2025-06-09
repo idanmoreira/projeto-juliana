@@ -11,7 +11,7 @@ export default defineConfig(({ mode, command }) => ({
     port: 8091, // usado no modo "dev"
   },
   preview: {
-    port: parseInt(process.env.PORT) || 3001, // usado em `vite preview`
+    port: parseInt(process.env.PORT) || 3002, // usado em `vite preview`
   },
   plugins: [
     react(),

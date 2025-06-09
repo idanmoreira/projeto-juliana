@@ -9,6 +9,10 @@ export default defineConfig(({ mode, command }) => ({
   server: {
     host: "::",
     port: 8091, // usado no modo "dev"
+    host: true,
+    allowedHosts: [
+      'dev.julianamanduca.com.br'
+    ]
   },
   preview: {
     port: parseInt(process.env.PORT) || 3002, // usado em `vite preview`

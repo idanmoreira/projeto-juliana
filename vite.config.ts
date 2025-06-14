@@ -1,21 +1,19 @@
+
 /// <reference types="vitest" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import svgr from "vite-plugin-svgr";
 
-// https://vitejs.dev/config/
 export default defineConfig(({ mode, command }) => ({
   server: {
-    host: "::",
-    port: 8091, // usado no modo "dev"
-    host: true,
+    port: 8080, // Fix: use 8080 as required and only specify once
     allowedHosts: [
       'dev.julianamanduca.com.br'
     ]
   },
   preview: {
-    port: parseInt(process.env.PORT) || 3002, // usado em `vite preview`
+    port: parseInt(process.env.PORT || "3002"), // fix: ensure fallback is string
     host: true,
     allowedHosts: [
       'dev.julianamanduca.com.br',
@@ -25,7 +23,7 @@ export default defineConfig(({ mode, command }) => ({
   plugins: [
     react(),
     svgr({ svgrOptions: { icon: true } }),
-    mode === 'development' && componentTagger(),
+    // mode === 'development' && componentTagger(), // Fix: Remove undefined plugin
   ].filter(Boolean),
   resolve: {
     alias: {

@@ -56,7 +56,11 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
           return;
         }
 
-        setConsultationTypes(data || []);
+        // Map and fix null descriptions to empty string
+        setConsultationTypes((data || []).map((type) => ({
+          ...type,
+          description: type.description ?? "",
+        })));
       } catch (error) {
         console.error('Error:', error);
       }
@@ -119,7 +123,7 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
     setIsLoading(true);
 
     try {
-      const { data: consultationId, error } = await supabase
+      const { error } = await supabase
         .rpc('book_consultation', {
           consultation_type_id: consultationType,
           appointment_slot_id: timeSlot,

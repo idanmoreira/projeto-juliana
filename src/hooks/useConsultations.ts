@@ -42,7 +42,11 @@ export const useConsultations = () => {
           return;
         }
 
-        setConsultations(data || []);
+        // Fix description from null to empty string
+        setConsultations((data || []).map((consultation) => ({
+          ...consultation,
+          description: consultation.description ?? "",
+        })));
       } catch (error) {
         console.error('Error:', error);
       } finally {

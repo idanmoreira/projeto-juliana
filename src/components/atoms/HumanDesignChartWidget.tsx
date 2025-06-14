@@ -19,6 +19,9 @@ const HumanDesignChartWidget: React.FC = () => {
     setIsClient(true);
   }, []);
 
+  // Early return: prevent server-side rendering/hydration mismatch
+  if (!isClient) return null;
+
   const src = isMobile
     ? "https://humandesign.tools/widget/chart?mobile=1"
     : "https://humandesign.tools/widget/chart";
@@ -33,7 +36,6 @@ const HumanDesignChartWidget: React.FC = () => {
     }
   }, [loaded, isClient]);
 
-  // Always return JSX from the component
   return (
     <div className="mb-8 backdrop-blur-md bg-white/10 rounded-3xl p-4 md:p-8 border border-white/20 shadow-2xl animate-fade-in min-h-[480px] flex items-center justify-center relative">
       {!loaded && !error && (
@@ -51,7 +53,6 @@ const HumanDesignChartWidget: React.FC = () => {
             onClick={() => {
               setError(false);
               setLoaded(false);
-              // Only try reload if iframeRef is set
               if (iframeRef.current?.contentWindow) {
                 iframeRef.current.contentWindow.location.reload();
               }
@@ -62,22 +63,19 @@ const HumanDesignChartWidget: React.FC = () => {
           </button>
         </div>
       )}
-      {isClient && (
-        <iframe
-          id="humanDesignWidget"
-          ref={iframeRef}
-          src={src}
-          style={{ width: "100%", height: "450px", visibility: loaded && !error ? "visible" : "hidden" }}
-          frameBorder={0}
-          className="rounded-xl w-full"
-          title="Human Design Chart Widget"
-          allow="clipboard-write"
-          onLoad={() => setLoaded(true)}
-        />
-      )}
+      <iframe
+        id="humanDesignWidget"
+        ref={iframeRef}
+        src={src}
+        style={{ width: "100%", height: "450px", visibility: loaded && !error ? "visible" : "hidden" }}
+        frameBorder={0}
+        className="rounded-xl w-full"
+        title="Human Design Chart Widget"
+        allow="clipboard-write"
+        onLoad={() => setLoaded(true)}
+      />
     </div>
   );
 };
 
 export default HumanDesignChartWidget;
-

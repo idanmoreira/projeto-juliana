@@ -1,3 +1,4 @@
+
 const enGB = {
   // General
   appName: 'Juliana Manduca Astrology',
@@ -227,7 +228,7 @@ const enGB = {
   pleaseCompleteAllFields: 'Please complete all required fields',
   bookingSuccessful: 'Booking Successful',
   consultationScheduled: 'Your consultation has been scheduled for',
-  
+
   // WhatsApp
   chatOnWhatsApp: 'Chat on WhatsApp',
   
@@ -295,3 +296,4 @@ const enGB = {
 };
 
 export default enGB;
+

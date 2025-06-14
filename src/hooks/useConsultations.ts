@@ -42,11 +42,21 @@ export const useConsultations = () => {
           return;
         }
 
-        // Fix description from null to empty string
-        setConsultations((data || []).map((consultation) => ({
-          ...consultation,
-          description: consultation.description ?? "",
-        })));
+        // Fix description/status from null to empty/default string
+        setConsultations(
+          (data || []).map((consultation) => ({
+            ...consultation,
+            description: consultation.description ?? "",
+            status: consultation.status ?? "scheduled",
+            price: typeof consultation.price === "number" && consultation.price !== null ? consultation.price : 0,
+            is_premium: !!consultation.is_premium,
+            payment_status: consultation.payment_status ?? "pending",
+            consultation_type_id: consultation.consultation_type_id ?? "",
+            appointment_slot_id: consultation.appointment_slot_id ?? "",
+            meeting_url: consultation.meeting_url ?? undefined,
+            notes: consultation.notes ?? undefined,
+          }))
+        );
       } catch (error) {
         console.error('Error:', error);
       } finally {
@@ -65,6 +75,6 @@ export const useConsultations = () => {
         setIsLoading(true);
         // Re-run the fetch logic
       }
-    }
+    },
   };
 };

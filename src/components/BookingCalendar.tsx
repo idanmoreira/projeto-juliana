@@ -18,7 +18,7 @@ interface ConsultationType {
   id: string;
   name: string;
   description: string;
-  duration_minutes: number;
+  duration_minutes: number; // Fix: never nullable here
   price: number;
   is_premium: boolean;
 }
@@ -56,11 +56,18 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
           return;
         }
 
-        // Map and fix null descriptions to empty string
-        setConsultationTypes((data || []).map((type) => ({
-          ...type,
-          description: type.description ?? "",
-        })));
+        // Map nulls to safe defaults (especially duration_minutes)
+        setConsultationTypes(
+          (data || []).map((type) => ({
+            ...type,
+            description: type.description ?? "",
+            duration_minutes: typeof type.duration_minutes === 'number' && type.duration_minutes !== null
+              ? type.duration_minutes
+              : 60, // Default to 60 if undefined or null
+            price: typeof type.price === 'number' && type.price !== null ? type.price : 0,
+            is_premium: !!type.is_premium,
+          }))
+        );
       } catch (error) {
         console.error('Error:', error);
       }

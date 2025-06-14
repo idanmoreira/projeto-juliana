@@ -8,6 +8,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import AstrologyChartWidget from "@/components/atoms/AstrologyChartWidget";
 
 const AstrologyTools = () => {
   const [name, setName] = useState('');
@@ -28,6 +29,9 @@ const AstrologyTools = () => {
 
   return (
     <div className="max-w-4xl mx-auto">
+      {/* Chart widget comes first */}
+      <AstrologyChartWidget />
+
       <Card className="mb-8 border-astral-purple/30">
         <CardContent className="pt-6">
           <h3 className="text-xl font-bold mb-4 text-center">Mapa Natal</h3>

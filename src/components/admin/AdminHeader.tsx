@@ -1,24 +1,20 @@
-
-import { useLanguage } from '@/context/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 const AdminHeader = () => {
-  const { t } = useLanguage();
-
   return (
     <div className="mb-8 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">{t('adminPanel')}</h1>
-        <p className="text-muted-foreground mt-2">{t('adminPanelSubtitle')}</p>
+        <h1 className="text-3xl font-bold tracking-tight">Painel Admin</h1>
+        <p className="text-muted-foreground mt-2">Gerencie usuários, conteúdo e assinaturas.</p>
       </div>
       <div className="flex gap-2">
         <Input 
-          placeholder={t('searchUsers')} 
+          placeholder="Buscar usuários..." 
           className="w-full md:w-64" 
         />
         <Button className="bg-astral-purple hover:bg-astral-purple/90">
-          {t('newUser')}
+          Novo Usuário
         </Button>
       </div>
     </div>

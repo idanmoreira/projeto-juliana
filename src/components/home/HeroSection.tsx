@@ -1,6 +1,4 @@
-
 import { Button } from "@/components/ui/button";
-import { useLanguage } from "@/context/LanguageContext";
 import HeroLogo from '@/assets/icons/hero-logo.svg?react';
 
 /**
@@ -11,8 +9,6 @@ import HeroLogo from '@/assets/icons/hero-logo.svg?react';
  * @returns {JSX.Element} The hero section component.
  */
 const HeroSection = () => {
-  const { t } = useLanguage();
-
   return (
     <section className="relative gradient-bg star-field overflow-hidden py-20 md:py-32">
       <div className="container px-4 md:px-6 flex flex-col items-center text-center space-y-8">
@@ -23,21 +19,18 @@ const HeroSection = () => {
             <HeroLogo className="w-12 h-12 text-astral-gold animate-float" />
           </div>
         </div>
-        
         <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-astral-purple via-white to-astral-gold">
-          {t('heroTitle')}
+          Autoconhecimento através da Astrologia
         </h1>
-        
         <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-          {t('heroSubtitle')}
+          Descubra as energias do seu mapa e trilhe seu caminho transformador.
         </p>
-        
         <div className="flex flex-col sm:flex-row gap-4">
           <Button size="lg" className="bg-astral-purple hover:bg-astral-purple/90 text-white">
-            {t('bookConsultation')}
+            Agendar Consulta
           </Button>
           <Button size="lg" variant="outline" className="border-astral-gold text-astral-gold hover:bg-astral-gold/10">
-            {t('exploreServices')}
+            Explorar Serviços
           </Button>
         </div>
       </div>

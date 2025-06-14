@@ -1,4 +1,3 @@
-
 import { useAuth } from '@/context/auth/SupabaseAuthProvider';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -32,7 +31,7 @@ const NavigationUserMenu = ({ isMobile = false, onMenuClose }: { isMobile?: bool
     return (
       <div className="flex items-center">
         <a href="/login" className="text-sm font-medium hover:text-astral-purple transition-colors">
-          {t('login')}
+          Entrar
         </a>
       </div>
     );
@@ -50,16 +49,16 @@ const NavigationUserMenu = ({ isMobile = false, onMenuClose }: { isMobile?: bool
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align={isMobile ? "center" : "end"} forceMount>
         <DropdownMenuItem onClick={() => { navigate('/dashboard'); onMenuClose?.(); }}>
-          {t('dashboard')}
+          Painel
         </DropdownMenuItem>
         {user.role === 'admin' && (
           <DropdownMenuItem onClick={() => { navigate('/admin'); onMenuClose?.(); }}>
-            {t('adminPanel')}
+            Painel Admin
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut}>
-          {t('logout')}
+          Sair
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

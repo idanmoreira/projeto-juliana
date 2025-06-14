@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -139,3 +138,8 @@
 
 /* Font imports */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Add custom style for login button to match 'Book Now' buttons */
+.login-btn-style {
+  @apply w-full bg-astral-purple hover:bg-astral-purple/90 text-white;
+}

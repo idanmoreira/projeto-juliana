@@ -10,15 +10,6 @@ import { format } from "date-fns";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import AstrologyChartWidget from "@/components/atoms/AstrologyChartWidget";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectGroup,
-  SelectLabel,
-  SelectItem
-} from "@/components/ui/select";
 
 const TOOL_OPTIONS = [
   { value: "natal", label: "Mapa Natal" },
@@ -37,7 +28,6 @@ const AstrologyTools = () => {
   const generateChart = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // This is a simplified placeholder for the actual astrology API integration
     setTimeout(() => {
       setChartResult(
         `Basic birth chart for ${name} born on ${date ? format(date, 'PP') : ''} at ${time} in ${location}`
@@ -47,30 +37,24 @@ const AstrologyTools = () => {
 
   return (
     <div className="max-w-4xl mx-auto">
-      {/* Tool selector at top */}
-      <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
-        <label htmlFor="astrology-tool-select" className="font-semibold text-lg">
-          Selecione a ferramenta:
-        </label>
-        <div className="flex-1 max-w-xs">
-          <Select value={tool} onValueChange={setTool}>
-            <SelectTrigger id="astrology-tool-select">
-              <SelectValue>
-                {TOOL_OPTIONS.find((opt) => opt.value === tool)?.label || "Escolha a ferramenta"}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Ferramentas</SelectLabel>
-                {TOOL_OPTIONS.map(({ value, label }) => (
-                  <SelectItem value={value} key={value}>
-                    {label}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
+      {/* Menu horizontal de ferramentas */}
+      <div className="flex flex-row items-center gap-2 md:gap-6 mb-6 border-b border-muted pb-2">
+        {TOOL_OPTIONS.map(({ value, label }) => (
+          <button
+            key={value}
+            onClick={() => setTool(value)}
+            className={cn(
+              "text-sm font-medium px-2 pb-2 transition-colors relative focus:outline-none",
+              tool === value
+                ? "text-astral-purple after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-0.5 after:bg-astral-purple"
+                : "text-muted-foreground hover:text-astral-purple"
+            )}
+            type="button"
+            aria-current={tool === value ? "page" : undefined}
+          >
+            {label}
+          </button>
+        ))}
       </div>
 
       {/* Chart widget always visible */}
@@ -116,6 +100,7 @@ const AstrologyTools = () => {
                         selected={date}
                         onSelect={setDate}
                         initialFocus
+                        className={cn("p-3 pointer-events-auto")}
                       />
                     </PopoverContent>
                   </Popover>
@@ -156,7 +141,6 @@ const AstrologyTools = () => {
               <div className="mt-6 p-4 border border-astral-purple/30 bg-astral-purple/10 rounded-lg">
                 <h4 className="font-semibold mb-2">Seu mapa básico</h4>
                 <p>{chartResult}</p>
-                
                 <div className="mt-4 p-3 bg-astral-gold/10 border border-astral-gold rounded">
                   <p className="text-sm">Assine o Premium para obter seu mapa completo</p>
                   <Button 

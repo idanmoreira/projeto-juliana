@@ -1,31 +1,31 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Award, Shield, Clock, Calendar } from "lucide-react";
-import { useLanguage } from "@/context/LanguageContext";
+// Removed: import { useLanguage } from "@/context/LanguageContext";
 
 const FeaturesSection = () => {
-  const { t } = useLanguage();
+  // Removed: const { t } = useLanguage();
 
   const features = [
     {
       icon: <Award className="h-6 w-6 text-astral-purple" />,
-      titleKey: 'certifiedPro',
-      descriptionKey: 'certifiedProDesc'
+      title: "Certified Professional",
+      description: "Receive guidance from a certified astrologer with years of experience."
     },
     {
       icon: <Shield className="h-6 w-6 text-astral-purple" />,
-      titleKey: 'approach',
-      descriptionKey: 'approachDesc'
+      title: "Personalized Approach",
+      description: "Unique recommendations tailored to your birth chart and life path."
     },
     {
       icon: <Clock className="h-6 w-6 text-astral-purple" />,
-      titleKey: 'tailoredSessions',
-      descriptionKey: 'tailoredSessionsDesc'
+      title: "Tailored Sessions",
+      description: "Each session is planned according to your current needs and goals."
     },
     {
       icon: <Calendar className="h-6 w-6 text-astral-purple" />,
-      titleKey: 'ongoingSupport',
-      descriptionKey: 'ongoingSupportDesc'
+      title: "Ongoing Support",
+      description: "Continuous guidance to help you at every stage of your personal growth."
     }
   ];
 
@@ -33,9 +33,9 @@ const FeaturesSection = () => {
     <section className="py-16 md:py-24 bg-gradient-to-b from-background to-astral-dark/70">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">{t('whyChoose')}</h2>
+          <h2 className="text-3xl font-bold mb-4">Why Choose Juliana?</h2>
           <p className="text-muted-foreground max-w-2xl">
-            {t('certifiedDesc')}
+            Expertise, empathy, and genuine dedication to your astrological journey.
           </p>
         </div>
         
@@ -46,8 +46,8 @@ const FeaturesSection = () => {
                 <div className="w-12 h-12 bg-astral-purple/10 rounded-full mx-auto flex items-center justify-center mb-4">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{t(feature.titleKey)}</h3>
-                <p className="text-muted-foreground">{t(feature.descriptionKey)}</p>
+                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                <p className="text-muted-foreground">{feature.description}</p>
               </CardContent>
             </Card>
           ))}

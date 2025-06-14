@@ -2,10 +2,10 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { useLanguage } from "@/context/LanguageContext";
+// Removed: import { useLanguage } from "@/context/LanguageContext";
 
 const BlogPreviewSection = () => {
-  const { t } = useLanguage();
+  // Removed: const { t } = useLanguage();
 
   const blogPosts = [
     {
@@ -35,9 +35,9 @@ const BlogPreviewSection = () => {
     <section className="py-16 md:py-24">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">{t('latestInsights')}</h2>
+          <h2 className="text-3xl font-bold mb-4">Latest Insights</h2>
           <p className="text-muted-foreground max-w-2xl">
-            {t('insightsDesc')}
+            Explore astrological knowledge, practical advice, and cosmic updates.
           </p>
         </div>
         
@@ -55,7 +55,7 @@ const BlogPreviewSection = () => {
                 <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
                 <p className="text-muted-foreground mb-4">{post.excerpt}</p>
                 <Button variant="link" className="p-0 h-auto text-astral-purple">
-                  {t('readMore')} <ArrowRight className="ml-2 h-4 w-4" />
+                  Read More <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </CardContent>
             </Card>
@@ -64,7 +64,7 @@ const BlogPreviewSection = () => {
         
         <div className="mt-10 text-center">
           <Button variant="outline" className="border-astral-purple text-astral-purple hover:bg-astral-purple/10">
-            {t('viewAllArticles')}
+            View All Articles
           </Button>
         </div>
       </div>

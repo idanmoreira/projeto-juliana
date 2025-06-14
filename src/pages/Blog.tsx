@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react';
-import { useLanguage } from '@/context/LanguageContext';
+// Removed: import { useLanguage } from '@/context/LanguageContext';
 import PageLayout from '@/components/layout/PageLayout';
 import PageHeader from '@/components/layout/PageHeader';
 import { Button } from '@/components/ui/button';
@@ -9,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/sonner';
 
 const Blog = () => {
-  const { t } = useLanguage();
+  // Removed: const { t } = useLanguage();
   const [email, setEmail] = useState('');
   const [activeCategory, setActiveCategory] = useState('All Posts');
   
@@ -86,9 +87,9 @@ const Blog = () => {
   return (
     <PageLayout>
       <PageHeader 
-        badge={t('blog')}
-        title={t('latestInsights')}
-        description={t('insightsDesc')}
+        badge="Blog"
+        title="Latest Insights"
+        description="Explore astrological knowledge, practical advice, and cosmic updates."
       />
       
       <div className="container px-4 md:px-6 py-6">
@@ -135,7 +136,7 @@ const Blog = () => {
               </CardContent>
               <CardFooter className="mt-auto pt-4">
                 <Button variant="ghost" className="text-astral-purple hover:text-astral-purple/90 hover:bg-purple-50 dark:hover:bg-purple-950/20 p-0">
-                  {t('readMore')} →
+                  Ler mais →
                 </Button>
               </CardFooter>
             </Card>
@@ -154,24 +155,24 @@ const Blog = () => {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center text-center space-y-4 max-w-md mx-auto">
             <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-astral-indigo to-astral-purple dark:from-white dark:to-astral-purple/80">
-              {t('stayConnected')}
+              Fique conectado
             </h2>
             <p className="text-xl text-muted-foreground">
-              {t('newsletterDesc')}
+              Assine nossa newsletter para receber novidades e dicas.
             </p>
             <form onSubmit={handleSubscribe} className="flex w-full max-w-sm items-center space-x-2 mt-4">
               <Input
                 type="email"
-                placeholder={t('yourEmail')}
+                placeholder="Seu e-mail"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="flex h-10 w-full rounded-md border border-astral-indigo/30 bg-card/50 px-3 py-2 text-sm"
                 required
               />
-              <Button type="submit" className="bg-astral-purple hover:bg-astral-purple/90">{t('subscribe')}</Button>
+              <Button type="submit" className="bg-astral-purple hover:bg-astral-purple/90">Inscrever-se</Button>
             </form>
             <p className="text-xs text-muted-foreground max-w-[350px]">
-              {t('privacyConsent')}
+              Aceito receber comunicações e compreendo que meus dados serão usados conforme a política de privacidade.
             </p>
           </div>
         </div>

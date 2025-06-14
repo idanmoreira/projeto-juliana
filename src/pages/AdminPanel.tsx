@@ -1,7 +1,8 @@
+
 import React from 'react';
 import { useAuth } from '@/context/auth/SupabaseAuthProvider';
 import { Navigate } from 'react-router-dom';
-import { useLanguage } from '@/context/LanguageContext';
+// Removed: import { useLanguage } from '@/context/LanguageContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -14,7 +15,7 @@ import AnalyticsTab from '@/components/admin/tabs/AnalyticsTab';
 
 const AdminPanel: React.FC = () => {
   const { isAuthenticated, hasAccess, isLoading } = useAuth();
-  const { t } = useLanguage();
+  // Removed: const { t } = useLanguage();
   
   if (isLoading) {
     return <div className="h-screen flex items-center justify-center">Carregando...</div>;

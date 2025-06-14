@@ -1,3 +1,4 @@
+
 import { TabsContent } from '@/components/ui/tabs';
 import DashboardOverview from '@/components/dashboard/DashboardOverview';
 import DashboardCourses from '@/components/dashboard/DashboardCourses';
@@ -5,9 +6,9 @@ import DashboardConsultations from '@/components/dashboard/DashboardConsultation
 import DashboardResources from '@/components/dashboard/DashboardResources';
 import DashboardFiles from '@/components/dashboard/DashboardFiles';
 import AstrologyTools from '@/components/AstrologyTools';
-import { useLanguage } from '@/context/LanguageContext';
-import { UserCourse, UserFile } from '@/hooks/useUserData';
-import { DashboardTab } from '@/hooks/useDashboardTabs';
+// Removed: import { useLanguage } from '@/context/LanguageContext';
+// Removed: import { UserCourse, UserFile } from '@/hooks/useUserData';
+// Removed: import { DashboardTab } from '@/hooks/useDashboardTabs';
 
 interface ConsultationType {
   id: string;
@@ -31,7 +32,7 @@ const DashboardTabsContent: React.FC<DashboardTabsContentProps> = ({
   consultations,
   consultationTypes
 }) => {
-  const { t } = useLanguage();
+  // Removed: const { t } = useLanguage();
 
   return (
     <>

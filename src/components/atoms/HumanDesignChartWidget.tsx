@@ -19,9 +19,6 @@ const HumanDesignChartWidget: React.FC = () => {
     setIsClient(true);
   }, []);
 
-  // Early return: prevent server-side rendering/hydration mismatch
-  if (!isClient) return null;
-
   const src = isMobile
     ? "https://humandesign.tools/widget/chart?mobile=1"
     : "https://humandesign.tools/widget/chart";
@@ -36,7 +33,8 @@ const HumanDesignChartWidget: React.FC = () => {
     }
   }, [loaded, isClient]);
 
-  return (
+  // Always return: either widget or nothing!
+  return isClient ? (
     <div className="mb-8 backdrop-blur-md bg-white/10 rounded-3xl p-4 md:p-8 border border-white/20 shadow-2xl animate-fade-in min-h-[480px] flex items-center justify-center relative">
       {!loaded && !error && (
         <div className="absolute inset-0 flex flex-col items-center justify-center z-10 bg-white/10 rounded-3xl pointer-events-none">
@@ -75,7 +73,8 @@ const HumanDesignChartWidget: React.FC = () => {
         onLoad={() => setLoaded(true)}
       />
     </div>
-  );
+  ) : null;
 };
 
 export default HumanDesignChartWidget;
+

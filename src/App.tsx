@@ -3,7 +3,6 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
-import { LanguageProvider } from "./context/LanguageContext";
 import { SupabaseAuthProvider } from "./context/auth/SupabaseAuthProvider";
 import { SecurityProvider } from "./context/SecurityContext";
 import { AppRoutes } from "./routes";
@@ -25,21 +24,19 @@ const queryClient = new QueryClient({
 
 /**
  * The root component of the application.
- * Enhanced with Supabase authentication and security context.
+ * Portuguese only version, i18n removed.
  */
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <LanguageProvider>
-        <BrowserRouter>
-          <SupabaseAuthProvider>
-            <SecurityProvider>
-              <Sonner />
-              <AppRoutes />
-            </SecurityProvider>
-          </SupabaseAuthProvider>
-        </BrowserRouter>
-      </LanguageProvider>
+      <BrowserRouter>
+        <SupabaseAuthProvider>
+          <SecurityProvider>
+            <Sonner />
+            <AppRoutes />
+          </SecurityProvider>
+        </SupabaseAuthProvider>
+      </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );

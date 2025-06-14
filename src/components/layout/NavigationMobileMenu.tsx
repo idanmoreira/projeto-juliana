@@ -1,7 +1,5 @@
 
 import { Link } from 'react-router-dom';
-import { useLanguage } from '../../context/LanguageContext';
-import NavigationLanguageToggle from './NavigationLanguageToggle';
 import NavigationUserMenu from './NavigationUserMenu';
 
 interface NavigationMobileMenuProps {
@@ -10,40 +8,35 @@ interface NavigationMobileMenuProps {
 }
 
 /**
- * Mobile navigation menu component.
- * Part of the layout/navigation molecules in Atomic Design.
+ * Mobile navigation menu component (Portuguese only).
  */
 const NavigationMobileMenu = ({ isOpen, onClose }: NavigationMobileMenuProps) => {
-  const { t } = useLanguage();
-
   if (!isOpen) return null;
 
   return (
     <div className="md:hidden astro-glass py-4 px-6 border-b border-border">
       <div className="flex flex-col space-y-4">
-        <Link 
-          to="/" 
+        <Link
+          to="/"
           className="text-sm font-medium py-2 hover:text-astral-purple"
           onClick={onClose}
         >
-          {t('home')}
+          Início
         </Link>
-        <Link 
-          to="/services" 
+        <Link
+          to="/services"
           className="text-sm font-medium py-2 hover:text-astral-purple"
           onClick={onClose}
         >
-          {t('services')}
+          Atendimentos
         </Link>
-        <Link 
-          to="/blog" 
+        <Link
+          to="/blog"
           className="text-sm font-medium py-2 hover:text-astral-purple"
           onClick={onClose}
         >
-          {t('blog')}
+          Blog
         </Link>
-        
-        <NavigationLanguageToggle isMobile={true} />
         <NavigationUserMenu isMobile={true} onMenuClose={onClose} />
       </div>
     </div>

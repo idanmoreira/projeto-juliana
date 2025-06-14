@@ -1,4 +1,3 @@
-
 import { useAuth } from '@/context/auth/SupabaseAuthProvider';
 import { Tabs } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -50,7 +49,7 @@ const Dashboard = () => {
 
   // Build a safe user profile even if there's an error
   const safeUserData: SafeUserData = {
-    name: profile?.display_name || user.name || user.email?.split('@')[0] || 'User',
+    name: profile?.display_name || user.name || user.email?.split('@')[0] || 'Usuário',
     email: user.email,
     role: profile?.role || user.role || 'free'
   };

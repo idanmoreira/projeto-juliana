@@ -14,15 +14,13 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { useLanguage } from '@/context/LanguageContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { signupSchema, SignupFormValues } from '@/context/auth/validation';
 
 const Signup: React.FC = () => {
   const { signup, isLoading } = useAuth();
-  const { t } = useLanguage();
-  
+
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -43,12 +41,12 @@ const Signup: React.FC = () => {
       <div className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">
-            <h1 className="text-3xl font-bold tracking-tight">{t('signUp')}</h1>
+            <h1 className="text-3xl font-bold tracking-tight">Cadastrar</h1>
             <p className="mt-2 text-muted-foreground">
-              Create your account to get started
+              Crie sua conta para começar
             </p>
           </div>
-          
+
           <div className="space-y-4">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -57,35 +55,35 @@ const Signup: React.FC = () => {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('name')}</FormLabel>
+                      <FormLabel>Nome</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your name" {...field} />
+                        <Input placeholder="Seu nome" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('email')}</FormLabel>
+                      <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="you@example.com" {...field} />
+                        <Input placeholder="seu@email.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('password')}</FormLabel>
+                      <FormLabel>Senha</FormLabel>
                       <FormControl>
                         <Input type="password" placeholder="••••••••" {...field} />
                       </FormControl>
@@ -93,13 +91,13 @@ const Signup: React.FC = () => {
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="confirmPassword"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Confirm Password</FormLabel>
+                      <FormLabel>Confirmar Senha</FormLabel>
                       <FormControl>
                         <Input type="password" placeholder="••••••••" {...field} />
                       </FormControl>
@@ -107,23 +105,23 @@ const Signup: React.FC = () => {
                     </FormItem>
                   )}
                 />
-                
-                <Button 
-                  type="submit" 
-                  className="w-full bg-astral-purple hover:bg-astral-purple/90" 
+
+                <Button
+                  type="submit"
+                  className="w-full bg-astral-purple hover:bg-astral-purple/90"
                   disabled={isLoading}
                 >
-                  {isLoading ? 'Creating Account...' : t('signUp')}
+                  {isLoading ? 'Criando conta...' : 'Cadastrar'}
                 </Button>
               </form>
             </Form>
           </div>
-          
+
           <div className="text-center mt-4">
             <p>
-              Already have an account?{' '}
+              Já tem uma conta?{' '}
               <Link to="/login" className="text-astral-purple hover:underline">
-                {t('login')}
+                Entrar
               </Link>
             </p>
           </div>

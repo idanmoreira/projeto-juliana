@@ -14,15 +14,13 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { useLanguage } from '@/context/LanguageContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { loginSchema, LoginFormValues } from '@/context/auth/validation';
 
 const Login: React.FC = () => {
   const { login, isLoading } = useAuth();
-  const { t } = useLanguage();
-  
+
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -36,7 +34,7 @@ const Login: React.FC = () => {
   };
 
   const handleGoogleLogin = () => {
-    // This would be implemented with a real authentication provider
+    // Placeholder for real Google login
     console.log('Google login clicked');
   };
 
@@ -46,25 +44,24 @@ const Login: React.FC = () => {
       <div className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">
-            <h1 className="text-3xl font-bold tracking-tight">{t('login')}</h1>
+            <h1 className="text-3xl font-bold tracking-tight">Entrar</h1>
             <p className="mt-2 text-muted-foreground">
-              {t('loginSubtitle')}
+              Entre na sua conta
             </p>
             <div className="mt-4 p-4 bg-muted rounded-md text-sm">
-              <p className="mb-2 font-medium">Demo Accounts:</p>
+              <p className="mb-2 font-medium">Contas Demo:</p>
               <div className="text-left space-y-1">
                 <p>Admin: admin@example.com / admin123</p>
-                <p>Paid user: paid@example.com / paid123</p>
-                <p>Free user: free@example.com / free123</p>
+                <p>Usuário Premium: paid@example.com / paid123</p>
+                <p>Usuário Gratuito: free@example.com / free123</p>
               </div>
             </div>
           </div>
-          
+
           <div className="space-y-4">
-            {/* Google Login Button */}
-            <Button 
-              type="button" 
-              variant="outline" 
+            <Button
+              type="button"
+              variant="outline"
               className="w-full flex items-center justify-center gap-2"
               onClick={handleGoogleLogin}
             >
@@ -74,18 +71,18 @@ const Login: React.FC = () => {
                 <path fill="#fbbc05" d="M41.869 76.124c-3.009 8.812-4.704 18.226-4.704 28.011 0 9.92 1.724 19.428 4.776 28.343l31.65-24.56c-2.215-6.405-3.415-13.271-3.415-20.398 0-3.604.379-7.126 1.077-10.52z"/>
                 <path fill="#ea4335" d="M95.25 44.077c14.105 0 26.738 4.847 36.721 14.364l27.247-27.247C142.331 15.656 120.162 4.58 95.25 4.58 57.577 4.58 25.132 26.484 9.665 57.897l31.652 24.56c7.534-22.514 28.575-39.226 53.933-38.38z"/>
               </svg>
-              {t('loginWithGoogle')}
+              Entrar com Google
             </Button>
-          
+
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">{t('orContinueWith')}</span>
+                <span className="bg-background px-2 text-muted-foreground">ou continuar com email</span>
               </div>
             </div>
-          
+
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
@@ -93,21 +90,21 @@ const Login: React.FC = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('email')}</FormLabel>
+                      <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="you@example.com" {...field} />
+                        <Input placeholder="seu@email.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('password')}</FormLabel>
+                      <FormLabel>Senha</FormLabel>
                       <FormControl>
                         <Input type="password" placeholder="••••••••" {...field} />
                       </FormControl>
@@ -115,23 +112,23 @@ const Login: React.FC = () => {
                     </FormItem>
                   )}
                 />
-                
-                <Button 
-                  type="submit" 
-                  className="w-full bg-astral-purple hover:bg-astral-purple/90" 
+
+                <Button
+                  type="submit"
+                  className="w-full bg-astral-purple hover:bg-astral-purple/90"
                   disabled={isLoading}
                 >
-                  {isLoading ? t('loggingIn') : t('login')}
+                  {isLoading ? 'Entrando...' : 'Entrar'}
                 </Button>
               </form>
             </Form>
           </div>
-          
+
           <div className="text-center mt-4">
             <p>
-              {t('noAccount')}{' '}
+              Não tem uma conta?{' '}
               <Link to="/signup" className="text-astral-purple hover:underline">
-                {t('signUp')}
+                Cadastrar
               </Link>
             </p>
           </div>

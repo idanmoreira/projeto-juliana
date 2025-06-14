@@ -7,7 +7,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useLanguage } from '../../context/LanguageContext';
 import { useNavigate } from 'react-router-dom';
 import { useUserData } from '@/hooks/useUserData';
 
@@ -17,7 +16,6 @@ import { useUserData } from '@/hooks/useUserData';
  */
 const NavigationUserMenu = ({ isMobile = false, onMenuClose }: { isMobile?: boolean, onMenuClose?: () => void }) => {
   const { user, logout } = useAuth();
-  const { t } = useLanguage();
   const navigate = useNavigate();
   const { profile } = useUserData();
 

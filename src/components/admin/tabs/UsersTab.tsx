@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -84,16 +83,16 @@ const UsersTab = () => {
       <Card>
         <CardHeader>
           <CardTitle className="flex justify-between items-center">
-            <span>{t('allUsers')} ({filteredUsers.length})</span>
+            <span>Todos os usuários ({filteredUsers.length})</span>
             <div className="flex gap-2">
               <Input
-                placeholder={t('searchUsers')}
+                placeholder="Buscar usuários..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-64"
               />
               <Button variant="outline" size="sm">
-                {t('export')}
+                Exportar
               </Button>
             </div>
           </CardTitle>
@@ -104,40 +103,39 @@ const UsersTab = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
               <div className="bg-blue-50 p-4 rounded-lg">
                 <div className="text-2xl font-bold text-blue-600">{statistics.total_users}</div>
-                <div className="text-sm text-gray-600">Total Users</div>
+                <div className="text-sm text-gray-600">Total de Usuários</div>
               </div>
               <div className="bg-green-50 p-4 rounded-lg">
                 <div className="text-2xl font-bold text-green-600">{statistics.paid_users}</div>
-                <div className="text-sm text-gray-600">Paid Users</div>
+                <div className="text-sm text-gray-600">Usuários Premium</div>
               </div>
               <div className="bg-purple-50 p-4 rounded-lg">
                 <div className="text-2xl font-bold text-purple-600">{statistics.admin_users}</div>
-                <div className="text-sm text-gray-600">Admin Users</div>
+                <div className="text-sm text-gray-600">Administradores</div>
               </div>
               <div className="bg-gray-50 p-4 rounded-lg">
                 <div className="text-2xl font-bold text-gray-600">{statistics.free_users}</div>
-                <div className="text-sm text-gray-600">Free Users</div>
+                <div className="text-sm text-gray-600">Usuários Gratuitos</div>
               </div>
             </div>
           )}
-
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-[200px]">ID</TableHead>
-                  <TableHead>{t('name')}</TableHead>
-                  <TableHead>{t('role')}</TableHead>
+                  <TableHead>Nome</TableHead>
+                  <TableHead>Papel</TableHead>
                   <TableHead>Status</TableHead>
-                  <TableHead>{t('joined')}</TableHead>
-                  <TableHead className="text-right">{t('actions')}</TableHead>
+                  <TableHead>Ingressou</TableHead>
+                  <TableHead className="text-right">Ações</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filteredUsers.map((user) => (
                   <TableRow key={user.id}>
                     <TableCell className="font-mono text-xs">{user.id.slice(0, 8)}...</TableCell>
-                    <TableCell>{user.display_name || 'No name'}</TableCell>
+                    <TableCell>{user.display_name || 'Sem nome'}</TableCell>
                     <TableCell>
                       <span 
                         className={`px-2 py-1 rounded-full text-xs ${
@@ -159,7 +157,7 @@ const UsersTab = () => {
                             : 'bg-gray-100 text-gray-800'
                         }`}
                       >
-                        {user.is_paid ? 'Paid' : 'Free'}
+                        {user.is_paid ? 'Premium' : 'Gratuito'}
                       </span>
                     </TableCell>
                     <TableCell>
@@ -171,7 +169,7 @@ const UsersTab = () => {
                         size="sm"
                         onClick={() => handleEditUser(user)}
                       >
-                        {t('edit')}
+                        Editar
                       </Button>
                     </TableCell>
                   </TableRow>
@@ -179,21 +177,18 @@ const UsersTab = () => {
               </TableBody>
             </Table>
           </div>
-
           {filteredUsers.length === 0 && (
             <div className="text-center py-8 text-gray-500">
-              {searchTerm ? 'No users found matching your search.' : 'No users found.'}
+              {searchTerm ? 'Nenhum usuário encontrado.' : 'Nenhum usuário disponível.'}
             </div>
           )}
-
           <div className="flex justify-between items-center mt-4">
             <p className="text-sm text-muted-foreground">
-              Showing {filteredUsers.length} of {users.length} users
+              Exibindo {filteredUsers.length} de {users.length} usuários
             </p>
           </div>
         </CardContent>
       </Card>
-
       <UserManagementDialog
         isOpen={isDialogOpen}
         onClose={handleCloseDialog}

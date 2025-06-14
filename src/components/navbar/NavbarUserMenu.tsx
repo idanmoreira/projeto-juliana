@@ -1,8 +1,6 @@
-
 import { Button } from "@/components/ui/button";
 import { User, LogOut } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
-import { useLanguage } from '../../context/LanguageContext';
 import { useAuth } from '@/context/auth/SupabaseAuthProvider';
 import {
   DropdownMenu,
@@ -19,7 +17,6 @@ interface NavbarUserMenuProps {
 
 const NavbarUserMenu = ({ isMobile = false, onMenuClose }: NavbarUserMenuProps) => {
   const { user, logout, isAuthenticated } = useAuth();
-  const { t } = useLanguage();
   const navigate = useNavigate();
 
   const handleContactClick = () => {
@@ -51,7 +48,7 @@ const NavbarUserMenu = ({ isMobile = false, onMenuClose }: NavbarUserMenuProps) 
               className="w-full"
               onClick={() => handleNavigation('/dashboard')}
             >
-              {t('dashboard')}
+              Painel
             </Button>
             {user?.role === 'admin' && (
               <Button 
@@ -59,7 +56,7 @@ const NavbarUserMenu = ({ isMobile = false, onMenuClose }: NavbarUserMenuProps) 
                 className="w-full"
                 onClick={() => handleNavigation('/admin')}
               >
-                Admin Panel
+                Painel Admin
               </Button>
             )}
             <Button 
@@ -67,7 +64,7 @@ const NavbarUserMenu = ({ isMobile = false, onMenuClose }: NavbarUserMenuProps) 
               className="w-full"
               onClick={handleLogout}
             >
-              {t('logout')}
+              Sair
             </Button>
           </>
         ) : (
@@ -75,7 +72,7 @@ const NavbarUserMenu = ({ isMobile = false, onMenuClose }: NavbarUserMenuProps) 
             className="bg-astral-purple hover:bg-astral-purple/90 text-white w-full"
             onClick={handleContactClick}
           >
-            {t('login')}
+            Entrar
           </Button>
         )}
       </div>
@@ -94,17 +91,17 @@ const NavbarUserMenu = ({ isMobile = false, onMenuClose }: NavbarUserMenuProps) 
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem onClick={() => navigate('/dashboard')}>
-              {t('dashboard')}
+              Painel
             </DropdownMenuItem>
             {user?.role === 'admin' && (
               <DropdownMenuItem onClick={() => navigate('/admin')}>
-                Admin Panel
+                Painel Admin
               </DropdownMenuItem>
             )}
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={logout} className="text-red-600">
               <LogOut className="h-4 w-4 mr-2" />
-              {t('logout')}
+              Sair
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -113,7 +110,7 @@ const NavbarUserMenu = ({ isMobile = false, onMenuClose }: NavbarUserMenuProps) 
           className="bg-astral-purple hover:bg-astral-purple/90 text-white"
           onClick={handleContactClick}
         >
-          {t('login')}
+          Entrar
         </Button>
       )}
     </div>

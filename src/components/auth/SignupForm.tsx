@@ -1,9 +1,7 @@
-
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useLanguage } from '@/context/LanguageContext';
 import { toast } from "@/components/ui/sonner";
 import { useAuth } from '@/context/auth/SupabaseAuthProvider';
 import { signupSchema, SignupFormValues } from '@/context/auth/validation';
@@ -25,7 +23,6 @@ import {
  * @returns {JSX.Element} The signup form component.
  */
 const SignupForm = () => {
-  const { t } = useLanguage();
   const { signup, isLoading } = useAuth();
   
   const form = useForm<SignupFormValues>({
@@ -50,8 +47,7 @@ const SignupForm = () => {
       await signup(data);
     } catch (error) {
       console.error("Signup failed:", error);
-      // TODO: Internationalize this string
-      toast.error(t('signupErrorDefault', 'Signup failed. Please try again.'));
+      toast.error("Erro ao cadastrar. Tente novamente.");
     }
   };
   
@@ -63,9 +59,9 @@ const SignupForm = () => {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t('fullName')}</FormLabel>
+              <FormLabel>Nome completo</FormLabel>
               <FormControl>
-                <Input placeholder="John Doe" {...field} />
+                <Input placeholder="João da Silva" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -77,9 +73,9 @@ const SignupForm = () => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t('email')}</FormLabel>
+              <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="john@example.com" {...field} />
+                <Input placeholder="joao@email.com" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -91,7 +87,7 @@ const SignupForm = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t('password')}</FormLabel>
+              <FormLabel>Senha</FormLabel>
               <FormControl>
                 <Input type="password" {...field} />
               </FormControl>
@@ -105,7 +101,7 @@ const SignupForm = () => {
           name="confirmPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t('confirmPassword')}</FormLabel>
+              <FormLabel>Confirmar senha</FormLabel>
               <FormControl>
                 <Input type="password" {...field} />
               </FormControl>
@@ -119,7 +115,7 @@ const SignupForm = () => {
           className="w-full bg-astral-purple hover:bg-astral-purple/90"
           disabled={isLoading}
         >
-          {isLoading ? t('creatingAccount') : t('signUp')}
+          {isLoading ? "Criando conta..." : "Cadastrar"}
         </Button>
       </form>
     </Form>

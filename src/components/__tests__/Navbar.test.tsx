@@ -3,16 +3,13 @@ import { render } from '@testing-library/react';
 import { screen } from '@testing-library/dom';
 import { BrowserRouter } from 'react-router-dom';
 import Navbar from '../Navbar';
-import { LanguageProvider } from '../../context/LanguageContext';
 import { AuthProvider } from '../../context/auth/AuthProvider';
 import { describe, it, expect } from 'vitest';
 
 const MockProviders = ({ children }: { children: React.ReactNode }) => (
   <BrowserRouter>
     <AuthProvider>
-      <LanguageProvider>
-        {children}
-      </LanguageProvider>
+      {children}
     </AuthProvider>
   </BrowserRouter>
 );
@@ -35,10 +32,10 @@ describe('Navbar Component', () => {
       </MockProviders>
     );
 
-    // Check for navigation links (these should be visible on desktop)
-    const homeLink = screen.getByRole('link', { name: /home/i });
-    const servicesLink = screen.getByRole('link', { name: /services/i });
-    const blogLink = screen.getByRole('link', { name: /blog/i });
+    // Check for navigation links (Portuguese UI, per Footer/header logic)
+    const homeLink = screen.getByRole('link', { name: /Início/i });
+    const servicesLink = screen.getByRole('link', { name: /Atendimentos/i });
+    const blogLink = screen.getByRole('link', { name: /Blog/i });
 
     expect(homeLink).toBeInTheDocument();
     expect(servicesLink).toBeInTheDocument();

@@ -10,11 +10,13 @@ import { format } from "date-fns";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import AstrologyChartWidget from "@/components/atoms/AstrologyChartWidget";
+import HumanDesignChartWidget from "@/components/atoms/HumanDesignChartWidget";
 
 const TOOL_OPTIONS = [
   { value: "natal", label: "Mapa Natal" },
   { value: "transits", label: "Trânsitos" },
   { value: "synastry", label: "Sinastria" },
+  { value: "humandesign", label: "Human Design chart" },
 ];
 
 const AstrologyTools = () => {
@@ -57,8 +59,11 @@ const AstrologyTools = () => {
         ))}
       </div>
 
-      {/* Chart widget always visible */}
-      <AstrologyChartWidget />
+      {/* Mostrar AstrologyChartWidget só se 'natal' estiver ativo */}
+      {tool === "natal" && <AstrologyChartWidget />}
+
+      {/* Mostrar HumanDesignChartWidget só se 'humandesign' estiver ativo */}
+      {tool === "humandesign" && <HumanDesignChartWidget />}
 
       {/* TOOL-SPECIFIC CONTENT */}
       {tool === "natal" && (
@@ -77,7 +82,6 @@ const AstrologyTools = () => {
                     required 
                   />
                 </div>
-
                 <div className="space-y-2">
                   <Label htmlFor="birthdate">Data de nascimento</Label>
                   <Popover>
@@ -105,7 +109,6 @@ const AstrologyTools = () => {
                     </PopoverContent>
                   </Popover>
                 </div>
-
                 <div className="space-y-2">
                   <Label htmlFor="time">Hora de nascimento</Label>
                   <Input 
@@ -116,7 +119,6 @@ const AstrologyTools = () => {
                     required 
                   />
                 </div>
-
                 <div className="space-y-2">
                   <Label htmlFor="location">Cidade ou local de nascimento</Label>
                   <Input 
@@ -128,7 +130,6 @@ const AstrologyTools = () => {
                   />
                 </div>
               </div>
-
               <Button 
                 type="submit" 
                 className="w-full bg-astral-purple hover:bg-astral-purple/90"
@@ -156,7 +157,8 @@ const AstrologyTools = () => {
         </Card>
       )}
 
-      {tool !== "natal" && (
+      {/* Mostrar mensagem "Em breve" só para Trânsitos ou Sinastria */}
+      {(tool === "transits" || tool === "synastry") && (
         <Card className="mb-8 border-astral-purple/30">
           <CardContent className="pt-6">
             <h3 className="text-xl font-bold mb-4 text-center">
@@ -168,6 +170,9 @@ const AstrologyTools = () => {
           </CardContent>
         </Card>
       )}
+
+      {/* Se for "humandesign", mostra apenas o widget, sem outros conteúdos extras */}
+      {/* (Já exibido acima) */}
     </div>
   );
 };

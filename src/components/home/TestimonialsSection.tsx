@@ -1,29 +1,25 @@
-
 import { Card, CardContent } from "@/components/ui/card";
 import { Star } from "lucide-react";
-import { useLanguage } from "@/context/LanguageContext";
 
 const TestimonialsSection = () => {
-  const { t } = useLanguage();
-
   const testimonials = [
     {
       name: "Maria Silva",
-      text: "Juliana's astrological reading was incredibly insightful. She provided guidance that helped me make important life decisions with confidence.",
+      text: "A leitura astrológica da Juliana foi incrivelmente reveladora. Recebi orientações que me ajudaram a tomar decisões importantes.",
       stars: 5,
-      position: "Marketing Director",
+      position: "Diretora de Marketing",
     },
     {
       name: "Carlos Mendes",
-      text: "I was skeptical at first, but after my session with Juliana, I understood myself better. Her therapeutic approach combines modern psychology with astrological wisdom.",
+      text: "Fiquei cético, mas após a consulta me compreendi muito melhor. O método da Juliana alia psicologia moderna ao saber astrológico.",
       stars: 5,
-      position: "Software Engineer",
+      position: "Engenheiro de Software",
     },
     {
       name: "Ana Costa",
-      text: "The birth chart analysis was spot on. Juliana has a gift for translating complex astrological concepts into practical advice.",
+      text: "A análise do mapa natal foi precisa. Juliana tem o dom de traduzir conceitos complexos de forma prática.",
       stars: 5,
-      position: "Yoga Instructor",
+      position: "Instrutora de Yoga",
     },
   ];
 
@@ -31,9 +27,9 @@ const TestimonialsSection = () => {
     <section className="py-16 md:py-24 bg-gradient-to-b from-astral-dark/70 to-background">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">{t('testimonials')}</h2>
+          <h2 className="text-3xl font-bold mb-4">Depoimentos</h2>
           <p className="text-muted-foreground max-w-2xl">
-            {t('testimonialsDesc')}
+            Veja o que clientes têm dito sobre o trabalho de Juliana Manduca.
           </p>
         </div>
         

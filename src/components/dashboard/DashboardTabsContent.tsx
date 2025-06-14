@@ -1,4 +1,3 @@
-
 import { TabsContent } from '@/components/ui/tabs';
 import DashboardOverview from '@/components/dashboard/DashboardOverview';
 import DashboardCourses from '@/components/dashboard/DashboardCourses';
@@ -17,10 +16,10 @@ interface ConsultationType {
 }
 
 interface DashboardTabsContentProps {
-  activeTab: DashboardTab;
+  activeTab: any;
   isPaid: boolean;
-  courses: UserCourse[];
-  files: UserFile[];
+  courses: any[];
+  files: any[];
   consultations: any[];
   consultationTypes: ConsultationType[];
 }
@@ -67,7 +66,7 @@ const DashboardTabsContent: React.FC<DashboardTabsContentProps> = ({
       </TabsContent>
       
       <TabsContent value="tools">
-        <h2 className="text-2xl font-semibold mb-4">{t('astrologyTools')}</h2>
+        <h2 className="text-2xl font-semibold mb-4">Ferramentas Astrológicas</h2>
         <AstrologyTools />
       </TabsContent>
       

@@ -1,11 +1,7 @@
-
 import { Instagram, Youtube } from "lucide-react";
-import { useLanguage } from "@/context/LanguageContext";
 import VerticalSocialMediaBox from "@/components/VerticalSocialMediaBox";
 
 const SocialMediaSection = () => {
-  const { t } = useLanguage();
-
   const socialChannels = [
     {
       platform: "Instagram",
@@ -34,9 +30,9 @@ const SocialMediaSection = () => {
     <section className="py-16 md:py-20 bg-gradient-to-b from-astral-midnight/50 to-background">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">{t('connectWithJuliana')}</h2>
+          <h2 className="text-3xl font-bold mb-4">Redes Sociais</h2>
           <p className="text-muted-foreground max-w-2xl">
-            {t('socialMediaDesc')}
+            Acompanhe Juliana em todas as plataformas para conteúdos exclusivos.
           </p>
         </div>
         

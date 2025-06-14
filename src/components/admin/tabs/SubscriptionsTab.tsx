@@ -1,10 +1,8 @@
-import { useLanguage } from '@/context/LanguageContext';
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 const SubscriptionsTab = () => {
-  const { t } = useLanguage();
-
   const recentSubscriptions = [
     { user: 'John Doe', email: 'john@example.com', plan: 'Anual', date: '2025-05-15' },
     { user: 'Sarah Johnson', email: 'sarah@example.com', plan: 'Mensal', date: '2025-05-12' },

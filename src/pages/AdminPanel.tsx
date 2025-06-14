@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useAuth } from '@/context/auth/SupabaseAuthProvider';
 import { Navigate } from 'react-router-dom';
@@ -18,7 +17,7 @@ const AdminPanel: React.FC = () => {
   const { t } = useLanguage();
   
   if (isLoading) {
-    return <div className="h-screen flex items-center justify-center">Loading...</div>;
+    return <div className="h-screen flex items-center justify-center">Carregando...</div>;
   }
   
   if (!isAuthenticated || !hasAccess('admin')) {
@@ -33,11 +32,11 @@ const AdminPanel: React.FC = () => {
         
         <Tabs defaultValue="users" className="space-y-4">
           <TabsList className="overflow-x-auto">
-            <TabsTrigger value="users">{t('users')}</TabsTrigger>
-            <TabsTrigger value="content">{t('content')}</TabsTrigger>
+            <TabsTrigger value="users">Usuários</TabsTrigger>
+            <TabsTrigger value="content">Conteúdo</TabsTrigger>
             <TabsTrigger value="cms">CMS</TabsTrigger>
-            <TabsTrigger value="subscriptions">{t('subscriptions')}</TabsTrigger>
-            <TabsTrigger value="analytics">{t('analytics')}</TabsTrigger>
+            <TabsTrigger value="subscriptions">Assinaturas</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
           </TabsList>
           
           <TabsContent value="users">

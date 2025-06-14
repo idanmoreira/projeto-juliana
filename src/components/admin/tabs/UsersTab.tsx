@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -16,7 +17,7 @@ import UserManagementDialog from '@/components/admin/UserManagementDialog';
 import { formatDistanceToNow } from 'date-fns';
 
 const UsersTab = () => {
-  const { t } = useLanguage();
+  // Removed: const { t } = useLanguage();
   const { 
     users, 
     statistics, 
@@ -52,7 +53,7 @@ const UsersTab = () => {
         <CardContent className="p-8">
           <div className="flex items-center justify-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-astral-purple"></div>
-            <span className="ml-2">Loading users...</span>
+            <span className="ml-2">Carregando usuários...</span>
           </div>
         </CardContent>
       </Card>
@@ -64,13 +65,13 @@ const UsersTab = () => {
       <Card>
         <CardContent className="p-8">
           <div className="text-center text-red-600">
-            <p>Error loading users: {error.message}</p>
+            <p>Erro ao carregar usuários: {error.message}</p>
             <Button 
               variant="outline" 
               className="mt-2"
               onClick={() => window.location.reload()}
             >
-              Retry
+              Tentar novamente
             </Button>
           </div>
         </CardContent>
@@ -201,3 +202,4 @@ const UsersTab = () => {
 };
 
 export default UsersTab;
+

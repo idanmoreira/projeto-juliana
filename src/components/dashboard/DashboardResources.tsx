@@ -2,30 +2,26 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, FileText, Play } from 'lucide-react';
-import { useLanguage } from '@/context/LanguageContext';
 
 interface DashboardResourcesProps {
   isPaid: boolean;
 }
 
 const DashboardResources = ({ isPaid }: DashboardResourcesProps) => {
-  const { t } = useLanguage();
-  
   return (
     <div>
-      <h2 className="text-2xl font-semibold mb-4">{t('learningResources')}</h2>
-      
+      <h2 className="text-2xl font-semibold mb-4">Materiais de Estudo</h2>
       <div className="grid gap-8 md:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>{t('basicResources')}</CardTitle>
-            <CardDescription>{t('freeContent')}</CardDescription>
+            <CardTitle>Básico</CardTitle>
+            <CardDescription>Conteúdo gratuito</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <FileText className="mr-2 h-4 w-4 text-astral-purple" />
-                <span>{t('introToAstrology')}</span>
+                <span>Introdução à Astrologia</span>
               </div>
               <Button variant="ghost" size="sm">
                 <ArrowRight className="h-4 w-4" />
@@ -34,7 +30,7 @@ const DashboardResources = ({ isPaid }: DashboardResourcesProps) => {
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <Play className="mr-2 h-4 w-4 text-astral-purple" />
-                <span>{t('zodiacBasics')}</span>
+                <span>Noções de Zodíaco</span>
               </div>
               <Button variant="ghost" size="sm">
                 <ArrowRight className="h-4 w-4" />
@@ -43,7 +39,7 @@ const DashboardResources = ({ isPaid }: DashboardResourcesProps) => {
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <FileText className="mr-2 h-4 w-4 text-astral-purple" />
-                <span>{t('planetaryMeanings')}</span>
+                <span>Significados dos Planetas</span>
               </div>
               <Button variant="ghost" size="sm">
                 <ArrowRight className="h-4 w-4" />
@@ -51,17 +47,16 @@ const DashboardResources = ({ isPaid }: DashboardResourcesProps) => {
             </div>
           </CardContent>
         </Card>
-        
         <Card>
           <CardHeader>
-            <CardTitle>{t('premiumResources')}</CardTitle>
-            <CardDescription>{t('paidContentOnly')}</CardDescription>
+            <CardTitle>Premium</CardTitle>
+            <CardDescription>Apenas para assinantes pagos</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <FileText className="mr-2 h-4 w-4 text-astral-purple" />
-                <span>{t('advancedChartReading')}</span>
+                <span>Leitura Avançada de Mapas</span>
               </div>
               {isPaid ? (
                 <Button variant="ghost" size="sm">
@@ -76,7 +71,7 @@ const DashboardResources = ({ isPaid }: DashboardResourcesProps) => {
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <Play className="mr-2 h-4 w-4 text-astral-purple" />
-                <span>{t('masterClass')}</span>
+                <span>Masterclass Astrológica</span>
               </div>
               {isPaid ? (
                 <Button variant="ghost" size="sm">
@@ -91,7 +86,7 @@ const DashboardResources = ({ isPaid }: DashboardResourcesProps) => {
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <FileText className="mr-2 h-4 w-4 text-astral-purple" />
-                <span>{t('professionalTechniques')}</span>
+                <span>Técnicas Profissionais</span>
               </div>
               {isPaid ? (
                 <Button variant="ghost" size="sm">
@@ -107,7 +102,7 @@ const DashboardResources = ({ isPaid }: DashboardResourcesProps) => {
           {!isPaid && (
             <CardFooter>
               <Button className="w-full bg-astral-gold hover:bg-astral-gold/90 text-astral-dark">
-                {t('upgradeToAccess')}
+                Assine para acessar
               </Button>
             </CardFooter>
           )}

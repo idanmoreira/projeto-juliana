@@ -33,6 +33,7 @@ const HumanDesignChartWidget: React.FC = () => {
     }
   }, [loaded, isClient]);
 
+  // Always return JSX from the component
   return (
     <div className="mb-8 backdrop-blur-md bg-white/10 rounded-3xl p-4 md:p-8 border border-white/20 shadow-2xl animate-fade-in min-h-[480px] flex items-center justify-center relative">
       {!loaded && !error && (
@@ -50,7 +51,10 @@ const HumanDesignChartWidget: React.FC = () => {
             onClick={() => {
               setError(false);
               setLoaded(false);
-              iframeRef.current?.contentWindow?.location.reload();
+              // Only try reload if iframeRef is set
+              if (iframeRef.current?.contentWindow) {
+                iframeRef.current.contentWindow.location.reload();
+              }
             }}
             type="button"
           >

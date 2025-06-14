@@ -1,8 +1,8 @@
 
+// Removed: import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { FileIcon, DownloadIcon, TrashIcon, FileTextIcon, FileImageIcon, PresentationIcon } from 'lucide-react';
-import { useLanguage } from '@/context/LanguageContext';
 import { UserFile } from '@/hooks/useUserData';
 
 interface UserFilesProps {
@@ -11,7 +11,7 @@ interface UserFilesProps {
 }
 
 const UserFiles = ({ files, isPremium }: UserFilesProps) => {
-  const { t } = useLanguage();
+  // Removed: const { t } = useLanguage();
 
   const getFileIcon = (type: string) => {
     switch (type) {
@@ -31,15 +31,17 @@ const UserFiles = ({ files, isPremium }: UserFilesProps) => {
       <Card>
         <CardContent className="pt-6 text-center">
           <FileIcon className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
-          <h3 className="text-xl font-semibold mb-2">{t('noFiles')}</h3>
+          <h3 className="text-xl font-semibold mb-2">
+            {isPremium ? "Nenhum arquivo disponível" : "Funcionalidade Premium"}
+          </h3>
           <p className="text-muted-foreground mb-4">
             {isPremium 
-              ? t('noFilesYet') 
-              : t('upgradeForFiles')}
+              ? "Você ainda não possui arquivos para baixar." 
+              : "Faça upgrade para acesso a arquivos exclusivos."}
           </p>
           {!isPremium && (
             <Button className="bg-astral-gold hover:bg-astral-gold/90 text-astral-dark">
-              {t('upgradeToPremium')}
+              Faça upgrade para Premium
             </Button>
           )}
         </CardContent>

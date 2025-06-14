@@ -1,8 +1,8 @@
 
-import { useLanguage } from '../context/LanguageContext';
+// Removed: import { useLanguage } from '../context/LanguageContext';
 
 const WhatsAppButton = () => {
-  const { t } = useLanguage();
+  // Removed: const { t } = useLanguage();
   const phoneNumber = "353830269432"; // Replace with actual number
   const whatsappUrl = `https://wa.me/${phoneNumber}`;
   
@@ -12,7 +12,7 @@ const WhatsAppButton = () => {
       target="_blank" 
       rel="noopener noreferrer" 
       className="fixed bottom-6 right-6 bg-green-500 text-white rounded-full p-4 shadow-lg hover:bg-green-600 transition-colors z-50 flex items-center justify-center"
-      aria-label={t('chatOnWhatsApp')}
+      aria-label="Conversar no WhatsApp"
     >
       <svg 
         xmlns="http://www.w3.org/2000/svg" 

@@ -1,11 +1,9 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { toast } from "@/components/ui/sonner";
-import { useLanguage } from '../context/LanguageContext';
+import { toast } from '@/components/ui/sonner';
 import { useAuth } from '../context/auth/SupabaseAuthProvider';
 import { CalendarCheck, Clock } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
@@ -32,7 +30,6 @@ interface TimeSlot {
 }
 
 const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
-  const { t } = useLanguage();
   const { user, isAuthenticated } = useAuth();
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [timeSlot, setTimeSlot] = useState<string>("");
@@ -114,15 +111,15 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
 
   const handleBooking = async () => {
     if (!isAuthenticated) {
-      toast.error(t('loginRequired'), {
-        description: t('pleaseLoginToBook'),
+      toast.error("Login necessário", {
+        description: "Por favor, faça login para agendar.",
       });
       return;
     }
 
     if (!date || !timeSlot || !consultationType) {
-      toast.error(t('incompleteBooking'), {
-        description: t('pleaseCompleteAllFields'),
+      toast.error("Campos obrigatórios", {
+        description: "Preencha todos os campos para agendar.",
       });
       return;
     }
@@ -140,30 +137,28 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
 
       if (error) {
         console.error('Booking error:', error);
-        toast.error(t('bookingFailed'), {
+        toast.error("Agendamento falhou", {
           description: error.message,
         });
         return;
       }
 
-      // Success - show confirmation
       const formattedDate = date.toLocaleDateString();
-      const message = `${t('consultationScheduled')} ${formattedDate}, ${selectedSlot?.start_time}`;
+      const message = `Consulta agendada para ${formattedDate}, ${selectedSlot?.start_time}`;
       
-      toast.success(t('bookingSuccessful'), {
+      toast.success("Agendamento realizado", {
         description: message,
       });
-      
-      // Reset the form
+
       setDate(undefined);
       setTimeSlot("");
       setConsultationType("");
       setAvailableSlots([]);
-      
+
     } catch (error) {
       console.error('Error booking consultation:', error);
-      toast.error(t('bookingFailed'), {
-        description: t('unexpectedError'),
+      toast.error("Agendamento falhou", {
+        description: "Erro inesperado. Tente novamente.",
       });
     } finally {
       setIsLoading(false);
@@ -175,13 +170,13 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <CalendarCheck className="h-5 w-5 text-astral-purple" />
-          {t('bookingConsultation')}
+          Agendar Consulta
         </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid md:grid-cols-2 gap-6">
           <div>
-            <h3 className="text-lg font-medium mb-3">{t('selectDate')}</h3>
+            <h3 className="text-lg font-medium mb-3">Selecione a Data</h3>
             <Calendar
               mode="single"
               selected={date}
@@ -199,15 +194,15 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
           
           <div className="space-y-6">
             <div className="space-y-3">
-              <h3 className="text-lg font-medium">{t('selectConsultationType')}</h3>
+              <h3 className="text-lg font-medium">Tipo de Consulta</h3>
               <Select value={consultationType} onValueChange={setConsultationType}>
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder={t('chooseConsultationType')} />
+                  <SelectValue placeholder="Escolha o tipo de consulta" />
                 </SelectTrigger>
                 <SelectContent>
                   {availableConsultations.map((type) => (
                     <SelectItem key={type.id} value={type.id}>
-                      {type.name} - ${type.price}
+                      {type.name} - R${type.price}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -216,13 +211,13 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
               {selectedConsultation && (
                 <div className="text-sm text-muted-foreground">
                   <p>{selectedConsultation.description}</p>
-                  <p className="mt-1">Duration: {selectedConsultation.duration_minutes} minutes</p>
+                  <p className="mt-1">Duração: {selectedConsultation.duration_minutes} minutos</p>
                 </div>
               )}
               
               {!isPremium && !(user && (user.role === 'paid' || user.role === 'admin')) && (
                 <div className="text-sm text-muted-foreground">
-                  <p>{t('premiumConsultationsLocked')}</p>
+                  <p>Consultas premium disponíveis somente para assinantes.</p>
                 </div>
               )}
             </div>
@@ -230,7 +225,7 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
             <div className="space-y-3">
               <h3 className="text-lg font-medium flex items-center gap-2">
                 <Clock className="h-4 w-4" />
-                {t('selectTime')}
+                Selecione o Horário
               </h3>
               
               {date ? (
@@ -248,10 +243,10 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-sm text-muted-foreground">{t('noSlotsAvailable')}</p>
+                  <p className="text-sm text-muted-foreground">Nenhum horário disponível.</p>
                 )
               ) : (
-                <p className="text-sm text-muted-foreground">{t('selectDateFirst')}</p>
+                <p className="text-sm text-muted-foreground">Escolha uma data primeiro.</p>
               )}
             </div>
 
@@ -260,7 +255,7 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
               className="w-full bg-astral-purple hover:bg-astral-purple/90"
               disabled={!date || !timeSlot || !consultationType || isLoading}
             >
-              {isLoading ? t('booking') : t('confirmBooking')}
+              {isLoading ? "Agendando..." : "Confirmar Agendamento"}
             </Button>
           </div>
         </div>
@@ -270,3 +265,5 @@ const BookingCalendar = ({ isPremium }: BookingCalendarProps) => {
 };
 
 export default BookingCalendar;
+
+// Note: This file is 273 lines long. Consider refactoring into smaller components!

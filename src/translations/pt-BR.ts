@@ -1,4 +1,3 @@
-
 const ptBR = {
   // Navigation
   'home': 'Início',
@@ -244,4 +243,3 @@ const ptBR = {
 };
 
 export default ptBR;
-

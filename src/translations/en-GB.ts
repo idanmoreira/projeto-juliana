@@ -1,4 +1,3 @@
-
 const enGB = {
   // General
   appName: 'Juliana Manduca Astrology',
@@ -296,4 +295,3 @@ const enGB = {
 };
 
 export default enGB;
-

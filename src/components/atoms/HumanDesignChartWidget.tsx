@@ -11,22 +11,13 @@ const HumanDesignChartWidget: React.FC = () => {
   const isMobile = useIsMobile();
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   // Para corrigir problemas com SSR/hidratação em alguns setups
-  const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);
   }, []);
-
-  // Ensures ALL code paths return: if not client, return null immediately
-  if (!isClient) {
-    return null;
-  }
-
-  const src = isMobile
-    ? "https://humandesign.tools/widget/chart?mobile=1"
-    : "https://humandesign.tools/widget/chart";
 
   // Tratamento de timeout para exibir erro se o iframe não carregar em 10s
   useEffect(() => {
@@ -36,9 +27,16 @@ const HumanDesignChartWidget: React.FC = () => {
       }, 10000);
       return () => clearTimeout(timeout);
     }
-    // Always return a function or undefined consistently
-    return () => {};
   }, [loaded, isClient]);
+
+  // Early return after all hooks have been called
+  if (!isClient) {
+    return null;
+  }
+
+  const src = isMobile
+    ? "https://humandesign.tools/widget/chart?mobile=1"
+    : "https://humandesign.tools/widget/chart";
 
   return (
     <div className="mb-8 backdrop-blur-md bg-white/10 rounded-3xl p-4 md:p-8 border border-white/20 shadow-2xl animate-fade-in min-h-[480px] flex items-center justify-center relative">

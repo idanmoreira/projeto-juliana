@@ -36,6 +36,8 @@ const HumanDesignChartWidget: React.FC = () => {
       }, 10000);
       return () => clearTimeout(timeout);
     }
+    // Always return a function or undefined consistently
+    return () => {};
   }, [loaded, isClient]);
 
   return (

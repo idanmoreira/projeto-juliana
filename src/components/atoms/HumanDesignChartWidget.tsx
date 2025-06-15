@@ -27,6 +27,7 @@ const HumanDesignChartWidget: React.FC = () => {
       }, 10000);
       return () => clearTimeout(timeout);
     }
+    return undefined;
   }, [loaded, isClient]);
 
   // Early return after all hooks have been called
